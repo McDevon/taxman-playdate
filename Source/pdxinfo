@@ -1,0 +1,5 @@
+name=Taxman Engine
+author=Jussi Enroos
+description=Taxman Engine demo
+bundleID=com.taxman.demo
+imagePath=
