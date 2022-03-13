@@ -58,3 +58,6 @@ build/
 *.pdx
 *.bin
 Taxman.xcconfig
+
+# XCode
+xcuserdata/
