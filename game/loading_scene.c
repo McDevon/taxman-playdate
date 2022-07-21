@@ -30,7 +30,7 @@ void load_resources(LoadingScene *self)
     GameData *data = game_data_create();
     go_get_scene_manager(self)->data = data;
 
-    const char *images[] = {"dither_blue"};
+    const char *images[] = {"dither_blue", "dither_brick"};
     const char *sprite_sheets[] = {"sprites", "gecko"};
     const char *tile_types[] = {};
     const char *grid_atlases[] = {"font_big_2", "font4"};

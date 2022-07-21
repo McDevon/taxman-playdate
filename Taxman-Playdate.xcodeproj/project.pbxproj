@@ -118,6 +118,7 @@
 /* Begin PBXFileReference section */
 		4C32746F27DE3AA400F4AC7C /* upng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = upng.c; path = src/upng.c; sourceTree = "<group>"; };
 		4C32747127DE3AAD00F4AC7C /* upng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = upng.h; path = src/upng.h; sourceTree = "<group>"; };
+		4C32747F27DE413400F4AC7C /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
 		4C77A02527D3C0DB007DB7C6 /* libTaxman Simulator.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libTaxman Simulator.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C77A02727D3DE98007DB7C6 /* Taxman.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Taxman.xcconfig; sourceTree = "<group>"; };
 		4C77A03F27D4BE8A007DB7C6 /* camera_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera_node.h; sourceTree = "<group>"; };
@@ -508,6 +509,7 @@
 				4C77A10E27D4EC00007DB7C6 /* platform_playdate.h */,
 				4C32746F27DE3AA400F4AC7C /* upng.c */,
 				4C32747127DE3AAD00F4AC7C /* upng.h */,
+				4C32747F27DE413400F4AC7C /* Source */,
 				55DB5B0619AD26D4002ED73E /* Products */,
 				4C77A02527D3C0DB007DB7C6 /* libTaxman Simulator.dylib */,
 			);
@@ -803,6 +805,10 @@
 					"taxman-engine/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Taxman.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Source",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -846,6 +852,10 @@
 					"taxman-engine/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Taxman.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Source",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
