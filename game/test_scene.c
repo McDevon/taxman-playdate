@@ -50,14 +50,13 @@ void test_scene_render(GameObject *scene, RenderContext *ctx)
     Image *dither = get_image("dither_blue");
     ImageData *xor_data = image_data_xor_texture((Size2DInt){ SCREEN_WIDTH, SCREEN_HEIGHT }, (Vector2DInt){ nb_to_int(self->offset.x), nb_to_int(self->offset.y) }, 0);
     Image *xor = image_from_data(xor_data);
-    image_render_dither(ctx, xor, dither, (Vector2DInt){ 0, 0 }, (Vector2DInt){ nb_to_int(self->step), nb_to_int(self->step) / 4 }, 0);
+    context_render_rect_dither(ctx, xor, dither, (Vector2DInt){ 0, 0 }, (Vector2DInt){ nb_to_int(self->step), nb_to_int(self->step) / 4 }, 0, 0);
     destroy(xor);
     destroy(xor_data);
 }
 
 void test_scene_initialize(GameObject *scene)
 {
-    TestScene *self = (TestScene *)scene;
 }
 
 void test_scene_start(GameObject *scene)
