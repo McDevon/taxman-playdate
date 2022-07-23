@@ -30,6 +30,7 @@ freely, subject to the following restrictions:
 #include <limits.h>
 
 #include "upng.h"
+#include "platform_adapter.h"
 
 #define MAKE_BYTE(b) ((b) & 0xFF)
 #define MAKE_DWORD(a,b,c,d) ((MAKE_BYTE(a) << 24) | (MAKE_BYTE(b) << 16) | (MAKE_BYTE(c) << 8) | MAKE_BYTE(d))
@@ -884,7 +885,7 @@ static upng_format determine_format(upng_t* upng) {
 static void upng_free_source(upng_t* upng)
 {
 	if (upng->source.owning != 0) {
-		free((void*)upng->source.buffer);
+		platform_free((void*)upng->source.buffer);
 	}
 
 	upng->source.buffer = NULL;
@@ -988,7 +989,7 @@ upng_error upng_decode(upng_t* upng)
 
 	/* release old result, if any */
 	if (upng->buffer != 0) {
-		free(upng->buffer);
+		platform_free(upng->buffer);
 		upng->buffer = 0;
 		upng->size = 0;
 	}
@@ -1038,7 +1039,7 @@ upng_error upng_decode(upng_t* upng)
 	}
 
 	/* allocate enough space for the (compressed and filtered) image data */
-	compressed = (unsigned char*)malloc(compressed_size);
+	compressed = (unsigned char*)platform_malloc(compressed_size);
 	if (compressed == NULL) {
 		SET_ERROR(upng, UPNG_ENOMEM);
 		return upng->error;
@@ -1067,9 +1068,9 @@ upng_error upng_decode(upng_t* upng)
 
 	/* allocate space to store inflated (but still filtered) data */
 	inflated_size = ((upng->width * (upng->height * upng_get_bpp(upng) + 7)) / 8) + upng->height;
-	inflated = (unsigned char*)malloc(inflated_size);
+	inflated = (unsigned char*)platform_malloc(inflated_size);
 	if (inflated == NULL) {
-		free(compressed);
+		platform_free(compressed);
 		SET_ERROR(upng, UPNG_ENOMEM);
 		return upng->error;
 	}
@@ -1077,19 +1078,19 @@ upng_error upng_decode(upng_t* upng)
 	/* decompress image data */
 	error = uz_inflate(upng, inflated, inflated_size, compressed, compressed_size);
 	if (error != UPNG_EOK) {
-		free(compressed);
-		free(inflated);
+		platform_free(compressed);
+		platform_free(inflated);
 		return upng->error;
 	}
 
 	/* free the compressed compressed data */
-	free(compressed);
+	platform_free(compressed);
 
 	/* allocate final image buffer */
 	upng->size = (upng->height * upng->width * upng_get_bpp(upng) + 7) / 8;
-	upng->buffer = (unsigned char*)malloc(upng->size);
+	upng->buffer = (unsigned char*)platform_malloc(upng->size);
 	if (upng->buffer == NULL) {
-		free(inflated);
+		platform_free(inflated);
 		upng->size = 0;
 		SET_ERROR(upng, UPNG_ENOMEM);
 		return upng->error;
@@ -1097,10 +1098,10 @@ upng_error upng_decode(upng_t* upng)
 
 	/* unfilter scanlines */
 	post_process_scanlines(upng, upng->buffer, inflated, upng);
-	free(inflated);
+	platform_free(inflated);
 
 	if (upng->error != UPNG_EOK) {
-		free(upng->buffer);
+		platform_free(upng->buffer);
 		upng->buffer = NULL;
 		upng->size = 0;
 	} else {
@@ -1117,7 +1118,7 @@ static upng_t* upng_new(void)
 {
 	upng_t* upng;
 
-	upng = (upng_t*)malloc(sizeof(upng_t));
+	upng = (upng_t*)platform_malloc(sizeof(upng_t));
 	if (upng == NULL) {
 		return NULL;
 	}
@@ -1181,7 +1182,7 @@ upng_t* upng_new_from_file(const char *filename)
 	rewind(file);
 
 	/* read contents of the file into the vector */
-	buffer = (unsigned char *)malloc((unsigned long)size);
+	buffer = (unsigned char *)platform_malloc((unsigned long)size);
 	if (buffer == NULL) {
 		fclose(file);
 		SET_ERROR(upng, UPNG_ENOMEM);
@@ -1202,14 +1203,14 @@ void upng_free(upng_t* upng)
 {
 	/* deallocate image buffer */
 	if (upng->buffer != NULL) {
-		free(upng->buffer);
+		platform_free(upng->buffer);
 	}
 
 	/* deallocate source buffer, if necessary */
 	upng_free_source(upng);
 
 	/* deallocate struct itself */
-	free(upng);
+	platform_free(upng);
 }
 
 upng_error upng_get_error(const upng_t* upng)
@@ -1277,5 +1278,5 @@ const unsigned char* upng_get_buffer(const upng_t* upng)
 
 unsigned upng_get_size(const upng_t* upng)
 {
-	return upng->size;
+	return (unsigned int)upng->size;
 }

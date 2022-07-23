@@ -50,11 +50,13 @@ void platform_read_text_file(const char *file_path, load_text_data_callback_t *c
             callback(file_path, NULL, context);
             return;
         }
-        if (read_count > 0) {
+        if (read_count < 128) {
+            position += read_count;
+            buffer[position] = '\0';
+            break;
+        } else {
             position += increase_size;
             buffer = playdate_platform_api->system->realloc(buffer, position + increase_size);
-        } else {
-            break;
         }
     }
     
@@ -149,7 +151,37 @@ void platform_load_image(const char *file_path, load_image_data_callback_t *call
     upng_format format = upng_get_format(png);
     bool alpha = format == UPNG_RGBA8 || format == UPNG_LUMINANCE_ALPHA1 || format == UPNG_LUMINANCE_ALPHA2 || format == UPNG_LUMINANCE_ALPHA4 || format == UPNG_LUMINANCE_ALPHA8;
     playdate_platform_api->system->logToConsole("All good %s: %d, %d format: %d", file_path, width, height, format);
-    callback(file_path, width, height, alpha, png_buffer, context);
+    if (format == UPNG_RGBA8) {
+        playdate_platform_api->system->logToConsole("Warning! Asset file %s has RGBA colors, should be grayscale or black & white", file_path);
+
+        uint8_t *target_buffer = playdate_platform_api->system->realloc(NULL, width * height * 2 * sizeof(uint8_t));
+        
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                int index = y * width + x;
+                target_buffer[index * 2] = png_buffer[index * 4];
+                target_buffer[index * 2 + 1] = png_buffer[index * 4 + 3];
+            }
+        }
+        callback(file_path, width, height, true, target_buffer, context);
+
+        playdate_platform_api->system->realloc(target_buffer, 0);
+    } else if (format == UPNG_RGB8) {
+        playdate_platform_api->system->logToConsole("Warning! Asset file %s has RGB colors, should be grayscale or black & white", file_path);
+        uint8_t *target_buffer = playdate_platform_api->system->realloc(NULL, width * height * sizeof(uint8_t));
+        
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                int index = y * width + x;
+                target_buffer[index] = png_buffer[index * 3];
+            }
+        }
+        callback(file_path, width, height, false, target_buffer, context);
+
+        playdate_platform_api->system->realloc(target_buffer, 0);
+    } else {
+        callback(file_path, width, height, alpha, png_buffer, context);
+    }
     
     upng_free(png);
     playdate_platform_api->system->realloc(buffer, 0);

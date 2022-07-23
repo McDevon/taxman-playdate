@@ -33,7 +33,6 @@ char *platform_strdup(const char *str)
 {
     size_t i = 0;
     while (str[i++] != '\0');
-    if (i <= 1) { return NULL; }
     char *dup = playdate_platform_api->system->realloc(NULL, i);
     for (i = 0; (dup[i] = str[i]) != '\0'; ++i);
     return dup;
@@ -43,9 +42,8 @@ char *platform_strndup(const char *str, size_t size)
 {
     size_t i = 0;
     while (str[i++] != '\0' && i <= size);
-    if (i <= 1) { return NULL; }
-    char *dup = playdate_platform_api->system->realloc(NULL, i - 1);
-    for (i = 0; (dup[i] = str[i]) != '\0'; ++i);
+    char *dup = playdate_platform_api->system->realloc(NULL, i);
+    for (i = 0; i < size && (dup[i] = str[i]) != '\0'; ++i);
     dup[i] = '\0';
     return dup;
 }

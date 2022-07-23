@@ -2,8 +2,8 @@
 #include "engine.h"
 #include "test_scene.h"
 #include "gecko_scene.h"
-#include "game_data.h"
 #include "tilemap.h"
+#include "game_data.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -13,7 +13,7 @@ typedef struct {
     bool initialized;
 } LoadingScene;
 
-void loading_scene_run(LoadingScene *self);
+void loading_scene_run(LoadingScene *);
 
 void loading_scene_asset_loaded_callback(const char *asset_name, bool success, void *context)
 {
@@ -26,19 +26,17 @@ void loading_scene_asset_loaded_callback(const char *asset_name, bool success, v
 }
 
 void load_resources(LoadingScene *self)
-{   
+{
     GameData *data = game_data_create();
     go_get_scene_manager(self)->data = data;
-
-    const char *images[] = {"dither_blue", "dither_brick"};
+    
+    const char *images[] = {"dither_blue"};
     const char *sprite_sheets[] = {"sprites", "gecko"};
-    const char *tile_types[] = {};
     const char *grid_atlases[] = {"font_big_2", "font4"};
     const Size2DInt grid_atlases_sizes[] = {(Size2DInt){ 16, 28 }, (Size2DInt){ 8, 14 }};
 
     const size_t images_count = sizeof(images) / sizeof(char *);
     const size_t sprite_sheets_count = sizeof(sprite_sheets) / sizeof(char *);
-    const size_t tile_types_count = sizeof(tile_types) / sizeof(char *);
     const size_t grid_atlases_count = sizeof(grid_atlases) / sizeof(char *);
 
     for (int i = 0; i < images_count; ++i) {
@@ -46,9 +44,6 @@ void load_resources(LoadingScene *self)
     }
     for (int i = 0; i < sprite_sheets_count; ++i) {
         hashtable_put(self->assets_in_waiting, sprite_sheets[i], NULL);
-    }
-    for (int i = 0; i < tile_types_count; ++i) {
-        hashtable_put(self->assets_in_waiting, tile_types[i], NULL);
     }
     for (int i = 0; i < grid_atlases_count; ++i) {
         hashtable_put(self->assets_in_waiting, grid_atlases[i], NULL);
@@ -60,16 +55,9 @@ void load_resources(LoadingScene *self)
     for (int i = 0; i < sprite_sheets_count; ++i) {
         load_sprite_sheet(sprite_sheets[i], &loading_scene_asset_loaded_callback, self);
     }
-    for (int i = 0; i < tile_types_count; ++i) {
-        load_tile_types(tile_types[i], data->tile_dictionary, &loading_scene_asset_loaded_callback, self);
-    }
     for (int i = 0; i < grid_atlases_count; ++i) {
         load_grid_atlas(grid_atlases[i], grid_atlases_sizes[i], &loading_scene_asset_loaded_callback, self);
     }
-}
-
-void loading_scene_initialize(GameObject *scene)
-{
 }
 
 void loading_scene_update(GameObject *scene, Number dt_ms)
@@ -92,7 +80,6 @@ void loading_scene_render(GameObject *scene, RenderContext *ctx)
 
 void endcall(void *go, void *unused)
 {
-    //scene_change(go_get_scene_manager(go), test_scene_create(), st_fade_black, nb_from_double(800.0));
     scene_change(go_get_scene_manager(go), gecko_scene_create(), st_fade_black, nb_from_double(800.0));
 }
 
@@ -103,6 +90,8 @@ void loading_scene_run(LoadingScene *self)
     const Float time_flatten = 0.29f;
     const Float time_jump = 0.7f;
     const Float time_wait = 1.f;
+    
+    get_main_render_context()->render_camera->position = vec(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
     go_add_child(self, ({
         Sprite *sprite = sprite_create("logo_engine");
@@ -199,7 +188,7 @@ char *loading_scene_describe(void *scene)
 
 static GameObjectType LoadingSceneType = {
     { { "LoadingScene", &loading_scene_destroy, &loading_scene_describe } },
-    &loading_scene_initialize,
+    NULL,
     NULL,
     &loading_scene_start,
     &loading_scene_update,

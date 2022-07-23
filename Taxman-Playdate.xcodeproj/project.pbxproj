@@ -10,8 +10,12 @@
 		1AB9FB0022E648AE00E8BF4D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55B8CC9E1989A23500595797 /* main.c */; };
 		4C32747027DE3AA500F4AC7C /* upng.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C32746F27DE3AA400F4AC7C /* upng.c */; };
 		4C32747227DE3AAD00F4AC7C /* upng.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C32747127DE3AAD00F4AC7C /* upng.h */; };
-		4C77A0AF27D4BE8A007DB7C6 /* camera_node.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A03F27D4BE8A007DB7C6 /* camera_node.h */; };
-		4C77A0B027D4BE8A007DB7C6 /* camera_node.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A04027D4BE8A007DB7C6 /* camera_node.c */; };
+		4C71AEFD28899F920001A2BD /* render_camera.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AEF928899F920001A2BD /* render_camera.c */; };
+		4C71AEFE28899F920001A2BD /* render_texture.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AEFA28899F920001A2BD /* render_texture.c */; };
+		4C71AEFF28899F920001A2BD /* render_camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AEFB28899F920001A2BD /* render_camera.h */; };
+		4C71AF0028899F920001A2BD /* render_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AEFC28899F920001A2BD /* render_texture.h */; };
+		4C71AF0328899FC20001A2BD /* off_screen_renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AF0128899FC20001A2BD /* off_screen_renderer.c */; };
+		4C71AF0428899FC20001A2BD /* off_screen_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AF0228899FC20001A2BD /* off_screen_renderer.h */; };
 		4C77A0B127D4BE8A007DB7C6 /* life_timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A04227D4BE8A007DB7C6 /* life_timer.c */; };
 		4C77A0B227D4BE8A007DB7C6 /* life_timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A04327D4BE8A007DB7C6 /* life_timer.h */; };
 		4C77A0B327D4BE8A007DB7C6 /* physics_body.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A04527D4BE8A007DB7C6 /* physics_body.c */; };
@@ -119,10 +123,14 @@
 		4C32746F27DE3AA400F4AC7C /* upng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = upng.c; path = src/upng.c; sourceTree = "<group>"; };
 		4C32747127DE3AAD00F4AC7C /* upng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = upng.h; path = src/upng.h; sourceTree = "<group>"; };
 		4C32747F27DE413400F4AC7C /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
+		4C71AEF928899F920001A2BD /* render_camera.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render_camera.c; sourceTree = "<group>"; };
+		4C71AEFA28899F920001A2BD /* render_texture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render_texture.c; sourceTree = "<group>"; };
+		4C71AEFB28899F920001A2BD /* render_camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_camera.h; sourceTree = "<group>"; };
+		4C71AEFC28899F920001A2BD /* render_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_texture.h; sourceTree = "<group>"; };
+		4C71AF0128899FC20001A2BD /* off_screen_renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = off_screen_renderer.c; sourceTree = "<group>"; };
+		4C71AF0228899FC20001A2BD /* off_screen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = off_screen_renderer.h; sourceTree = "<group>"; };
 		4C77A02527D3C0DB007DB7C6 /* libTaxman Simulator.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libTaxman Simulator.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C77A02727D3DE98007DB7C6 /* Taxman.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Taxman.xcconfig; sourceTree = "<group>"; };
-		4C77A03F27D4BE8A007DB7C6 /* camera_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera_node.h; sourceTree = "<group>"; };
-		4C77A04027D4BE8A007DB7C6 /* camera_node.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = camera_node.c; sourceTree = "<group>"; };
 		4C77A04227D4BE8A007DB7C6 /* life_timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = life_timer.c; sourceTree = "<group>"; };
 		4C77A04327D4BE8A007DB7C6 /* life_timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = life_timer.h; sourceTree = "<group>"; };
 		4C77A04527D4BE8A007DB7C6 /* physics_body.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = physics_body.c; sourceTree = "<group>"; };
@@ -265,21 +273,11 @@
 		4C77A03D27D4BE8A007DB7C6 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				4C77A03E27D4BE8A007DB7C6 /* Camera */,
 				4C77A04127D4BE8A007DB7C6 /* Components */,
 				4C77A04427D4BE8A007DB7C6 /* Physics */,
 				4C77A04927D4BE8A007DB7C6 /* Tilemap */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		4C77A03E27D4BE8A007DB7C6 /* Camera */ = {
-			isa = PBXGroup;
-			children = (
-				4C77A03F27D4BE8A007DB7C6 /* camera_node.h */,
-				4C77A04027D4BE8A007DB7C6 /* camera_node.c */,
-			);
-			path = Camera;
 			sourceTree = "<group>";
 		};
 		4C77A04127D4BE8A007DB7C6 /* Components */ = {
@@ -389,6 +387,10 @@
 				4C77A07327D4BE8A007DB7C6 /* render_rect.h */,
 				4C77A07427D4BE8A007DB7C6 /* render_context.c */,
 				4C77A07527D4BE8A007DB7C6 /* image_render.c */,
+				4C71AEF928899F920001A2BD /* render_camera.c */,
+				4C71AEFB28899F920001A2BD /* render_camera.h */,
+				4C71AEFA28899F920001A2BD /* render_texture.c */,
+				4C71AEFC28899F920001A2BD /* render_texture.h */,
 			);
 			path = Render;
 			sourceTree = "<group>";
@@ -434,6 +436,8 @@
 		4C77A09027D4BE8A007DB7C6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4C71AF0128899FC20001A2BD /* off_screen_renderer.c */,
+				4C71AF0228899FC20001A2BD /* off_screen_renderer.h */,
 				4C77A09127D4BE8A007DB7C6 /* sprite_animator.h */,
 				4C77A09227D4BE8A007DB7C6 /* sprite_animator.c */,
 			);
@@ -554,6 +558,7 @@
 				4C77A0E627D4BE8A007DB7C6 /* hash_table_private.h in Headers */,
 				4C77A0D227D4BE8A007DB7C6 /* image_render.h in Headers */,
 				4C77A11F27D4F2A8007DB7C6 /* test_scene.h in Headers */,
+				4C71AEFF28899F920001A2BD /* render_camera.h in Headers */,
 				4C77A0DA27D4BE8A007DB7C6 /* types.h in Headers */,
 				4C77A10227D4BE8A007DB7C6 /* scene_manager.h in Headers */,
 				4C77A0C527D4BE8A007DB7C6 /* engine_tests.h in Headers */,
@@ -562,6 +567,7 @@
 				4C77A0C127D4BE8A007DB7C6 /* grid_atlas.h in Headers */,
 				4C77A0B927D4BE8A007DB7C6 /* string_builder_private.h in Headers */,
 				4C77A0DB27D4BE8A007DB7C6 /* base_object.h in Headers */,
+				4C71AF0028899F920001A2BD /* render_texture.h in Headers */,
 				4C77A0C827D4BE8A007DB7C6 /* engine.h in Headers */,
 				4C77A0C327D4BE8A007DB7C6 /* image.h in Headers */,
 				4C77A0B227D4BE8A007DB7C6 /* life_timer.h in Headers */,
@@ -579,10 +585,10 @@
 				4C77A0CF27D4BE8A007DB7C6 /* transitions.h in Headers */,
 				4C77A10427D4BE8A007DB7C6 /* sprite.h in Headers */,
 				4C77A0F427D4BE8A007DB7C6 /* action_animator.h in Headers */,
+				4C71AF0428899FC20001A2BD /* off_screen_renderer.h in Headers */,
 				4C77A0D127D4BE8A007DB7C6 /* render_context.h in Headers */,
 				4C77A0D927D4BE8A007DB7C6 /* platform_adapter.h in Headers */,
 				4C77A0BA27D4BE8A007DB7C6 /* string_builder.h in Headers */,
-				4C77A0AF27D4BE8A007DB7C6 /* camera_node.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,7 +715,6 @@
 				4C77A0EC27D4BE8A007DB7C6 /* number.c in Sources */,
 				4C77A0D627D4BE8A007DB7C6 /* image_render.c in Sources */,
 				4C77A0DF27D4BE8A007DB7C6 /* transforms.c in Sources */,
-				4C77A0B027D4BE8A007DB7C6 /* camera_node.c in Sources */,
 				4C77A0CC27D4BE8A007DB7C6 /* game_main.c in Sources */,
 				4C77A11B27D4F2A8007DB7C6 /* loading_scene.c in Sources */,
 				4C77A10327D4BE8A007DB7C6 /* label.c in Sources */,
@@ -743,9 +748,11 @@
 				4C77A0C027D4BE8A007DB7C6 /* image.c in Sources */,
 				4C77A11A27D4F2A8007DB7C6 /* gecko.c in Sources */,
 				4C77A0FA27D4BE8A007DB7C6 /* action_animator.c in Sources */,
+				4C71AEFE28899F920001A2BD /* render_texture.c in Sources */,
 				4C77A0E827D4BE8A007DB7C6 /* hash_table.c in Sources */,
 				4C77A10727D4BE8A007DB7C6 /* scene_manager.c in Sources */,
 				4C77A0F827D4BE8A007DB7C6 /* action_scale.c in Sources */,
+				4C71AEFD28899F920001A2BD /* render_camera.c in Sources */,
 				4C77A0D027D4BE8A007DB7C6 /* render_rect.c in Sources */,
 				4C77A12227D4F2A8007DB7C6 /* test_scene.c in Sources */,
 				4C77A0BE27D4BE8A007DB7C6 /* image_storage.c in Sources */,
@@ -758,6 +765,7 @@
 				4C77A0C627D4BE8A007DB7C6 /* engine_tests.c in Sources */,
 				4C32747027DE3AA500F4AC7C /* upng.c in Sources */,
 				4C77A0E227D4BE8A007DB7C6 /* array_list.c in Sources */,
+				4C71AF0328899FC20001A2BD /* off_screen_renderer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
