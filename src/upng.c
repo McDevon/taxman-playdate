@@ -22,6 +22,10 @@ freely, subject to the following restrictions:
 
 		3. This notice may not be removed or altered from any source
 		distribution.
+
+
+CHANGES made to this file in taxman-playdate:
+ - All references to `malloc` and `free` have been changed to `platform_malloc` and `platform_free` to conform with the engine implementation and to allow simpler profiling of all memory allocation on any device.
 */
 
 #include <stdio.h>
