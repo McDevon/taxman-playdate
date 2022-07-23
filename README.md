@@ -15,6 +15,7 @@ This repository contains the gecko demo, including
 
 - This console port is a work in progress, and has still missing features, including audio support
 - Many parts of the port are still hacky, including the image asset loading
+- This port is only tested in the simulator, and not on a real device yet
 
 # Licenses:
 
