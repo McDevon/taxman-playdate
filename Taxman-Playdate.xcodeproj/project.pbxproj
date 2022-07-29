@@ -16,6 +16,12 @@
 		4C71AF0028899F920001A2BD /* render_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AEFC28899F920001A2BD /* render_texture.h */; };
 		4C71AF0328899FC20001A2BD /* off_screen_renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AF0128899FC20001A2BD /* off_screen_renderer.c */; };
 		4C71AF0428899FC20001A2BD /* off_screen_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AF0228899FC20001A2BD /* off_screen_renderer.h */; };
+		4C71AF1F2892D3730001A2BD /* collision_world.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AF192892D3730001A2BD /* collision_world.h */; };
+		4C71AF202892D3730001A2BD /* collision_world.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AF1A2892D3730001A2BD /* collision_world.c */; };
+		4C71AF212892D3730001A2BD /* collision_body.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AF1B2892D3730001A2BD /* collision_body.c */; };
+		4C71AF222892D3730001A2BD /* collision_body.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AF1C2892D3730001A2BD /* collision_body.h */; };
+		4C71AF232892D3730001A2BD /* collision_masks.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AF1D2892D3730001A2BD /* collision_masks.c */; };
+		4C71AF242892D3730001A2BD /* collision_masks.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AF1E2892D3730001A2BD /* collision_masks.h */; };
 		4C77A0B127D4BE8A007DB7C6 /* life_timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A04227D4BE8A007DB7C6 /* life_timer.c */; };
 		4C77A0B227D4BE8A007DB7C6 /* life_timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A04327D4BE8A007DB7C6 /* life_timer.h */; };
 		4C77A0B327D4BE8A007DB7C6 /* physics_body.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A04527D4BE8A007DB7C6 /* physics_body.c */; };
@@ -129,6 +135,12 @@
 		4C71AEFC28899F920001A2BD /* render_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_texture.h; sourceTree = "<group>"; };
 		4C71AF0128899FC20001A2BD /* off_screen_renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = off_screen_renderer.c; sourceTree = "<group>"; };
 		4C71AF0228899FC20001A2BD /* off_screen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = off_screen_renderer.h; sourceTree = "<group>"; };
+		4C71AF192892D3730001A2BD /* collision_world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision_world.h; sourceTree = "<group>"; };
+		4C71AF1A2892D3730001A2BD /* collision_world.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = collision_world.c; sourceTree = "<group>"; };
+		4C71AF1B2892D3730001A2BD /* collision_body.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = collision_body.c; sourceTree = "<group>"; };
+		4C71AF1C2892D3730001A2BD /* collision_body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision_body.h; sourceTree = "<group>"; };
+		4C71AF1D2892D3730001A2BD /* collision_masks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = collision_masks.c; sourceTree = "<group>"; };
+		4C71AF1E2892D3730001A2BD /* collision_masks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision_masks.h; sourceTree = "<group>"; };
 		4C77A02527D3C0DB007DB7C6 /* libTaxman Simulator.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libTaxman Simulator.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C77A02727D3DE98007DB7C6 /* Taxman.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Taxman.xcconfig; sourceTree = "<group>"; };
 		4C77A04227D4BE8A007DB7C6 /* life_timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = life_timer.c; sourceTree = "<group>"; };
@@ -292,6 +304,12 @@
 		4C77A04427D4BE8A007DB7C6 /* Physics */ = {
 			isa = PBXGroup;
 			children = (
+				4C71AF1B2892D3730001A2BD /* collision_body.c */,
+				4C71AF1C2892D3730001A2BD /* collision_body.h */,
+				4C71AF1D2892D3730001A2BD /* collision_masks.c */,
+				4C71AF1E2892D3730001A2BD /* collision_masks.h */,
+				4C71AF1A2892D3730001A2BD /* collision_world.c */,
+				4C71AF192892D3730001A2BD /* collision_world.h */,
 				4C77A04527D4BE8A007DB7C6 /* physics_body.c */,
 				4C77A04627D4BE8A007DB7C6 /* physics_world.h */,
 				4C77A04727D4BE8A007DB7C6 /* physics_body.h */,
@@ -551,6 +569,7 @@
 				4C77A0B727D4BE8A007DB7C6 /* tilemap.h in Headers */,
 				4C77A10A27D4BE8A007DB7C6 /* game_object_component_private.h in Headers */,
 				4C77A0CB27D4BE8A007DB7C6 /* game_display.h in Headers */,
+				4C71AF242892D3730001A2BD /* collision_masks.h in Headers */,
 				4C77A0E927D4BE8A007DB7C6 /* transforms.h in Headers */,
 				4C77A0B427D4BE8A007DB7C6 /* physics_world.h in Headers */,
 				4C77A0CD27D4BE8A007DB7C6 /* engine_log.h in Headers */,
@@ -572,12 +591,14 @@
 				4C77A0C327D4BE8A007DB7C6 /* image.h in Headers */,
 				4C77A0B227D4BE8A007DB7C6 /* life_timer.h in Headers */,
 				4C77A10027D4BE8A007DB7C6 /* debug_draw.h in Headers */,
+				4C71AF222892D3730001A2BD /* collision_body.h in Headers */,
 				4C77A0D827D4BE8A007DB7C6 /* array_list.h in Headers */,
 				4C77A10127D4BE8A007DB7C6 /* game_object.h in Headers */,
 				4C77A0D427D4BE8A007DB7C6 /* render_rect.h in Headers */,
 				4C77A12027D4F2A8007DB7C6 /* gecko.h in Headers */,
 				4C77A0C227D4BE8A007DB7C6 /* image_storage.h in Headers */,
 				4C77A0BD27D4BE8A007DB7C6 /* line_reader.h in Headers */,
+				4C71AF1F2892D3730001A2BD /* collision_world.h in Headers */,
 				4C77A0C427D4BE8A007DB7C6 /* engine_rect_cleanup_test.h in Headers */,
 				4C77A0E427D4BE8A007DB7C6 /* profiler_internal.h in Headers */,
 				4C77A0EF27D4BE8A007DB7C6 /* sprite_animator.h in Headers */,
@@ -714,6 +735,7 @@
 				4C77A0D327D4BE8A007DB7C6 /* transitions.c in Sources */,
 				4C77A0EC27D4BE8A007DB7C6 /* number.c in Sources */,
 				4C77A0D627D4BE8A007DB7C6 /* image_render.c in Sources */,
+				4C71AF202892D3730001A2BD /* collision_world.c in Sources */,
 				4C77A0DF27D4BE8A007DB7C6 /* transforms.c in Sources */,
 				4C77A0CC27D4BE8A007DB7C6 /* game_main.c in Sources */,
 				4C77A11B27D4F2A8007DB7C6 /* loading_scene.c in Sources */,
@@ -744,6 +766,7 @@
 				4C77A12127D4F2A8007DB7C6 /* gecko_scene.c in Sources */,
 				4C77A0B327D4BE8A007DB7C6 /* physics_body.c in Sources */,
 				4C77A0FB27D4BE8A007DB7C6 /* action_callback.c in Sources */,
+				4C71AF212892D3730001A2BD /* collision_body.c in Sources */,
 				4C77A10927D4BE8A007DB7C6 /* game_object.c in Sources */,
 				4C77A0C027D4BE8A007DB7C6 /* image.c in Sources */,
 				4C77A11A27D4F2A8007DB7C6 /* gecko.c in Sources */,
@@ -762,6 +785,7 @@
 				4C77A0FD27D4BE8A007DB7C6 /* sprite.c in Sources */,
 				4C77A0F727D4BE8A007DB7C6 /* action_repeat.c in Sources */,
 				4C77A0FC27D4BE8A007DB7C6 /* action_function.c in Sources */,
+				4C71AF232892D3730001A2BD /* collision_masks.c in Sources */,
 				4C77A0C627D4BE8A007DB7C6 /* engine_tests.c in Sources */,
 				4C32747027DE3AA500F4AC7C /* upng.c in Sources */,
 				4C77A0E227D4BE8A007DB7C6 /* array_list.c in Sources */,

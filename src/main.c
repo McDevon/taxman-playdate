@@ -250,12 +250,12 @@ static int update(void* userdata)
     PDButtons pushed;
     PDButtons released;
     pd->system->getButtonState(&current, &pushed, &released);
-    int left = (current & kButtonLeft) | (pushed & kButtonLeft);
-    int right = (current & kButtonRight) | (pushed & kButtonRight);
-    int up = (current & kButtonUp) | (pushed & kButtonUp);
-    int down = (current & kButtonDown) | (pushed & kButtonDown);
-    int a = (current & kButtonA) | (pushed & kButtonA);
-    int b = (current & kButtonB) | (pushed & kButtonB);
+    uint8_t left = (current & kButtonLeft) | (pushed & kButtonLeft) ? 1 : 0;
+    uint8_t right = (current & kButtonRight) | (pushed & kButtonRight) ? 1 : 0;
+    uint8_t up = (current & kButtonUp) | (pushed & kButtonUp) ? 1 : 0;
+    uint8_t down = (current & kButtonDown) | (pushed & kButtonDown) ? 1 : 0;
+    uint8_t a = (current & kButtonA) | (pushed & kButtonA) ? 1 : 0;
+    uint8_t b = (current & kButtonB) | (pushed & kButtonB) ? 1 : 0;
     int menu = 0;
 
     Controls controls = { crank, (uint8_t)left, (uint8_t)right, (uint8_t)up, (uint8_t)down, (uint8_t)a, (uint8_t)b, (uint8_t)menu };
