@@ -55,12 +55,12 @@ void platform_free(void *ptr)
 
 platform_time_t platform_current_time()
 {
-    return (platform_time_t)playdate_time;
+    return (platform_time_t)playdate_platform_api->system->getElapsedTime();
 }
 
 float platform_time_to_seconds(platform_time_t time)
 {
-    return (float)(((double)time) / 1000.0);
+    return time;
 }
 
 void platform_print(const char *text)

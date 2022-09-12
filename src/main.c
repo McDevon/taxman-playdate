@@ -187,24 +187,70 @@ void platform_load_image(const char *file_path, load_image_data_callback_t *call
     playdate_platform_api->system->realloc(buffer, 0);
 }
 
-void platform_display_set_image(uint8_t *buffer)
+void platform_display_set_image(uint8_t *buffer, ScreenRenderOptions *options)
 {
     playdate_platform_api->graphics->clear(kColorWhite);
     uint8_t *display = playdate_platform_api->graphics->getFrame();
-    for (int y = 0; y < SCREEN_HEIGHT; ++y) {
-        for (int x = 0; x < SCREEN_WIDTH / 8; ++x) {
-            int si = x * 8 + y * SCREEN_WIDTH;
-            uint8_t *byte = display + y * 52 + x;
-            *byte = 0;
-            const uint8_t color = 1;
-            *byte |= ((buffer[si++] > 128) << 7) * color;
-            *byte |= ((buffer[si++] > 128) << 6) * color;
-            *byte |= ((buffer[si++] > 128) << 5) * color;
-            *byte |= ((buffer[si++] > 128) << 4) * color;
-            *byte |= ((buffer[si++] > 128) << 3) * color;
-            *byte |= ((buffer[si++] > 128) << 2) * color;
-            *byte |= ((buffer[si++] > 128) << 1) * color;
-            *byte |= ((buffer[si++] > 128) << 0) * color;
+    uint8_t colors[] = { 0, 1 };
+    if (options->invert) {
+        colors[0] = 1;
+        colors[1] = 0;
+    }
+    if (options->screen_dither && is_power_of_two(options->screen_dither->size.width) && is_power_of_two(options->screen_dither->size.height)) {
+        const uint32_t maskX = options->screen_dither->size.width - 1;
+        const uint32_t maskY = options->screen_dither->size.height - 1;
+        const uint32_t ditherWidth = options->screen_dither->size.width;
+        uint8_t *ditherBuffer = options->screen_dither->buffer;
+        for (uint32_t y = 0; y < SCREEN_HEIGHT; ++y) {
+            const uint32_t ditherYComp = (y & maskY) * ditherWidth;
+            const uint32_t yComp = y * SCREEN_WIDTH;
+            const uint8_t *displayStart = display + y * 52;
+            for (uint32_t x = 0; x < SCREEN_WIDTH / 8; ++x) {
+                int si = (x << 3) + yComp;
+                int32_t ditherX = (x << 3);
+                uint8_t *byte = (uint8_t*)displayStart + x;
+                *byte = 0;
+                //const uint8_t *color = bufferValue && bufferValue >= ditherBuffer[ditherYComp + ditherX] ? white : black;
+                uint8_t bufferValue = buffer[++si];
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 7);
+                bufferValue = buffer[++si];
+                ditherX++;
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 6);
+                bufferValue = buffer[++si];
+                ditherX++;
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 5);
+                bufferValue = buffer[++si];
+                ditherX++;
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 4);
+                bufferValue = buffer[++si];
+                ditherX++;
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 3);
+                bufferValue = buffer[++si];
+                ditherX++;
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 2);
+                bufferValue = buffer[++si];
+                ditherX++;
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 1);
+                bufferValue = buffer[++si];
+                ditherX++;
+                *byte |= (colors[(bufferValue && (bufferValue == 255 || bufferValue >= ditherBuffer[ditherYComp + (ditherX & maskX)]))] << 0);
+            }
+        }
+    } else {
+        for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+            for (int x = 0; x < SCREEN_WIDTH / 8; ++x) {
+                int si = x * 8 + y * SCREEN_WIDTH;
+                uint8_t *byte = display + y * 52 + x;
+                *byte = 0;
+                *byte |= (colors[(buffer[si++] > 128)] << 7);
+                *byte |= (colors[(buffer[si++] > 128)] << 6);
+                *byte |= (colors[(buffer[si++] > 128)] << 5);
+                *byte |= (colors[(buffer[si++] > 128)] << 4);
+                *byte |= (colors[(buffer[si++] > 128)] << 3);
+                *byte |= (colors[(buffer[si++] > 128)] << 2);
+                *byte |= (colors[(buffer[si++] > 128)] << 1);
+                *byte |= (colors[(buffer[si++] > 128)] << 0);
+            }
         }
     }
     //playdate_platform_api->graphics->display();
@@ -230,8 +276,9 @@ static void startGame(PlaydateAPI* pd)
 {
     playdate_platform_api = pd;
     
-    playdate_platform_api->file->listfiles("", &playdate_list_file, NULL);
+    playdate_platform_api->file->listfiles("", &playdate_list_file, NULL, 0);
 
+    pd->system->resetElapsedTime();
     game_init(loading_scene_create());
     pd->system->setUpdateCallback(update, pd);
 }
@@ -242,7 +289,7 @@ static int update(void* userdata)
 
     const int res = 1;
     platform_time_t previous_time = playdate_time;
-    playdate_time = (platform_time_t)pd->system->getCurrentTimeMilliseconds();
+    playdate_time = (platform_time_t)pd->system->getElapsedTime();
 
     Number crank = nb_from_float(pd->system->getCrankAngle());
     
@@ -259,7 +306,7 @@ static int update(void* userdata)
     int menu = 0;
 
     Controls controls = { crank, (uint8_t)left, (uint8_t)right, (uint8_t)up, (uint8_t)down, (uint8_t)a, (uint8_t)b, (uint8_t)menu };
-    Number delta = nb_from_long(playdate_time - previous_time);
+    Number delta = nb_from_float((playdate_time - previous_time) * 1000);
     game_step(delta, controls);
 
     pd->system->drawFPS(0,0);
