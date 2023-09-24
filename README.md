@@ -15,7 +15,32 @@ This repository contains the gecko demo, including
 
 - This console port is a work in progress, and has still missing features, including audio support
 - Many parts of the port are still hacky, including the image asset loading
-- This port is only tested in the simulator, and not on a real device yet
+
+## How to use
+
+An XCode project is provided, but the project can be developed with other code editors as well. All game code should be placed inside `game` directory. All assets should be placed in `assets` directory.
+
+To set the name of the project, edit the `pdxinfo` file in the assets directory.
+
+To update the makefiles with the new project name and all possibly added code files, and to create sprite sheets and copy assets, run
+
+```
+scripts/update_project.sh
+```
+
+This requires `python` and the Pillow library, which can be installed by running
+
+```
+python -m pip install pillow
+```
+
+To build the game, run
+
+```
+make
+```
+
+This will create a `.pdx` file named after the project, as set in `assets/pdxinfo`. Double-clicking the file in Finder will open it in the Playdate Simulator. From the simulator menu, it can be uploaded to a device by selecting `Device -> Upload Game to Device`.
 
 # Licenses:
 
