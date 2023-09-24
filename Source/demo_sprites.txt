@@ -1,0 +1,31 @@
+demo_sprites.png
+letter-segment-selected-white.png
+  start: 0
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+letter-segment-selected.png
+  start: 1722
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+letter-segment-white.png
+  start: 3444
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+letter-segment.png
+  start: 5166
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+logo_engine.png
+  start: 6888
+  size: 231, 23
+  orig: 231, 23
+  offset: 0, 0
+logo_taxman.png
+  start: 12201
+  size: 275, 43
+  orig: 275, 43
+  offset: 0, 0

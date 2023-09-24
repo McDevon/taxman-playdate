@@ -1,138 +1,96 @@
 gecko.png
-size: 63, 151
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-Gecko_Back-1
-  rotate: false
-  xy: 24, 97
+Gecko_Back-1.png
+  start: 0
   size: 18, 21
   orig: 18, 21
   offset: 0, 0
-  index: -1
-Gecko_Back-2
-  rotate: false
-  xy: 1, 117
+Gecko_Back-2.png
+  start: 378
   size: 17, 21
   orig: 17, 21
   offset: 0, 0
-  index: -1
-Gecko_Butt
-  rotate: false
-  xy: 1, 93
+Gecko_Butt.png
+  start: 735
   size: 21, 22
   orig: 21, 22
   offset: 0, 0
-  index: -1
-Gecko_Front-Foot
-  rotate: false
-  xy: 37, 135
+Gecko_Front-Foot.png
+  start: 1197
   size: 24, 15
   orig: 24, 15
   offset: 0, 0
-  index: -1
-Gecko_Front-Leg
-  rotate: false
-  xy: 53, 24
+Gecko_Front-Leg.png
+  start: 1557
   size: 8, 15
   orig: 8, 15
   offset: 0, 0
-  index: -1
-Gecko_Front-Shin
-  rotate: false
-  xy: 53, 41
+Gecko_Front-Shin.png
+  start: 1677
   size: 8, 15
   orig: 8, 15
   offset: 0, 0
-  index: -1
-Gecko_Head-1
-  rotate: false
-  xy: 1, 1
+Gecko_Head-1.png
+  start: 1797
   size: 24, 22
   orig: 24, 22
   offset: 0, 0
-  index: -1
-Gecko_Head-2
-  rotate: false
-  xy: 27, 1
+Gecko_Head-2.png
+  start: 2325
   size: 24, 22
   orig: 24, 22
   offset: 0, 0
-  index: -1
-Gecko_Head-3
-  rotate: false
-  xy: 1, 25
+Gecko_Head-3.png
+  start: 2853
   size: 24, 22
   orig: 24, 22
   offset: 0, 0
-  index: -1
-Gecko_Head-4
-  rotate: false
-  xy: 27, 25
+Gecko_Head-4.png
+  start: 3381
   size: 24, 22
   orig: 24, 22
   offset: 0, 0
-  index: -1
-Gecko_Head-5
-  rotate: false
-  xy: 1, 49
+Gecko_Head-5.png
+  start: 3909
   size: 24, 22
   orig: 24, 22
   offset: 0, 0
-  index: -1
-Gecko_Head-6
-  rotate: false
-  xy: 27, 49
+Gecko_Head-6.png
+  start: 4437
   size: 24, 22
   orig: 24, 22
   offset: 0, 0
-  index: -1
-Gecko_Neck
-  rotate: false
-  xy: 32, 73
+Gecko_Neck.png
+  start: 4965
   size: 22, 22
   orig: 22, 22
   offset: 0, 0
-  index: -1
-Gecko_Rear-Foot
-  rotate: false
-  xy: 1, 73
+Gecko_Rear-Foot.png
+  start: 5449
   size: 29, 18
   orig: 29, 18
   offset: 0, 0
-  index: -1
-Gecko_Rear-Leg
-  rotate: false
-  xy: 44, 115
+Gecko_Rear-Leg.png
+  start: 5971
   size: 11, 18
   orig: 11, 18
   offset: 0, 0
-  index: -1
-Gecko_Rear-Shin
-  rotate: false
-  xy: 53, 1
+Gecko_Rear-Shin.png
+  start: 6169
   size: 9, 21
   orig: 9, 21
   offset: 0, 0
-  index: -1
-Gecko_Tail-1
-  rotate: false
-  xy: 44, 97
+Gecko_Tail-1.png
+  start: 6358
   size: 17, 16
   orig: 17, 16
   offset: 0, 0
-  index: -1
-Gecko_Tail-2
-  rotate: false
-  xy: 20, 132
+Gecko_Tail-2.png
+  start: 6630
   size: 15, 11
   orig: 15, 11
   offset: 0, 0
-  index: -1
-Gecko_Tail-3
-  rotate: false
-  xy: 20, 120
+Gecko_Tail-3.png
+  start: 6795
   size: 20, 10
   orig: 20, 10
   offset: 0, 0
-  index: -1

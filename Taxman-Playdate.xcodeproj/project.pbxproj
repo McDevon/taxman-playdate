@@ -10,6 +10,20 @@
 		1AB9FB0022E648AE00E8BF4D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55B8CC9E1989A23500595797 /* main.c */; };
 		4C32747027DE3AA500F4AC7C /* upng.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C32746F27DE3AA400F4AC7C /* upng.c */; };
 		4C32747227DE3AAD00F4AC7C /* upng.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C32747127DE3AAD00F4AC7C /* upng.h */; };
+		4C51DB292ABE18650085E95B /* game_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C51DAF82ABE18650085E95B /* game_data.h */; };
+		4C51DB2A2ABE18650085E95B /* game_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DAF92ABE18650085E95B /* game_data.c */; };
+		4C51DB2B2ABE18650085E95B /* gecko.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C51DAFB2ABE18650085E95B /* gecko.h */; };
+		4C51DB322ABE18650085E95B /* gecko.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DB022ABE18650085E95B /* gecko.c */; };
+		4C51DB3D2ABE18650085E95B /* loading_scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C51DB0E2ABE18650085E95B /* loading_scene.h */; };
+		4C51DB3E2ABE18650085E95B /* gecko_scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C51DB0F2ABE18650085E95B /* gecko_scene.h */; };
+		4C51DB432ABE18650085E95B /* gecko_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DB142ABE18650085E95B /* gecko_scene.c */; };
+		4C51DB442ABE18650085E95B /* loading_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DB152ABE18650085E95B /* loading_scene.c */; };
+		4C51DB472ABE1BA50085E95B /* string_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DB452ABE1BA50085E95B /* string_utils.c */; };
+		4C51DB482ABE1BA50085E95B /* string_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C51DB462ABE1BA50085E95B /* string_utils.h */; };
+		4C51DB4B2ABE1C6A0085E95B /* nine_sprite.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DB492ABE1C6A0085E95B /* nine_sprite.c */; };
+		4C51DB4C2ABE1C6A0085E95B /* nine_sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C51DB4A2ABE1C6A0085E95B /* nine_sprite.h */; };
+		4C51DB4E2ABE1CD30085E95B /* action_function_lerp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DB4D2ABE1CD30085E95B /* action_function_lerp.c */; };
+		4C51DB502ABE1CEC0085E95B /* action_resize.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C51DB4F2ABE1CEC0085E95B /* action_resize.c */; };
 		4C71AEFD28899F920001A2BD /* render_camera.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AEF928899F920001A2BD /* render_camera.c */; };
 		4C71AEFE28899F920001A2BD /* render_texture.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C71AEFA28899F920001A2BD /* render_texture.c */; };
 		4C71AEFF28899F920001A2BD /* render_camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C71AEFB28899F920001A2BD /* render_camera.h */; };
@@ -113,22 +127,26 @@
 		4C77A10927D4BE8A007DB7C6 /* game_object.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A0AD27D4BE8A007DB7C6 /* game_object.c */; };
 		4C77A10A27D4BE8A007DB7C6 /* game_object_component_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A0AE27D4BE8A007DB7C6 /* game_object_component_private.h */; };
 		4C77A10D27D4EACD007DB7C6 /* platform_playdate.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A10C27D4EACD007DB7C6 /* platform_playdate.c */; };
-		4C77A11927D4F2A8007DB7C6 /* gecko_scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A10F27D4F2A8007DB7C6 /* gecko_scene.h */; };
-		4C77A11A27D4F2A8007DB7C6 /* gecko.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A11027D4F2A8007DB7C6 /* gecko.c */; };
-		4C77A11B27D4F2A8007DB7C6 /* loading_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A11127D4F2A8007DB7C6 /* loading_scene.c */; };
-		4C77A11C27D4F2A8007DB7C6 /* game_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A11227D4F2A8007DB7C6 /* game_data.c */; };
-		4C77A11D27D4F2A8007DB7C6 /* game_data.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A11327D4F2A8007DB7C6 /* game_data.h */; };
-		4C77A11E27D4F2A8007DB7C6 /* loading_scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A11427D4F2A8007DB7C6 /* loading_scene.h */; };
-		4C77A11F27D4F2A8007DB7C6 /* test_scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A11527D4F2A8007DB7C6 /* test_scene.h */; };
-		4C77A12027D4F2A8007DB7C6 /* gecko.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A11627D4F2A8007DB7C6 /* gecko.h */; };
-		4C77A12127D4F2A8007DB7C6 /* gecko_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A11727D4F2A8007DB7C6 /* gecko_scene.c */; };
-		4C77A12227D4F2A8007DB7C6 /* test_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A11827D4F2A8007DB7C6 /* test_scene.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C32746F27DE3AA400F4AC7C /* upng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = upng.c; path = src/upng.c; sourceTree = "<group>"; };
 		4C32747127DE3AAD00F4AC7C /* upng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = upng.h; path = src/upng.h; sourceTree = "<group>"; };
 		4C32747F27DE413400F4AC7C /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
+		4C51DAF82ABE18650085E95B /* game_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_data.h; sourceTree = "<group>"; };
+		4C51DAF92ABE18650085E95B /* game_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game_data.c; sourceTree = "<group>"; };
+		4C51DAFB2ABE18650085E95B /* gecko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gecko.h; sourceTree = "<group>"; };
+		4C51DB022ABE18650085E95B /* gecko.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gecko.c; sourceTree = "<group>"; };
+		4C51DB0E2ABE18650085E95B /* loading_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loading_scene.h; sourceTree = "<group>"; };
+		4C51DB0F2ABE18650085E95B /* gecko_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gecko_scene.h; sourceTree = "<group>"; };
+		4C51DB142ABE18650085E95B /* gecko_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gecko_scene.c; sourceTree = "<group>"; };
+		4C51DB152ABE18650085E95B /* loading_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loading_scene.c; sourceTree = "<group>"; };
+		4C51DB452ABE1BA50085E95B /* string_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_utils.c; sourceTree = "<group>"; };
+		4C51DB462ABE1BA50085E95B /* string_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_utils.h; sourceTree = "<group>"; };
+		4C51DB492ABE1C6A0085E95B /* nine_sprite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nine_sprite.c; sourceTree = "<group>"; };
+		4C51DB4A2ABE1C6A0085E95B /* nine_sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nine_sprite.h; sourceTree = "<group>"; };
+		4C51DB4D2ABE1CD30085E95B /* action_function_lerp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = action_function_lerp.c; sourceTree = "<group>"; };
+		4C51DB4F2ABE1CEC0085E95B /* action_resize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = action_resize.c; sourceTree = "<group>"; };
 		4C71AEF928899F920001A2BD /* render_camera.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render_camera.c; sourceTree = "<group>"; };
 		4C71AEFA28899F920001A2BD /* render_texture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render_texture.c; sourceTree = "<group>"; };
 		4C71AEFB28899F920001A2BD /* render_camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render_camera.h; sourceTree = "<group>"; };
@@ -241,16 +259,7 @@
 		4C77A0AE27D4BE8A007DB7C6 /* game_object_component_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_object_component_private.h; sourceTree = "<group>"; };
 		4C77A10C27D4EACD007DB7C6 /* platform_playdate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = platform_playdate.c; path = src/platform_playdate.c; sourceTree = "<group>"; };
 		4C77A10E27D4EC00007DB7C6 /* platform_playdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = platform_playdate.h; path = src/platform_playdate.h; sourceTree = "<group>"; };
-		4C77A10F27D4F2A8007DB7C6 /* gecko_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gecko_scene.h; sourceTree = "<group>"; };
-		4C77A11027D4F2A8007DB7C6 /* gecko.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gecko.c; sourceTree = "<group>"; };
-		4C77A11127D4F2A8007DB7C6 /* loading_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loading_scene.c; sourceTree = "<group>"; };
-		4C77A11227D4F2A8007DB7C6 /* game_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game_data.c; sourceTree = "<group>"; };
-		4C77A11327D4F2A8007DB7C6 /* game_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_data.h; sourceTree = "<group>"; };
-		4C77A11427D4F2A8007DB7C6 /* loading_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loading_scene.h; sourceTree = "<group>"; };
-		4C77A11527D4F2A8007DB7C6 /* test_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_scene.h; sourceTree = "<group>"; };
-		4C77A11627D4F2A8007DB7C6 /* gecko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gecko.h; sourceTree = "<group>"; };
-		4C77A11727D4F2A8007DB7C6 /* gecko_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gecko_scene.c; sourceTree = "<group>"; };
-		4C77A11827D4F2A8007DB7C6 /* test_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_scene.c; sourceTree = "<group>"; };
+		4C97E23228CF842200431162 /* platform_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform_types.h; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		55B8CC9E1989A23500595797 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = src/main.c; sourceTree = "<group>"; };
 		55DB5B0519AD26C7002ED73E /* pdex.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pdex.elf; sourceTree = "<group>"; };
@@ -267,6 +276,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C51DAF72ABE18650085E95B /* GameData */ = {
+			isa = PBXGroup;
+			children = (
+				4C51DAF82ABE18650085E95B /* game_data.h */,
+				4C51DAF92ABE18650085E95B /* game_data.c */,
+			);
+			path = GameData;
+			sourceTree = "<group>";
+		};
+		4C51DAFA2ABE18650085E95B /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				4C51DAFB2ABE18650085E95B /* gecko.h */,
+				4C51DB022ABE18650085E95B /* gecko.c */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		4C51DB092ABE18650085E95B /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				4C51DB0E2ABE18650085E95B /* loading_scene.h */,
+				4C51DB0F2ABE18650085E95B /* gecko_scene.h */,
+				4C51DB142ABE18650085E95B /* gecko_scene.c */,
+				4C51DB152ABE18650085E95B /* loading_scene.c */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		4C77A03C27D4BE8A007DB7C6 /* taxman-engine */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +389,8 @@
 				4C77A05527D4BE8A007DB7C6 /* string_builder.h */,
 				4C77A05627D4BE8A007DB7C6 /* line_reader.c */,
 				4C77A05727D4BE8A007DB7C6 /* string_builder.c */,
+				4C51DB452ABE1BA50085E95B /* string_utils.c */,
+				4C51DB462ABE1BA50085E95B /* string_utils.h */,
 				4C77A05827D4BE8A007DB7C6 /* line_reader.h */,
 			);
 			path = Strings;
@@ -477,6 +517,8 @@
 				4C77A09D27D4BE8A007DB7C6 /* action_animator.c */,
 				4C77A09E27D4BE8A007DB7C6 /* action_callback.c */,
 				4C77A09F27D4BE8A007DB7C6 /* action_function.c */,
+				4C51DB4D2ABE1CD30085E95B /* action_function_lerp.c */,
+				4C51DB4F2ABE1CEC0085E95B /* action_resize.c */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -490,6 +532,8 @@
 				4C77A0A427D4BE8A007DB7C6 /* debug_draw.h */,
 				4C77A0A527D4BE8A007DB7C6 /* game_object.h */,
 				4C77A0A627D4BE8A007DB7C6 /* scene_manager.h */,
+				4C51DB492ABE1C6A0085E95B /* nine_sprite.c */,
+				4C51DB4A2ABE1C6A0085E95B /* nine_sprite.h */,
 				4C77A0A727D4BE8A007DB7C6 /* label.c */,
 				4C77A0A827D4BE8A007DB7C6 /* sprite.h */,
 				4C77A0A927D4BE8A007DB7C6 /* game_object_component.c */,
@@ -505,16 +549,9 @@
 		4C77A10B27D4EA46007DB7C6 /* game */ = {
 			isa = PBXGroup;
 			children = (
-				4C77A11227D4F2A8007DB7C6 /* game_data.c */,
-				4C77A11327D4F2A8007DB7C6 /* game_data.h */,
-				4C77A11727D4F2A8007DB7C6 /* gecko_scene.c */,
-				4C77A10F27D4F2A8007DB7C6 /* gecko_scene.h */,
-				4C77A11027D4F2A8007DB7C6 /* gecko.c */,
-				4C77A11627D4F2A8007DB7C6 /* gecko.h */,
-				4C77A11127D4F2A8007DB7C6 /* loading_scene.c */,
-				4C77A11427D4F2A8007DB7C6 /* loading_scene.h */,
-				4C77A11827D4F2A8007DB7C6 /* test_scene.c */,
-				4C77A11527D4F2A8007DB7C6 /* test_scene.h */,
+				4C51DAF72ABE18650085E95B /* GameData */,
+				4C51DAFA2ABE18650085E95B /* Objects */,
+				4C51DB092ABE18650085E95B /* Scenes */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -522,6 +559,7 @@
 		55B8CC9019899FF900595797 = {
 			isa = PBXGroup;
 			children = (
+				4C97E23228CF842200431162 /* platform_types.h */,
 				4C77A10B27D4EA46007DB7C6 /* game */,
 				4C77A03C27D4BE8A007DB7C6 /* taxman-engine */,
 				4C77A02727D3DE98007DB7C6 /* Taxman.xcconfig */,
@@ -554,9 +592,9 @@
 			files = (
 				4C77A0B527D4BE8A007DB7C6 /* physics_body.h in Headers */,
 				4C77A0E027D4BE8A007DB7C6 /* hash_table.h in Headers */,
+				4C51DB482ABE1BA50085E95B /* string_utils.h in Headers */,
 				4C77A0CA27D4BE8A007DB7C6 /* game_main.h in Headers */,
 				4C77A0F127D4BE8A007DB7C6 /* action_constructors.h in Headers */,
-				4C77A11D27D4F2A8007DB7C6 /* game_data.h in Headers */,
 				4C32747227DE3AAD00F4AC7C /* upng.h in Headers */,
 				4C77A0EE27D4BE8A007DB7C6 /* number_lut.h in Headers */,
 				4C77A0FE27D4BE8A007DB7C6 /* label.h in Headers */,
@@ -564,11 +602,14 @@
 				4C77A0ED27D4BE8A007DB7C6 /* number.h in Headers */,
 				4C77A0E727D4BE8A007DB7C6 /* profiler.h in Headers */,
 				4C77A0E127D4BE8A007DB7C6 /* constants.h in Headers */,
+				4C51DB3E2ABE18650085E95B /* gecko_scene.h in Headers */,
 				4C77A0EA27D4BE8A007DB7C6 /* random.h in Headers */,
 				4C77A0DD27D4BE8A007DB7C6 /* bezier.h in Headers */,
 				4C77A0B727D4BE8A007DB7C6 /* tilemap.h in Headers */,
 				4C77A10A27D4BE8A007DB7C6 /* game_object_component_private.h in Headers */,
+				4C51DB4C2ABE1C6A0085E95B /* nine_sprite.h in Headers */,
 				4C77A0CB27D4BE8A007DB7C6 /* game_display.h in Headers */,
+				4C51DB3D2ABE18650085E95B /* loading_scene.h in Headers */,
 				4C71AF242892D3730001A2BD /* collision_masks.h in Headers */,
 				4C77A0E927D4BE8A007DB7C6 /* transforms.h in Headers */,
 				4C77A0B427D4BE8A007DB7C6 /* physics_world.h in Headers */,
@@ -576,13 +617,11 @@
 				4C77A0D727D4BE8A007DB7C6 /* utils.h in Headers */,
 				4C77A0E627D4BE8A007DB7C6 /* hash_table_private.h in Headers */,
 				4C77A0D227D4BE8A007DB7C6 /* image_render.h in Headers */,
-				4C77A11F27D4F2A8007DB7C6 /* test_scene.h in Headers */,
 				4C71AEFF28899F920001A2BD /* render_camera.h in Headers */,
 				4C77A0DA27D4BE8A007DB7C6 /* types.h in Headers */,
 				4C77A10227D4BE8A007DB7C6 /* scene_manager.h in Headers */,
 				4C77A0C527D4BE8A007DB7C6 /* engine_tests.h in Headers */,
 				4C77A10627D4BE8A007DB7C6 /* game_object_private.h in Headers */,
-				4C77A11927D4F2A8007DB7C6 /* gecko_scene.h in Headers */,
 				4C77A0C127D4BE8A007DB7C6 /* grid_atlas.h in Headers */,
 				4C77A0B927D4BE8A007DB7C6 /* string_builder_private.h in Headers */,
 				4C77A0DB27D4BE8A007DB7C6 /* base_object.h in Headers */,
@@ -595,14 +634,14 @@
 				4C77A0D827D4BE8A007DB7C6 /* array_list.h in Headers */,
 				4C77A10127D4BE8A007DB7C6 /* game_object.h in Headers */,
 				4C77A0D427D4BE8A007DB7C6 /* render_rect.h in Headers */,
-				4C77A12027D4F2A8007DB7C6 /* gecko.h in Headers */,
 				4C77A0C227D4BE8A007DB7C6 /* image_storage.h in Headers */,
 				4C77A0BD27D4BE8A007DB7C6 /* line_reader.h in Headers */,
+				4C51DB2B2ABE18650085E95B /* gecko.h in Headers */,
 				4C71AF1F2892D3730001A2BD /* collision_world.h in Headers */,
+				4C51DB292ABE18650085E95B /* game_data.h in Headers */,
 				4C77A0C427D4BE8A007DB7C6 /* engine_rect_cleanup_test.h in Headers */,
 				4C77A0E427D4BE8A007DB7C6 /* profiler_internal.h in Headers */,
 				4C77A0EF27D4BE8A007DB7C6 /* sprite_animator.h in Headers */,
-				4C77A11E27D4F2A8007DB7C6 /* loading_scene.h in Headers */,
 				4C77A0CF27D4BE8A007DB7C6 /* transitions.h in Headers */,
 				4C77A10427D4BE8A007DB7C6 /* sprite.h in Headers */,
 				4C77A0F427D4BE8A007DB7C6 /* action_animator.h in Headers */,
@@ -723,7 +762,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source ~/.zshrc\nsource ~/.zprofile\necho \"PLAYDATE_SDK = ${PLAYDATE_SDK_PATH}\" > Taxman.xcconfig\n";
+			shellScript = "source ~/.zshrc\nsource ~/.zprofile\nIFS='='\nread -a strarr <<< \"$(head -n 1 assets/pdxinfo)\"\nGAMENAME=$(echo \"${strarr[1]}\" | sed 's/ //g')\necho \"PLAYDATE_SDK = ${PLAYDATE_SDK_PATH}\" > $GAMENAME.xcconfig\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -738,17 +777,16 @@
 				4C71AF202892D3730001A2BD /* collision_world.c in Sources */,
 				4C77A0DF27D4BE8A007DB7C6 /* transforms.c in Sources */,
 				4C77A0CC27D4BE8A007DB7C6 /* game_main.c in Sources */,
-				4C77A11B27D4F2A8007DB7C6 /* loading_scene.c in Sources */,
 				4C77A10327D4BE8A007DB7C6 /* label.c in Sources */,
 				4C77A0C727D4BE8A007DB7C6 /* engine_rect_cleanup_test.c in Sources */,
 				4C77A0BF27D4BE8A007DB7C6 /* grid_atlas.c in Sources */,
 				4C77A0DE27D4BE8A007DB7C6 /* random.c in Sources */,
 				4C77A0D527D4BE8A007DB7C6 /* render_context.c in Sources */,
 				1AB9FB0022E648AE00E8BF4D /* main.c in Sources */,
-				4C77A11C27D4F2A8007DB7C6 /* game_data.c in Sources */,
 				4C77A0B827D4BE8A007DB7C6 /* tilemap.c in Sources */,
 				4C77A0F927D4BE8A007DB7C6 /* action_sequence.c in Sources */,
 				4C77A0B627D4BE8A007DB7C6 /* physics_world.c in Sources */,
+				4C51DB442ABE18650085E95B /* loading_scene.c in Sources */,
 				4C77A0BB27D4BE8A007DB7C6 /* line_reader.c in Sources */,
 				4C77A0E327D4BE8A007DB7C6 /* bezier.c in Sources */,
 				4C77A10D27D4EACD007DB7C6 /* platform_playdate.c in Sources */,
@@ -757,32 +795,36 @@
 				4C77A0F627D4BE8A007DB7C6 /* action_ease.c in Sources */,
 				4C77A0B127D4BE8A007DB7C6 /* life_timer.c in Sources */,
 				4C77A10827D4BE8A007DB7C6 /* debug_draw.c in Sources */,
+				4C51DB322ABE18650085E95B /* gecko.c in Sources */,
 				4C77A0F527D4BE8A007DB7C6 /* action_delay.c in Sources */,
 				4C77A0F327D4BE8A007DB7C6 /* action_move.c in Sources */,
 				4C77A0F027D4BE8A007DB7C6 /* sprite_animator.c in Sources */,
 				4C77A0C927D4BE8A007DB7C6 /* engine_log.c in Sources */,
 				4C77A0BC27D4BE8A007DB7C6 /* string_builder.c in Sources */,
 				4C77A0EB27D4BE8A007DB7C6 /* number_lut.c in Sources */,
-				4C77A12127D4F2A8007DB7C6 /* gecko_scene.c in Sources */,
 				4C77A0B327D4BE8A007DB7C6 /* physics_body.c in Sources */,
 				4C77A0FB27D4BE8A007DB7C6 /* action_callback.c in Sources */,
+				4C51DB4E2ABE1CD30085E95B /* action_function_lerp.c in Sources */,
 				4C71AF212892D3730001A2BD /* collision_body.c in Sources */,
+				4C51DB502ABE1CEC0085E95B /* action_resize.c in Sources */,
 				4C77A10927D4BE8A007DB7C6 /* game_object.c in Sources */,
+				4C51DB432ABE18650085E95B /* gecko_scene.c in Sources */,
 				4C77A0C027D4BE8A007DB7C6 /* image.c in Sources */,
-				4C77A11A27D4F2A8007DB7C6 /* gecko.c in Sources */,
 				4C77A0FA27D4BE8A007DB7C6 /* action_animator.c in Sources */,
 				4C71AEFE28899F920001A2BD /* render_texture.c in Sources */,
 				4C77A0E827D4BE8A007DB7C6 /* hash_table.c in Sources */,
 				4C77A10727D4BE8A007DB7C6 /* scene_manager.c in Sources */,
 				4C77A0F827D4BE8A007DB7C6 /* action_scale.c in Sources */,
 				4C71AEFD28899F920001A2BD /* render_camera.c in Sources */,
+				4C51DB2A2ABE18650085E95B /* game_data.c in Sources */,
+				4C51DB4B2ABE1C6A0085E95B /* nine_sprite.c in Sources */,
 				4C77A0D027D4BE8A007DB7C6 /* render_rect.c in Sources */,
-				4C77A12227D4F2A8007DB7C6 /* test_scene.c in Sources */,
 				4C77A0BE27D4BE8A007DB7C6 /* image_storage.c in Sources */,
 				4C77A0CE27D4BE8A007DB7C6 /* game_display.c in Sources */,
 				4C77A10527D4BE8A007DB7C6 /* game_object_component.c in Sources */,
 				4C77A0E527D4BE8A007DB7C6 /* base_object.c in Sources */,
 				4C77A0FD27D4BE8A007DB7C6 /* sprite.c in Sources */,
+				4C51DB472ABE1BA50085E95B /* string_utils.c in Sources */,
 				4C77A0F727D4BE8A007DB7C6 /* action_repeat.c in Sources */,
 				4C77A0FC27D4BE8A007DB7C6 /* action_function.c in Sources */,
 				4C71AF232892D3730001A2BD /* collision_masks.c in Sources */,

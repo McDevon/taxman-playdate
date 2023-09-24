@@ -74,13 +74,13 @@ typedef struct GeckoPart {
 #endif
 
 GeckoPart gecko_parts[] = {
-    { NB_FROM_INT(13), NB_FROM_INT(8), 0.0f, "Gecko_Neck" },
-    { NB_FROM_INT(18), NB_FROM_INT(15), 0.5f, "Gecko_Back-1" },
-    { NB_FROM_INT(17), NB_FROM_INT(12), 1.0f, "Gecko_Back-2" },
-    { NB_FROM_INT(21), NB_FROM_INT(16), 0.0f, "Gecko_Butt" },
-    { NB_FROM_INT(17), NB_FROM_INT(14), 0.0f, "Gecko_Tail-1" },
-    { NB_FROM_INT(15), NB_FROM_INT(12), 0.0f, "Gecko_Tail-2" },
-    { NB_FROM_INT(20), NB_FROM_INT(17), 0.0f, "Gecko_Tail-3" }
+    { NB_FROM_INT(13), NB_FROM_INT(8), 0.0f, "Gecko_Neck.png" },
+    { NB_FROM_INT(18), NB_FROM_INT(15), 0.5f, "Gecko_Back-1.png" },
+    { NB_FROM_INT(17), NB_FROM_INT(12), 1.0f, "Gecko_Back-2.png" },
+    { NB_FROM_INT(21), NB_FROM_INT(16), 0.0f, "Gecko_Butt.png" },
+    { NB_FROM_INT(17), NB_FROM_INT(14), 0.0f, "Gecko_Tail-1.png" },
+    { NB_FROM_INT(15), NB_FROM_INT(12), 0.0f, "Gecko_Tail-2.png" },
+    { NB_FROM_INT(20), NB_FROM_INT(17), 0.0f, "Gecko_Tail-3.png" }
 };
 
 void gecko_char_destroy(void *comp)
@@ -207,7 +207,7 @@ void gecko_char_start(GameObjectComponent *comp)
         Sprite *sprite = sprite_create(gecko_parts[i].image);
         sprite->anchor = vec(nb_half, nb_half);
         go_add_child(parent_scene, sprite);
-        //sprite->active = false;
+        sprite->draw_mode = drawmode_rotate;
         go_set_z_order(sprite, 10 + i);
         float breathe = gecko_parts[i].breahe_effect;
         if (breathe > 0.f) {
@@ -218,6 +218,7 @@ void gecko_char_start(GameObjectComponent *comp)
                 list_add(list, action_ease_out_create(action_scale_to_create(vec(nb_one, nb_one), 0.9f)));
                 list;
             })),0)));
+            sprite->draw_mode = drawmode_rotate_and_scale;
         }
         list_add(self->sprites, sprite);
     }
@@ -232,18 +233,21 @@ void gecko_char_start(GameObjectComponent *comp)
         Sprite *parent = self->feet[i].w_parent;
         
         if (i < 2) {
-            self->feet[i].w_thigh = sprite_create("Gecko_Front-Leg");
-            self->feet[i].w_shin = sprite_create("Gecko_Front-Shin");
-            self->feet[i].w_foot = sprite_create("Gecko_Front-Foot");
+            self->feet[i].w_thigh = sprite_create("Gecko_Front-Leg.png");
+            self->feet[i].w_shin = sprite_create("Gecko_Front-Shin.png");
+            self->feet[i].w_foot = sprite_create("Gecko_Front-Foot.png");
             self->feet[i].thigh_length = nb_from_int(13);
             self->feet[i].shin_length = nb_from_int(15);
         } else {
-            self->feet[i].w_thigh = sprite_create("Gecko_Rear-Leg");
-            self->feet[i].w_shin = sprite_create("Gecko_Rear-Shin");
-            self->feet[i].w_foot = sprite_create("Gecko_Rear-Foot");
+            self->feet[i].w_thigh = sprite_create("Gecko_Rear-Leg.png");
+            self->feet[i].w_shin = sprite_create("Gecko_Rear-Shin.png");
+            self->feet[i].w_foot = sprite_create("Gecko_Rear-Foot.png");
             self->feet[i].thigh_length = nb_from_int(17);
             self->feet[i].shin_length = nb_from_int(16);
         }
+        self->feet[i].w_thigh->draw_mode = drawmode_rotate;
+        self->feet[i].w_shin->draw_mode = drawmode_rotate;
+        self->feet[i].w_foot->draw_mode = drawmode_rotate;
         
         Number full_length = self->feet[i].thigh_length + self->feet[i].shin_length;
         Number min_length = max(self->feet[i].thigh_length, self->feet[i].shin_length) - min(self->feet[i].thigh_length, self->feet[i].shin_length);

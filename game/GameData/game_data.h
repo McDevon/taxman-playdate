@@ -7,7 +7,6 @@
 
 typedef struct GameData {
     BASE_OBJECT;
-    HashTable *tile_dictionary;
     Random *mechanics_random;
     Random *visual_random;
 } GameData;

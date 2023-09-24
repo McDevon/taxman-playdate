@@ -1,5 +1,5 @@
 name=Gecko World
-author=Jussi Enroos
+author=Taxman Engine
 description=Gecko World
-bundleID=com.taxman.gecko
+bundleID=com.example.gecko
 imagePath=
