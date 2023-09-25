@@ -13,8 +13,7 @@ This repository contains the gecko demo, including
 
 ## Notes
 
-- This console port is a work in progress, and has still missing features, including audio support
-- Many parts of the port are still hacky, including the image asset loading
+- This console port is a work in progress, and has still missing features, such as audio support
 
 ## How to use
 
@@ -41,6 +40,8 @@ make
 ```
 
 This will create a `.pdx` file named after the project, as set in `assets/pdxinfo`. Double-clicking the file in Finder will open it in the Playdate Simulator. From the simulator menu, it can be uploaded to a device by selecting `Device -> Upload Game to Device`.
+
+The gecko demo that comes with the repository should be directly runnable by itself.
 
 # Licenses:
 
