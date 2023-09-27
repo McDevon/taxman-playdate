@@ -17,7 +17,7 @@ This repository contains the gecko demo, including
 
 ## How to use
 
-An XCode project is provided, but the project can be developed with other code editors as well. All game code should be placed inside `game` directory. All assets should be placed in `assets` directory.
+An XCode project is provided, but the project can be developed with other code editors as well. All game code should be placed inside `game` directory. All assets should be placed in `assets` directory. The `launcher_images` directory within the assets is special and contains the icons and launcher images for the game.
 
 To set the name of the project, edit the `pdxinfo` file in the assets directory.
 
