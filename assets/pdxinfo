@@ -2,4 +2,5 @@ name=Gecko World
 author=Taxman Engine
 description=Gecko World
 bundleID=com.example.gecko
-imagePath=
+version=1.0
+imagePath=launcher_images/

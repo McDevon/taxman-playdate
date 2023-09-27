@@ -161,11 +161,13 @@ def create_cmake_project(game_name, main_file_directory):
                )
 
 
-def generate_sprite_sheets_from_directories(source_path, target_path):
+def generate_sprite_sheets_from_directories(source_path, target_path, skipped_directory):
     source_directories = []
     for file in os.listdir(source_path):
         dir_path = os.path.join(source_path, file)
         if os.path.isdir(dir_path):
+          if file == skipped_directory:
+              continue
           for sub_file in os.listdir(dir_path):
               if pathlib.Path(sub_file).suffix == '.png':
                   source_directories.append(dir_path)
@@ -183,6 +185,20 @@ def copy_asset_files(source_path, target_path):
         shutil.copy(file_path, target_path)
 
 
+def copy_launcher_images(raw_asset_directory, launcher_image_directory, asset_directory):
+    path = os.path.join(raw_asset_directory, launcher_image_directory)
+    if not os.path.isdir(path):
+        print(f'{path} is not a directory, cannot copy launcher images')
+        return
+    target_path = os.path.join(asset_directory, launcher_image_directory)
+    os.mkdir(target_path)
+    for file in os.listdir(path):
+        file_path = os.path.join(path, file)
+        if not os.path.isfile(file_path):
+            continue
+        shutil.copy(file_path, target_path)
+
+
 def rename_images(asset_directory):
     for file in os.listdir(asset_directory):
         if pathlib.Path(file).suffix == '.png':
@@ -192,11 +208,16 @@ def rename_images(asset_directory):
             )
 
 
-def update_assets(raw_asset_directory, asset_directory):
+def update_assets(raw_asset_directory, asset_directory, launcher_images_directory):
     print('update ' + asset_directory)
-    generate_sprite_sheets_from_directories(raw_asset_directory, asset_directory)
+    generate_sprite_sheets_from_directories(
+        raw_asset_directory,
+        asset_directory,
+        launcher_images_directory
+    )
     copy_asset_files(raw_asset_directory, asset_directory)
     rename_images(asset_directory)
+    copy_launcher_images(raw_asset_directory, launcher_images_directory, asset_directory)
 
 
 def main():
@@ -215,6 +236,7 @@ def main():
     main_file_directory = 'src'
     asset_directory = 'Source'
     raw_asset_directory = 'assets'
+    launcher_images_directory = 'launcher_images'
 
     source_directories = []
     header_directories = []
@@ -226,7 +248,7 @@ def main():
                     header_directories, main_file_directory)
     create_cmake_project(game_name, main_file_directory)
     clear_asset_directory(asset_directory)
-    update_assets(raw_asset_directory, asset_directory)
+    update_assets(raw_asset_directory, asset_directory, launcher_images_directory)
 
     return 0
 
