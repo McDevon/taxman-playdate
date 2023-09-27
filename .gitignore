@@ -54,6 +54,9 @@ dkms.conf
 # Build directory
 build/
 
+# Project generation output directory
+Source/
+
 # Taxman and Playdate files
 *.pdx
 *.bin
