@@ -201,11 +201,23 @@ def copy_launcher_images(raw_asset_directory, launcher_image_directory, asset_di
         return
     target_path = os.path.join(asset_directory, launcher_image_directory)
     os.mkdir(target_path)
-    for file in os.listdir(path):
-        file_path = os.path.join(path, file)
-        if not os.path.isfile(file_path):
-            continue
-        shutil.copy(file_path, target_path)
+    for _, dirs, files in os.walk(path):
+        for file in files:
+            file_path = os.path.join(path, file)
+            if not os.path.isfile(file_path) or file.startswith('.'):
+                continue
+            output_path = os.path.join(target_path, file)
+            shutil.copy(file_path, output_path)
+        for directory in dirs:
+            dir_path = os.path.join(path, directory)
+            target_dir_path = os.path.join(target_path, directory)
+            os.mkdir(target_dir_path)
+            for file in os.listdir(dir_path):
+                file_path = os.path.join(dir_path, file)
+                if not os.path.isfile(file_path) or file.startswith('.'):
+                    continue
+                output_path = os.path.join(target_dir_path, file)
+                shutil.copy(file_path, output_path)
 
 
 def rename_images(asset_directory):
