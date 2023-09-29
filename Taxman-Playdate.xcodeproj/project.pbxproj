@@ -759,10 +759,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				Taxman.xcconfig,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source ~/.zshrc\nsource ~/.zprofile\nIFS='='\nread -a strarr <<< \"$(head -n 1 assets/pdxinfo)\"\nGAMENAME=$(echo \"${strarr[1]}\" | sed 's/ //g')\necho \"PLAYDATE_SDK = ${PLAYDATE_SDK_PATH}\" > $GAMENAME.xcconfig\n";
+			shellScript = "source ~/.zshrc\nsource ~/.zprofile\nIFS='='\nread -a strarr <<< \"$(head -n 1 assets/pdxinfo)\"\nGAMENAME=$(echo \"${strarr[1]}\" | sed 's/ //g')\necho \"PLAYDATE_SDK = ${PLAYDATE_SDK_PATH}\\nPDX_FILE_NAME = ${GAMENAME}.pdx\" > Taxman.xcconfig\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

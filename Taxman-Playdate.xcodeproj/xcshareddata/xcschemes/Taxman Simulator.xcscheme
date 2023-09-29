@@ -56,7 +56,7 @@
       </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;${PROJECT_DIR}/GeckoWorld.pdx&quot;"
+            argument = "&quot;${PROJECT_DIR}/${PDX_FILE_NAME}&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

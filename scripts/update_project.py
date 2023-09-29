@@ -3,7 +3,6 @@ import pathlib
 import shutil
 import sys
 import os
-import re
 sys.path.append('taxman-engine/Scripts')
 from generate_sprite_sheet import generate_sprite_sheet
 
@@ -242,30 +241,6 @@ def update_assets(raw_asset_directory, asset_directory, launcher_images_director
     copy_asset_files(raw_asset_directory, asset_directory)
     rename_images(asset_directory)
     copy_launcher_images(raw_asset_directory, launcher_images_directory, asset_directory)
-
-
-def update_simulator_scheme(game_name):
-    file = open(
-        'Taxman-Playdate.xcodeproj/xcshareddata/xcschemes/Taxman Simulator.xcscheme',
-        'r',
-        encoding='UTF-8'
-    )
-    contents = file.read()
-    file.close()
-
-    contents = re.sub(
-        r'(?<=argument\s=\s\").+?(?=\")',
-        '&quot;${PROJECT_DIR}/' + game_name + '.pdx&quot;',
-        contents
-    )
-
-    file = open(
-        'Taxman-Playdate.xcodeproj/xcshareddata/xcschemes/Taxman Simulator.xcscheme',
-        'w',
-        encoding='UTF-8'
-    )
-    file.write(contents)
-    file.close()
 
 
 def main():
