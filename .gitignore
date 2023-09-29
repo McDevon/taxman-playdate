@@ -64,3 +64,6 @@ Taxman.xcconfig
 
 # XCode
 xcuserdata/
+
+# VSCode
+.vscode/
