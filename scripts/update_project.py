@@ -3,6 +3,7 @@ import pathlib
 import shutil
 import sys
 import os
+import re
 sys.path.append('taxman-engine/Scripts')
 from generate_sprite_sheet import generate_sprite_sheet
 
@@ -169,6 +170,8 @@ def create_cmake_project(game_name, main_file_directory):
         + '\n'
     )
 
+    file.close()
+
 
 def generate_sprite_sheets_from_directories(source_path, target_path, skipped_directory):
     source_directories = []
@@ -241,6 +244,30 @@ def update_assets(raw_asset_directory, asset_directory, launcher_images_director
     copy_launcher_images(raw_asset_directory, launcher_images_directory, asset_directory)
 
 
+def update_simulator_scheme(game_name):
+    file = open(
+        'Taxman-Playdate.xcodeproj/xcshareddata/xcschemes/Taxman Simulator.xcscheme',
+        'r',
+        encoding='UTF-8'
+    )
+    contents = file.read()
+    file.close()
+
+    contents = re.sub(
+        r'(?<=argument\s=\s\").+?(?=\")',
+        '&quot;${PROJECT_DIR}/' + game_name + '.pdx&quot;',
+        contents
+    )
+
+    file = open(
+        'Taxman-Playdate.xcodeproj/xcshareddata/xcschemes/Taxman Simulator.xcscheme',
+        'w',
+        encoding='UTF-8'
+    )
+    file.write(contents)
+    file.close()
+
+
 def main():
     usage = f'usage: {sys.argv[0]} [options] <game_name>'
     parser = OptionParser(usage=usage)
@@ -270,6 +297,7 @@ def main():
     create_cmake_project(game_name, main_file_directory)
     clear_asset_directory(asset_directory)
     update_assets(raw_asset_directory, asset_directory, launcher_images_directory)
+    update_simulator_scheme(game_name)
 
     return 0
 
