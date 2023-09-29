@@ -30,7 +30,6 @@ void platform_read_text_file(const char *file_path, load_text_data_callback_t *c
     sb_append_format(sb, "%s", file_path);
     
     char *path = sb_get_string(sb);
-    playdate_platform_api->system->logToConsole("Read text file %s", path);
     SDFile* file = playdate_platform_api->file->open(path, kFileRead);
     platform_free(path);
     destroy(sb);
@@ -85,7 +84,6 @@ void platform_load_image(const char *file_path, load_image_data_callback_t *call
         path = sb_get_string(sb);
         destroy(sb);
     }
-    playdate_platform_api->system->logToConsole("Read file %s", path);
     file = playdate_platform_api->file->open(path, kFileRead);
     
     if (!file) {
@@ -138,7 +136,6 @@ void platform_load_image(const char *file_path, load_image_data_callback_t *call
     unsigned int height = upng_get_height(png);
     upng_format format = upng_get_format(png);
     bool alpha = format == UPNG_RGBA8 || format == UPNG_LUMINANCE_ALPHA1 || format == UPNG_LUMINANCE_ALPHA2 || format == UPNG_LUMINANCE_ALPHA4 || format == UPNG_LUMINANCE_ALPHA8;
-    playdate_platform_api->system->logToConsole("All good %s: %d, %d format: %d", file_path, width, height, format);
     if (format == UPNG_RGBA8) {
         playdate_platform_api->system->logToConsole("Warning! Asset file %s has RGBA colors, should be grayscale or black & white", file_path);
 
@@ -251,13 +248,11 @@ void platform_display_set_image(uint8_t *buffer, ScreenRenderOptions *options)
 
 void playdate_list_file(const char* path, void* userdata)
 {
-    playdate_platform_api->system->logToConsole("File: %s", path);
     FileStat stat;
     int error = playdate_platform_api->file->stat(path, &stat);
     if (error) {
         playdate_platform_api->system->logToConsole("Error reading file stats %s: %s", path, playdate_platform_api->file->geterr());
     }
-    playdate_platform_api->system->logToConsole("File stats %s: dir: %d size: %d", path, stat.isdir, stat.size);
     SDFile *file = playdate_platform_api->file->open(path, kFileRead);
     if (!file) {
         playdate_platform_api->system->logToConsole("Error opening file %s: %s", path, playdate_platform_api->file->geterr());
