@@ -177,16 +177,16 @@ def generate_sprite_sheets_from_directories(source_path, target_path, skipped_di
     for file in os.listdir(source_path):
         dir_path = os.path.join(source_path, file)
         if os.path.isdir(dir_path):
-          if file == skipped_directory:
-              continue
-          for sub_file in os.listdir(dir_path):
-              if pathlib.Path(sub_file).suffix == '.png':
-                  source_directories.append(dir_path)
-                  break
+            if file == skipped_directory:
+                continue
+            for sub_file in os.listdir(dir_path):
+                if pathlib.Path(sub_file).suffix == '.png':
+                    source_directories.append(dir_path)
+                    break
 
     for dir_path in source_directories:
         generate_sprite_sheet(dir_path, target_path)
-  
+
 
 def copy_asset_files(source_path, target_path):
     for file in os.listdir(source_path):
@@ -240,7 +240,8 @@ def update_assets(raw_asset_directory, asset_directory, launcher_images_director
     )
     copy_asset_files(raw_asset_directory, asset_directory)
     rename_images(asset_directory)
-    copy_launcher_images(raw_asset_directory, launcher_images_directory, asset_directory)
+    copy_launcher_images(raw_asset_directory,
+                         launcher_images_directory, asset_directory)
 
 
 def main():
@@ -271,8 +272,8 @@ def main():
                     header_directories, main_file_directory)
     create_cmake_project(game_name, main_file_directory)
     clear_asset_directory(asset_directory)
-    update_assets(raw_asset_directory, asset_directory, launcher_images_directory)
-    update_simulator_scheme(game_name)
+    update_assets(raw_asset_directory, asset_directory,
+                  launcher_images_directory)
 
     return 0
 
