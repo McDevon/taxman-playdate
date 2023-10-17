@@ -2,6 +2,9 @@
 
 #define PREV_POS_COUNT 30
 
+#define GECKO_DEBUG_DRAW
+#undef GECKO_DEBUG_DRAW
+
 typedef struct NumberPair {
     Number a;
     Number b;
@@ -33,7 +36,7 @@ NumberPair nb_to_same_half_circle_radians(Number a, Number b)
 
 typedef struct GeckoFoot {
     Sprite *w_parent;
-    Sprite *w_foot;
+    CacheSprite *w_foot;
     Sprite *w_shin;
     Sprite *w_thigh;
     Vector2D start;
@@ -171,11 +174,13 @@ void gecko_set_part_positions(GeckoCharacter *self)
         self->feet[i].w_shin->rotation = shin_angle;
         
         if (reposition) {
-            self->feet[i].w_foot->rotation = i < 2 ? go_rotation_in_ancestor(self->feet[i].w_shin, scene) : go_rotation_in_ancestor(self->feet[i].w_thigh, scene);
+            cache_sprite_set_rotated(self->feet[i].w_foot, i < 2 ? go_rotation_in_ancestor(self->feet[i].w_shin, scene) : go_rotation_in_ancestor(self->feet[i].w_thigh, scene));
         }
         
-        //debugdraw_line(self->w_debug, self->feet[i].start, vec_vec_add(knee_point, self->feet[i].start));
-        //debugdraw_line(self->w_debug, self->feet[i].position, vec_vec_add(knee_point, self->feet[i].start));
+#ifdef GECKO_DEBUG_DRAW
+        debugdraw_line(self->w_debug, self->feet[i].start, vec_vec_add(knee_point, self->feet[i].start));
+        debugdraw_line(self->w_debug, self->feet[i].position, vec_vec_add(knee_point, self->feet[i].start));
+#endif
     }
     
 #ifdef ENABLE_PROFILER
@@ -235,19 +240,18 @@ void gecko_char_start(GameObjectComponent *comp)
         if (i < 2) {
             self->feet[i].w_thigh = sprite_create("Gecko_Front-Leg.png");
             self->feet[i].w_shin = sprite_create("Gecko_Front-Shin.png");
-            self->feet[i].w_foot = sprite_create("Gecko_Front-Foot.png");
+            self->feet[i].w_foot = cache_sprite_create_rotated("Gecko_Front-Foot.png", 0, vec(nb_half, nb_from_float(0.6f)));
             self->feet[i].thigh_length = nb_from_int(13);
             self->feet[i].shin_length = nb_from_int(15);
         } else {
             self->feet[i].w_thigh = sprite_create("Gecko_Rear-Leg.png");
             self->feet[i].w_shin = sprite_create("Gecko_Rear-Shin.png");
-            self->feet[i].w_foot = sprite_create("Gecko_Rear-Foot.png");
+            self->feet[i].w_foot = cache_sprite_create_rotated("Gecko_Rear-Foot.png", 0, vec(nb_half, nb_from_float(0.6f)));
             self->feet[i].thigh_length = nb_from_int(17);
             self->feet[i].shin_length = nb_from_int(16);
         }
         self->feet[i].w_thigh->draw_mode = drawmode_rotate;
         self->feet[i].w_shin->draw_mode = drawmode_rotate;
-        self->feet[i].w_foot->draw_mode = drawmode_rotate;
         
         Number full_length = self->feet[i].thigh_length + self->feet[i].shin_length;
         Number min_length = max(self->feet[i].thigh_length, self->feet[i].shin_length) - min(self->feet[i].thigh_length, self->feet[i].shin_length);
@@ -256,7 +260,7 @@ void gecko_char_start(GameObjectComponent *comp)
         
         self->feet[i].w_thigh->anchor = vec(nb_half, nb_one);
         self->feet[i].w_shin->anchor = vec(nb_half, nb_from_float(0.92f));
-        self->feet[i].w_foot->anchor = vec(nb_half, nb_from_float(0.6f));
+        //self->feet[i].w_foot->anchor = vec(nb_half, nb_from_float(0.6f));
         //self->feet[i].w_thigh->active = false;
 
         go_add_child(parent, self->feet[i].w_thigh);
@@ -283,14 +287,16 @@ void gecko_char_start(GameObjectComponent *comp)
 void gecko_char_update(GameObjectComponent *comp, Number dt_ms)
 {
     GeckoCharacter *self = (GeckoCharacter *)comp;
+#ifdef GECKO_DEBUG_DRAW
     debugdraw_clear(self->w_debug);
     
-    /*for (int i = PREV_POS_COUNT - 1; i > 0 ; --i) {
+    for (int i = PREV_POS_COUNT - 1; i > 0 ; --i) {
          debugdraw_line(self->w_debug, self->prev_positions[(i + self->prev_position_index) % PREV_POS_COUNT], self->prev_positions[(i + 1 + self->prev_position_index) % PREV_POS_COUNT]);
-    }*/
-    for (int i = 0; i < 4 ; ++i) {
-        //debugdraw_line(self->w_debug, self->feet[i].start, self->feet[i].position);
     }
+    for (int i = 0; i < 4 ; ++i) {
+        debugdraw_line(self->w_debug, self->feet[i].start, self->feet[i].position);
+    }
+#endif
 
     if (self->moved) {
         gecko_set_part_positions(self);
@@ -338,14 +344,16 @@ void gecko_char_fixed_update(GameObjectComponent *comp, Number dt_ms)
     self->previous_controls = controls;
 }
 
-static GameObjectComponentType GeckoCharacterComponentType = {
-    { { "GeckoCharacter", &gecko_char_destroy, &gecko_char_describe } },
-    &gecko_char_added,
-    NULL,
-    &gecko_char_start,
-    &gecko_char_update,
-    &gecko_char_fixed_update
-};
+static GameObjectComponentType GeckoCharacterComponentType =
+    go_component_type("GeckoCharacter",
+                      &gecko_char_destroy,
+                      &gecko_char_describe,
+                      &gecko_char_added,
+                      NULL,
+                      &gecko_char_start,
+                      &gecko_char_update,
+                      &gecko_char_fixed_update
+                      );
 
 GeckoCharacter *gecko_char_create(DebugDraw *debug)
 {
