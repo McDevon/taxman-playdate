@@ -9,69 +9,9 @@
 #include "bezier.h"
 
 typedef struct {
-    GAME_OBJECT;
-    HashTable *assets_in_waiting;
+    SCENE;
     bool initialized;
 } LoadingScene;
-
-void loading_scene_run(LoadingScene *);
-
-void loading_scene_asset_loaded_callback(const char *asset_name, bool success, void *context)
-{
-    LoadingScene *self = (LoadingScene*)context;
-    
-    int result = hashtable_remove(self->assets_in_waiting, asset_name);
-    if (result) {
-        LOG("Asset name not found: %s", asset_name);
-    }
-}
-
-void load_resources(LoadingScene *self)
-{
-    GameData *data = game_data_create();
-    go_get_scene_manager(self)->data = data;
-    
-    const char *images[] = {"dither_blue.png"};
-    const char *sprite_sheets[] = {"demo_sprites", "gecko"};
-    const char *grid_atlases[] = {"font4"};
-    const Size2DInt grid_atlases_sizes[] = {(Size2DInt){ 8, 14 }};
-
-    const size_t images_count = sizeof(images) / sizeof(char *);
-    const size_t sprite_sheets_count = sizeof(sprite_sheets) / sizeof(char *);
-    const size_t grid_atlases_count = sizeof(grid_atlases) / sizeof(char *);
-
-    for (int i = 0; i < images_count; ++i) {
-        hashtable_put(self->assets_in_waiting, images[i], NULL);
-    }
-    for (int i = 0; i < sprite_sheets_count; ++i) {
-        hashtable_put(self->assets_in_waiting, sprite_sheets[i], NULL);
-    }
-    for (int i = 0; i < grid_atlases_count; ++i) {
-        hashtable_put(self->assets_in_waiting, grid_atlases[i], NULL);
-    }
-
-    describe_debug_to_log(self->assets_in_waiting);
-
-    for (int i = 0; i < images_count; ++i) {
-        load_image_data(images[i], true, &loading_scene_asset_loaded_callback, self);
-    }
-    for (int i = 0; i < sprite_sheets_count; ++i) {
-        load_sprite_sheet(sprite_sheets[i], &loading_scene_asset_loaded_callback, self);
-    }
-    for (int i = 0; i < grid_atlases_count; ++i) {
-        load_grid_atlas(grid_atlases[i], grid_atlases_sizes[i], &loading_scene_asset_loaded_callback, self);
-    }
-}
-
-void loading_scene_update(GameObject *scene, Number dt_ms)
-{
-    LoadingScene *self = (LoadingScene *)scene;
-    
-    if (!self->initialized && hashtable_count(self->assets_in_waiting) == 0) {
-        loading_scene_run(self);
-        self->initialized = true;
-    }
-}
 
 void loading_scene_render(GameObject *scene, RenderContext *ctx)
 {
@@ -89,13 +29,16 @@ void loading_scene_set_draw_mode(void *obj, void *target_obj)
     target->draw_mode = drawmode_rotate;
 }
 
-void loading_scene_run(LoadingScene *self)
+void loading_scene_start(GameObject *obj)
 {
+    LoadingScene *self = (LoadingScene *)obj;
     const Float time_fall = 0.4f;
     const Float time_start = 0.25f;
     const Float time_flatten = 0.29f;
     const Float time_jump = 0.7f;
     const Float time_wait = 1.f;
+    
+    go_get_scene_manager(obj)->data = game_data_create();
     
     get_main_render_context()->render_camera->position = vec(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
@@ -175,17 +118,10 @@ void loading_scene_run(LoadingScene *self)
     }));
 }
 
-void loading_scene_start(GameObject *scene)
-{
-    LoadingScene *self = (LoadingScene *)scene;
-    load_resources(self);
-}
 
 void loading_scene_destroy(void *scene)
 {
-    LoadingScene *self = (LoadingScene *)scene;
-    destroy(self->assets_in_waiting);
-    go_destroy(scene);
+    scene_destroy(scene);
 }
 
 char *loading_scene_describe(void *scene)
@@ -193,22 +129,26 @@ char *loading_scene_describe(void *scene)
     return go_describe(scene);
 }
 
-static GameObjectType LoadingSceneType = {
-    { { "LoadingScene", &loading_scene_destroy, &loading_scene_describe } },
-    NULL,
-    NULL,
-    &loading_scene_start,
-    &loading_scene_update,
-    NULL,
-    &loading_scene_render
-};
+static SceneType LoadingSceneType =
+    scene_type(
+               "LoadingScene",
+               &loading_scene_destroy,
+               &loading_scene_describe,
+               NULL,
+               NULL,
+               &loading_scene_start,
+               NULL,
+               NULL,
+               &loading_scene_render
+               );
 
-GameObject *loading_scene_create()
+Scene *loading_scene_create()
 {
-    LoadingScene *p_scene = (LoadingScene*)go_alloc(sizeof(LoadingScene));
+    LoadingScene *p_scene = (LoadingScene*)scene_alloc(sizeof(LoadingScene));
     
     p_scene->w_type = &LoadingSceneType;
-    p_scene->assets_in_waiting = hashtable_create();
+    
+    scene_set_required_image_asset_names(p_scene, list_of_strings("demo_sprites", "dithers"));
         
-    return (GameObject *)p_scene;
+    return (Scene *)p_scene;
 }

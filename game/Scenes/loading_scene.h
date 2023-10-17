@@ -1,8 +1,8 @@
 #ifndef loading_scene_h
 #define loading_scene_h
 
-#include "game_object.h"
+#include "scene.h"
 
-GameObject *loading_scene_create(void);
+Scene *loading_scene_create(void);
 
 #endif /* loading_scene_h */

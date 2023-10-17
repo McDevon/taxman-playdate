@@ -7,7 +7,7 @@
 #include "debug_draw.h"
 
 typedef struct {
-    GAME_OBJECT;
+    SCENE;
     Label *w_info_label;
     Label *w_camera_label;
     Label *w_attach_label;
@@ -18,15 +18,9 @@ typedef struct {
     bool follow;
 } GeckoScene;
 
-Number timer = 0;
-
 void gecko_scene_update(GameObject *scene, Number dt_ms)
 {
     GeckoScene *self = (GeckoScene *)scene;
-    timer += dt_ms;
-    /*if (timer > nb_from_int(10000)) {
-        profiler_schedule_end();
-    }*/
     
     Controls controls = go_get_scene_manager(self)->controls;
     
@@ -138,7 +132,6 @@ void gecko_scene_initialize(GameObject *scene)
 
 void gecko_scene_start(GameObject *scene)
 {
-    //profiler_schedule_start();
 }
 
 void gecko_scene_destroy(void *scene)
@@ -151,20 +144,25 @@ char *gecko_scene_describe(void *scene)
     return platform_strdup("[]");
 }
 
-static GameObjectType GeckoSceneType = {
-    { { "GeckoScene", &gecko_scene_destroy, &gecko_scene_describe } },
-    &gecko_scene_initialize,
-    NULL,
-    &gecko_scene_start,
-    &gecko_scene_update,
-    &gecko_scene_fixed_update,
-    &gecko_scene_render
-};
+static SceneType GeckoSceneType =
+    scene_type("GeckoScene",
+               &gecko_scene_destroy,
+               &gecko_scene_describe,
+               &gecko_scene_initialize,
+               NULL,
+               &gecko_scene_start,
+               &gecko_scene_update,
+               &gecko_scene_fixed_update,
+               &gecko_scene_render
+               );
 
-GameObject *gecko_scene_create()
+Scene *gecko_scene_create()
 {
-    GameObject *p_scene = go_alloc(sizeof(GeckoScene));
+    Scene *p_scene = scene_alloc(sizeof(GeckoScene));
     p_scene->w_type = &GeckoSceneType;
+    
+    scene_set_required_image_asset_names(p_scene, list_of_strings("gecko", "dithers"));
+    scene_set_required_grid_atlas_infos(p_scene, list_of_grid_atlas_infos(grid_atlas_info("font4", (Size2DInt){ 8, 14 })));
     
     return p_scene;
 }

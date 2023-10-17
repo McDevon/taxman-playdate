@@ -3,6 +3,6 @@
 
 #include "engine.h"
 
-GameObject *gecko_scene_create(void);
+Scene *gecko_scene_create(void);
 
 #endif /* gecko_scene_h */
