@@ -20,7 +20,7 @@ void loading_scene_render(GameObject *scene, RenderContext *ctx)
 
 void endcall(void *go, void *unused)
 {
-    scene_change(go_get_scene_manager(go), gecko_scene_create(), st_fade_black, nb_from_double(800.0));
+    scene_change(go_get_scene_manager(go), gecko_scene_create(), st_fade_black, 0.8f);
 }
 
 void loading_scene_set_draw_mode(void *obj, void *target_obj)
@@ -40,17 +40,17 @@ void loading_scene_start(GameObject *obj)
     
     go_get_scene_manager(obj)->data = game_data_create();
     
-    get_main_render_context()->render_camera->position = vec(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+    get_main_render_context()->render_camera->position = vec(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f);
 
     go_add_child(self, ({
         Sprite *sprite = sprite_create("logo_engine.png");
-        sprite->position.x = nb_from_int(SCREEN_WIDTH / 2);
-        sprite->position.y = nb_from_int(160);
-        sprite->anchor.x = nb_half;
-        sprite->anchor.y = nb_one;
-        sprite->scale.x = nb_one;
-        sprite->scale.y = nb_one;
-        sprite->rotation = nb_zero;
+        sprite->position.x = SCREEN_WIDTH / 2.f;
+        sprite->position.y = 160.f;
+        sprite->anchor.x = 0.5f;
+        sprite->anchor.y = 1.f;
+        sprite->scale.x = 1.f;
+        sprite->scale.y = 1.f;
+        sprite->rotation = 0.f;
 
         sprite->draw_mode = drawmode_scale;
         
@@ -59,8 +59,8 @@ void loading_scene_start(GameObject *obj)
         go_add_component(sprite, act_create(action_sequence_create(({
             ArrayList *list = list_create();
             list_add(list, action_delay_create(time_start + time_fall));
-            list_add(list, action_ease_out_create(action_scale_to_create(vec(nb_from_float(1.5f), nb_from_float(0.5f)), time_flatten)));
-            list_add(list, action_ease_in_create(action_scale_to_create(vec(nb_one, nb_one), time_flatten)));
+            list_add(list, action_ease_out_create(action_scale_to_create(vec(1.5f, 0.5f), time_flatten)));
+            list_add(list, action_ease_in_create(action_scale_to_create(vec(1.f, 1.f), time_flatten)));
             list;
         }))));
 
@@ -71,13 +71,13 @@ void loading_scene_start(GameObject *obj)
         Float start_scale = 0.9f;
         
         Sprite *sprite = sprite_create("logo_taxman.png");
-        sprite->position.x = nb_from_int(SCREEN_WIDTH / 2);
-        sprite->position.y = nb_from_int(-1);
-        sprite->anchor.x = nb_half;
-        sprite->anchor.y = nb_one;
-        sprite->scale.x = nb_from_float(start_scale);
-        sprite->scale.y = nb_from_float(start_scale);
-        sprite->rotation = nb_zero;
+        sprite->position.x = SCREEN_WIDTH / 2.f;
+        sprite->position.y = -1.f;
+        sprite->anchor.x = 0.5f;
+        sprite->anchor.y = 1.f;
+        sprite->scale.x = start_scale;
+        sprite->scale.y = start_scale;
+        sprite->rotation = 0.f;
 
         sprite->draw_mode = drawmode_scale;
 
@@ -89,10 +89,10 @@ void loading_scene_start(GameObject *obj)
             
             ArrayList *list = list_create();
             list_add(list, action_delay_create(time_start));
-            list_add(list, action_ease_in_create(action_move_to_create(vec(nb_from_int(SCREEN_WIDTH / 2), nb_from_int(137)), time_fall)));
-            list_add(list, action_ease_out_create(action_scale_to_create(vec(nb_from_float(1.5f), nb_from_float(0.5f)), time_flatten)));
-            list_add(list, action_ease_in_create(action_scale_to_create(vec(nb_one, nb_one), time_flatten)));
-            list_add(list, action_ease_bezier_prec_table_create(action_move_by_create(vec(nb_from_int(0), nb_from_int(-15)), time_jump), jump_bezier_table, 20));
+            list_add(list, action_ease_in_create(action_move_to_create(vec(SCREEN_WIDTH / 2.f, 137.f), time_fall)));
+            list_add(list, action_ease_out_create(action_scale_to_create(vec(1.5f, 0.5f), time_flatten)));
+            list_add(list, action_ease_in_create(action_scale_to_create(vec(1.f, 1.f), time_flatten)));
+            list_add(list, action_ease_bezier_prec_table_create(action_move_by_create(vec(0.f, -15.f), time_jump), jump_bezier_table, 20));
             list_add(list, action_delay_create(time_wait));
             list_add(list, action_callback_create(endcall, NULL));
             list;
@@ -101,8 +101,8 @@ void loading_scene_start(GameObject *obj)
         go_add_component(sprite, act_create(action_sequence_create(({
             ArrayList *list = list_create();
             list_add(list, action_delay_create(time_start + time_fall));
-            list_add(list, action_ease_out_create(action_move_by_create(vec(nb_zero, nb_from_int(11)), time_flatten)));
-            list_add(list, action_ease_in_create(action_move_by_create(vec(nb_zero, nb_from_int(-10)), time_flatten)));
+            list_add(list, action_ease_out_create(action_move_by_create(vec(0.f, 11.f), time_flatten)));
+            list_add(list, action_ease_in_create(action_move_by_create(vec(0.f, -10.f), time_flatten)));
             list;
         }))));
 
@@ -110,7 +110,7 @@ void loading_scene_start(GameObject *obj)
             ArrayList *list = list_create();
             list_add(list, action_delay_create(time_start + time_fall + 2 * time_flatten));
             list_add(list, action_callback_create(&loading_scene_set_draw_mode, sprite));
-            list_add(list, action_ease_out_create(action_rotate_to_create(nb_from_float((float)M_PI * 0.022f), time_jump)));
+            list_add(list, action_ease_out_create(action_rotate_to_create((float)M_PI * 0.022f, time_jump)));
             list;
         }))));
 

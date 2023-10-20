@@ -18,7 +18,7 @@ typedef struct {
     bool follow;
 } GeckoScene;
 
-void gecko_scene_update(GameObject *scene, Number dt_ms)
+void gecko_scene_update(GameObject *scene, Float dt)
 {
     GeckoScene *self = (GeckoScene *)scene;
     
@@ -28,19 +28,19 @@ void gecko_scene_update(GameObject *scene, Number dt_ms)
         get_main_render_context()->render_camera->position = self->w_head->position;
         self->camera_position = self->w_head->position;
     } else {
-        Number camera_speed = nb_from_int(200);
-        Number translate = nb_mul(dt_ms / 1000, camera_speed);
+        float camera_speed = 200.f;
+        float translate = dt * camera_speed;
         if (controls.button_up) {
-            self->camera_position = vec_vec_add(self->camera_position, vec(nb_zero, -translate));
+            self->camera_position = vec_vec_add(self->camera_position, vec(0.f, -translate));
         }
         if (controls.button_down) {
-            self->camera_position = vec_vec_add(self->camera_position, vec(nb_zero, translate));
+            self->camera_position = vec_vec_add(self->camera_position, vec(0.f, translate));
         }
         if (controls.button_left) {
-            self->camera_position = vec_vec_add(self->camera_position, vec(-translate, nb_zero));
+            self->camera_position = vec_vec_add(self->camera_position, vec(-translate, 0.f));
         }
         if (controls.button_right) {
-            self->camera_position = vec_vec_add(self->camera_position, vec(translate, nb_zero));
+            self->camera_position = vec_vec_add(self->camera_position, vec(translate, 0.f));
         }
         get_main_render_context()->render_camera->position = self->camera_position;
     }
@@ -53,18 +53,53 @@ void gecko_scene_update(GameObject *scene, Number dt_ms)
     self->previous_controls = controls;
 }
 
-void gecko_scene_fixed_update(GameObject *scene, Number dt_ms)
+void gecko_scene_fixed_update(GameObject *scene, Float dt_s)
 {
     GeckoScene *self = (GeckoScene *)scene;
     GameData *data = (GameData*)go_get_scene_manager(self)->data;
 
 }
 
+typedef struct {
+    int distance_x;
+    int distance_y;
+    int offset_x;
+    int offset_y;
+    int compensate_x;
+    int compensate_y;
+    char *image_name;
+    Image *w_image;
+} GeckoBackgroundElement;
+
+GeckoBackgroundElement gecko_bg_elements[] = {
+    { 479, 400, 0, 0, -50, -50, "Ground-6.png", NULL },
+    { 587, 400, 0, 150, -150, -50, "Ground-5.png", NULL },
+    { 643, 400, 0, 300, -150, -50, "Ground-8.png", NULL },
+    { 643, 400, 643 / 2, 212, -150, -50, "Ground-9.png", NULL },
+    { 587, 400, 587 / 2, 84, -150, -50, "Ground-10.png", NULL },
+};
+
 void gecko_scene_render(GameObject *scene, RenderContext *ctx)
 {
     GeckoScene *self = (GeckoScene *)scene;
 
     context_clear_white(ctx);
+    
+    Vector2D position = ctx->render_camera->position;
+    Vector2DInt intPosition = (Vector2DInt){ (int32_t)roundf(position.x), (int32_t)roundf(position.y) };
+    
+    const int count = sizeof gecko_bg_elements / sizeof gecko_bg_elements[0];
+    for (int i = 0; i < count; ++i) {
+        GeckoBackgroundElement element = gecko_bg_elements[i];
+        context_render_rect_image(ctx,
+                                  element.w_image,
+                                  (Vector2DInt){ element.distance_x - mod(intPosition.x + element.offset_x, element.distance_x) + element.compensate_x,
+                                                 element.distance_y - mod(intPosition.y + element.offset_y, element.distance_y) + element.compensate_y },
+                                  render_options_make(((intPosition.x + element.offset_x) / element.distance_x) & 1,
+                                                      false,
+                                                      false)
+                                  );
+    }
 }
 
 void gecko_scene_initialize(GameObject *scene)
@@ -75,10 +110,10 @@ void gecko_scene_initialize(GameObject *scene)
     
     self->w_camera_label = ({
         Label *label = label_create("font4", "Camera: D-pad");
-        label->position.x = nb_from_int(SCREEN_WIDTH - 2);
-        label->position.y = nb_from_int(SCREEN_HEIGHT - 2);
-        label->anchor.x = nb_from_int(1);
-        label->anchor.y = nb_from_int(1);
+        label->position.x = SCREEN_WIDTH - 2;
+        label->position.y = SCREEN_HEIGHT - 2;
+        label->anchor.x = 1.f;
+        label->anchor.y = 1.f;
         label->ignore_camera = true;
         label->invert = false;
         label;
@@ -89,7 +124,7 @@ void gecko_scene_initialize(GameObject *scene)
     self->w_debug = debugdraw_create();
     go_set_z_order(self->w_debug, 1000);
     
-    self->camera_position = vec(nb_from_int(SCREEN_WIDTH / 2), nb_from_int(SCREEN_HEIGHT / 2));
+    self->camera_position = vec(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f);
     get_main_render_context()->render_camera->position = self->camera_position;
         
     self->w_head = ({
@@ -97,22 +132,22 @@ void gecko_scene_initialize(GameObject *scene)
         
         Animator *head_animation = animator_create();
         ArrayList *anim_idle = list_create();
-        list_add(anim_idle, anim_frame_create("Gecko_Head-1.png", nb_from_int(400)));
-        list_add(anim_idle, anim_frame_create("Gecko_Head-2.png", nb_from_int(200)));
-        list_add(anim_idle, anim_frame_create("Gecko_Head-3.png", nb_from_int(300)));
-        list_add(anim_idle, anim_frame_create("Gecko_Head-4.png", nb_from_int(350)));
-        list_add(anim_idle, anim_frame_create("Gecko_Head-5.png", nb_from_int(450)));
-        list_add(anim_idle, anim_frame_create("Gecko_Head-6.png", nb_from_int(1500)));
+        list_add(anim_idle, anim_frame_create("Gecko_Head-1.png", 0.4f));
+        list_add(anim_idle, anim_frame_create("Gecko_Head-2.png", 0.2f));
+        list_add(anim_idle, anim_frame_create("Gecko_Head-3.png", 0.3f));
+        list_add(anim_idle, anim_frame_create("Gecko_Head-4.png", 0.35f));
+        list_add(anim_idle, anim_frame_create("Gecko_Head-5.png", 0.45f));
+        list_add(anim_idle, anim_frame_create("Gecko_Head-6.png", 1.5f));
         animator_add_animation(head_animation, "idle", anim_idle);
         
         go_add_component(sprite, head_animation);
         
         animator_set_animation(head_animation, "idle");
         
-        sprite->anchor.x = nb_zero;
-        sprite->anchor.y = nb_half;
-        sprite->position.x = nb_from_int(200);
-        sprite->position.y = nb_from_int(120);
+        sprite->anchor.x = 0.f;
+        sprite->anchor.y = 0.5f;
+        sprite->position.x = 200.f;
+        sprite->position.y = 120.f;
         sprite->draw_mode = drawmode_rotate;
 
         go_set_z_order(sprite, 5);
@@ -126,6 +161,11 @@ void gecko_scene_initialize(GameObject *scene)
 
     go_add_child(self, self->w_head);
     go_add_child(self, self->w_debug);
+    
+    const int count = sizeof gecko_bg_elements / sizeof gecko_bg_elements[0];
+    for (int i = 0; i < count; ++i) {
+        gecko_bg_elements[i].w_image = get_image(gecko_bg_elements[i].image_name);
+    }
         
     set_screen_dither(get_image_data("dither_blue.png"));
 }
@@ -161,7 +201,7 @@ Scene *gecko_scene_create()
     Scene *p_scene = scene_alloc(sizeof(GeckoScene));
     p_scene->w_type = &GeckoSceneType;
     
-    scene_set_required_image_asset_names(p_scene, list_of_strings("gecko", "dithers"));
+    scene_set_required_image_asset_names(p_scene, list_of_strings("gecko", "backgrounds", "dithers"));
     scene_set_required_grid_atlas_infos(p_scene, list_of_grid_atlas_infos(grid_atlas_info("font4", (Size2DInt){ 8, 14 })));
     
     return p_scene;

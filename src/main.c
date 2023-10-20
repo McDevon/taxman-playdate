@@ -298,7 +298,7 @@ static int update(void* userdata)
     platform_time_t previous_time = playdate_time;
     playdate_time = (platform_time_t)pd->system->getElapsedTime();
 
-    Number crank = nb_from_float(pd->system->getCrankAngle());
+    Float crank = pd->system->getCrankAngle();
     
     PDButtons current;
     PDButtons pushed;
@@ -313,7 +313,7 @@ static int update(void* userdata)
     int menu = 0;
 
     Controls controls = { crank, (uint8_t)left, (uint8_t)right, (uint8_t)up, (uint8_t)down, (uint8_t)a, (uint8_t)b, (uint8_t)menu };
-    Number delta = nb_from_float((playdate_time - previous_time) * 1000);
+    Float delta = playdate_time - previous_time;
     game_step(delta, controls);
 
     pd->system->drawFPS(0,0);
