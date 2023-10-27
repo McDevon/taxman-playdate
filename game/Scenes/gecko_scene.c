@@ -5,6 +5,9 @@
 #include <math.h>
 #include <string.h>
 #include "debug_draw.h"
+#include "bug_fly.h"
+
+#define AVERAGE_SPEED_MEASUREMENTS 3
 
 typedef struct {
     SCENE;
@@ -15,12 +18,24 @@ typedef struct {
     DebugDraw *w_debug;
     Vector2D camera_position;
     Controls previous_controls;
+    float speed_measurements[AVERAGE_SPEED_MEASUREMENTS];
+    float accumulated_movement;
+    float latest_speed_measurement;
+    float current_gecko_speed;
+    float next_bug;
+    uint8_t prev_measurement_index;
     bool follow;
 } GeckoScene;
+
+float timer = 0;
 
 void gecko_scene_update(GameObject *scene, Float dt)
 {
     GeckoScene *self = (GeckoScene *)scene;
+    timer += dt;
+    if (timer > 10.f) {
+        profiler_schedule_end();
+    }
     
     Controls controls = go_get_scene_manager(self)->controls;
     
@@ -58,6 +73,64 @@ void gecko_scene_fixed_update(GameObject *scene, Float dt_s)
     GeckoScene *self = (GeckoScene *)scene;
     GameData *data = (GameData*)go_get_scene_manager(self)->data;
 
+    self->speed_measurements[self->prev_measurement_index + 1 % AVERAGE_SPEED_MEASUREMENTS] = self->latest_speed_measurement;
+    self->current_gecko_speed = 0.f;
+    for (int i = 0; i < AVERAGE_SPEED_MEASUREMENTS; ++i) {
+        self->current_gecko_speed += self->speed_measurements[i];
+    }
+    self->current_gecko_speed /= AVERAGE_SPEED_MEASUREMENTS;
+    self->latest_speed_measurement = 0.f;
+}
+
+Pose2D gecko_scene_get_spawn_pose(GeckoScene *self)
+{
+    GameData *data = (GameData*)go_get_scene_manager(self)->data;
+    Random *random = data->mechanics_random;
+    
+    Float distance = 230.f; // + random_next_float_limit(random, 100.f);
+    Float angle = self->w_head->rotation; // - (float)M_PI_4 + random_next_float_limit(random, (float)M_PI_2);
+    
+    Vector2D offset = vec(cosf(angle) * distance, sinf(angle) * distance);
+    Vector2D position = vec_vec_add(self->w_head->position, offset);
+        
+    return (Pose2D){ position, angle };
+}
+
+void gecko_scene_spawn_bug(GeckoScene *self)
+{
+    GameData *data = (GameData*)go_get_scene_manager(self)->data;
+    Random *random = data->mechanics_random;
+    
+    self->accumulated_movement -= self->next_bug;
+    self->next_bug = 300.f + random_next_float_limit(random, 300.f);
+    
+    Pose2D pose = gecko_scene_get_spawn_pose(self);
+    go_add_child(self, ({
+        Sprite *sprite = sprite_create_with_image(NULL);
+        sprite->position = pose.position;
+        sprite->anchor = vec(0.5f, 0.5f);
+        
+        go_add_component(sprite, bug_fly_create(self->w_head, pose.rotation));
+        sprite;
+    }));
+}
+
+void gecko_scene_character_moved(float movement, Vector2D position, float direction_radians, void *callback_context)
+{
+    GeckoScene *self = (GeckoScene *)callback_context;
+    self->accumulated_movement += movement;
+    
+    self->latest_speed_measurement = movement;
+        
+    if (self->accumulated_movement >= self->next_bug) {
+        gecko_scene_spawn_bug(self);
+    }
+}
+
+float gecko_scene_get_gecko_speed(void *scene)
+{
+    GeckoScene *self = (GeckoScene *)scene;
+    return self->current_gecko_speed;
 }
 
 typedef struct {
@@ -109,7 +182,7 @@ void gecko_scene_initialize(GameObject *scene)
     LOG("Enter gecko scene");
     
     self->w_camera_label = ({
-        Label *label = label_create("font4", "Camera: D-pad");
+        Label *label = label_create("font4", "Camera: Follow");
         label->position.x = SCREEN_WIDTH - 2;
         label->position.y = SCREEN_HEIGHT - 2;
         label->anchor.x = 1.f;
@@ -118,6 +191,8 @@ void gecko_scene_initialize(GameObject *scene)
         label->invert = false;
         label;
     });
+    
+    self->follow = true;
         
     go_add_child(self, self->w_camera_label);
     
@@ -152,7 +227,7 @@ void gecko_scene_initialize(GameObject *scene)
 
         go_set_z_order(sprite, 5);
                 
-        GeckoCharacter *gecko_comp = gecko_char_create(self->w_debug);
+        GeckoCharacter *gecko_comp = gecko_char_create(self->w_debug, &gecko_scene_character_moved, self);
         
         go_add_component(sprite, gecko_comp);
         
@@ -166,12 +241,15 @@ void gecko_scene_initialize(GameObject *scene)
     for (int i = 0; i < count; ++i) {
         gecko_bg_elements[i].w_image = get_image(gecko_bg_elements[i].image_name);
     }
+    
+    self->next_bug = 200.f;
         
-    set_screen_dither(get_image_data("dither_blue.png"));
+    set_screen_dither(get_image_data("dither_blue2.png"));
 }
 
 void gecko_scene_start(GameObject *scene)
 {
+    profiler_schedule_start();
 }
 
 void gecko_scene_destroy(void *scene)

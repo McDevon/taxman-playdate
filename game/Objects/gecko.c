@@ -57,10 +57,12 @@ typedef struct GeckoCharacter {
     Vector2D *prev_positions;
     DebugDraw *w_debug;
     ArrayList *sprites;
+    void *w_movement_callback_context;
+    gecko_movement_callback *movement_callback;
     GeckoFoot feet[4];
-    Controls previous_controls;
     float movement_speed;
     float move_accumulated;
+    float current_direction;
     uint8_t prev_position_index;
     bool moved;
 } GeckoCharacter;
@@ -300,12 +302,21 @@ void gecko_char_update(GameObjectComponent *comp, Float dt)
     }
 }
 
+#define MAX_MOVE_PER_FRAME 40.f
+
 void gecko_move(GeckoCharacter *self, float crankChange, float crank)
 {
     Sprite *head = (Sprite*)comp_get_parent(self);
     
-    const float movement = fabsf(crankChange) * self->movement_speed;
-    const float dir_radians = crank * (float)M_PI / 180 - (float)(M_PI_2);
+    float dir_change = crankChange;
+    
+    if (fabsf(dir_change) > MAX_MOVE_PER_FRAME) {
+        dir_change = MAX_MOVE_PER_FRAME * float_sign(dir_change);
+    }
+    self->current_direction = self->current_direction + dir_change;
+    
+    const float movement = fabsf(dir_change) * self->movement_speed;
+    const float dir_radians = self->current_direction * (float)M_PI / 180 - (float)(M_PI_2);
     const float min_move = 4.f;
     
     head->rotation = dir_radians;
@@ -319,6 +330,8 @@ void gecko_move(GeckoCharacter *self, float crankChange, float crank)
         self->prev_positions[self->prev_position_index] = head->position;
     }
     
+    self->movement_callback(movement, head->position, dir_radians, self->w_movement_callback_context);
+    
     self->moved = true;
 }
 
@@ -327,7 +340,7 @@ void gecko_char_fixed_update(GameObjectComponent *comp, Float dt)
     GeckoCharacter *self = (GeckoCharacter *)comp;
     Controls controls = comp_get_scene_manager(self)->controls;
 
-    FloatPair pair = to_same_half_circle_degrees(self->previous_controls.crank, controls.crank);
+    FloatPair pair = to_same_half_circle_degrees(self->current_direction, controls.crank);
     float prev_crank = pair.a;
     float curr_crank = pair.b;
 
@@ -336,8 +349,6 @@ void gecko_char_fixed_update(GameObjectComponent *comp, Float dt)
     if (crankChange != 0.f) {
         gecko_move(self, crankChange, curr_crank);
     }
-    
-    self->previous_controls = controls;
 }
 
 static GameObjectComponentType GeckoCharacterComponentType =
@@ -351,7 +362,7 @@ static GameObjectComponentType GeckoCharacterComponentType =
                       &gecko_char_fixed_update
                       );
 
-GeckoCharacter *gecko_char_create(DebugDraw *debug)
+GeckoCharacter *gecko_char_create(DebugDraw *debug, gecko_movement_callback movement_callback, void *movement_callback_context)
 {
     GeckoCharacter *self = (GeckoCharacter *)comp_alloc(sizeof(GeckoCharacter));
     
@@ -363,6 +374,9 @@ GeckoCharacter *gecko_char_create(DebugDraw *debug)
     self->sprites = list_create_with_weak_references();
     self->w_debug = debug;
     self->moved = false;
+    
+    self->movement_callback = movement_callback;
+    self->w_movement_callback_context = movement_callback_context;
     
     return self;
 }
