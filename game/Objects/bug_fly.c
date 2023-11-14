@@ -11,6 +11,8 @@ typedef struct BugFly {
     RenderTexture *rt_alert;
     RenderTexture *rt_fly_1;
     RenderTexture *rt_fly_2;
+    context_callback_t *eaten_callback;
+    void *eaten_callback_context;
     float alert_timer;
     float alert_time;
     float angle;
@@ -22,11 +24,11 @@ typedef struct BugFly {
     float far_detect_speed;
     float flying_speed;
     float max_flying_speed;
+    float fly_timer;
 } BugFly;
 
 void bug_fly_update(GameObjectComponent *comp, float dt)
 {
-
 }
 
 void bug_fly_fly(BugFly *self) {
@@ -44,9 +46,11 @@ void bug_fly_fly(BugFly *self) {
     list_add(anim_fly, anim_frame_create_with_image(self->rt_fly_1->image, frame_time));
     list_add(anim_fly, anim_frame_create_with_image(self->rt_fly_2->image, frame_time));
     animator_add_animation(animator, "fly", anim_fly);
-
+    
     go_add_component(parent, animator);
     go_add_component(parent, life_timer_create(5.f, false));
+    
+    animator_set_animation(animator, "fly");
 }
 
 void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
@@ -55,9 +59,20 @@ void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
     Sprite *parent = (Sprite *)comp_get_parent(self);
     
     if (self->flying_speed > 0.f) {
+        float cos_angle = cosf(self->angle);
+        float sin_angle = sinf(self->angle);
+        
+        self->fly_timer += dt;
+        
         parent->position = vec_vec_add(parent->position,
-                                       vec(cosf(self->angle) * self->flying_speed,
-                                           sinf(self->angle) * self->flying_speed));
+                                       vec(cos_angle * self->flying_speed,
+                                           sin_angle * self->flying_speed));
+        
+        float oscillation_offset = sinf(self->fly_timer * 6.f * (float)M_PI) * self->fly_timer * 20.f;
+        Vector2D oscillation = vec(sin_angle * oscillation_offset, cos_angle * oscillation_offset);
+        
+        parent->position = vec_vec_add(parent->position, oscillation);
+        
         self->flying_speed += 50.f * dt;
         return;
     }
@@ -92,6 +107,8 @@ void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
         }));
         
         go_schedule_destroy(parent);
+        
+        self->eaten_callback(self->eaten_callback_context);
 
         return;
     }
@@ -135,6 +152,21 @@ void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
 
 void bug_fly_destroy(void *obj)
 {
+    BugFly *self = (BugFly *)obj;
+
+    if (self->rt_alert) {
+        destroy(self->rt_alert);
+    }
+    if (self->rt_normal) {
+        destroy(self->rt_normal);
+    }
+    if (self->rt_fly_1) {
+        destroy(self->rt_fly_1);
+    }
+    if (self->rt_fly_2) {
+        destroy(self->rt_fly_2);
+    }
+    
     comp_destroy(obj);
 }
 
@@ -160,7 +192,8 @@ void bug_fly_start(GameObjectComponent *comp)
     self->far_detect_speed = 2.0f + random_next_float_limit(random, 1.5f);
     self->detect_speed = 0.3f + random_next_float_limit(random, 0.2f);
     self->alert_time = 0.20f + random_next_float_limit(random, 0.25f);
-    
+    self->fly_timer = 0.f;
+        
     Sprite *parent = (Sprite *)comp_get_parent(self);
     sprite_set_image(parent, self->rt_normal->image);
 }
@@ -179,13 +212,16 @@ static GameObjectComponentType BugFlyComponentType = {
     &bug_fly_fixed_update
 };
 
-BugFly *bug_fly_create(GameObject *gecko_head, float angle)
+BugFly *bug_fly_create(GameObject *gecko_head, float angle, context_callback_t *eaten_callback, void *eaten_callback_context)
 {
     BugFly *self = (BugFly *)comp_alloc(sizeof(BugFly));
     
     self->w_type = &BugFlyComponentType;
     self->w_gecko_head = gecko_head;
     self->angle = angle;
+    
+    self->eaten_callback = eaten_callback;
+    self->eaten_callback_context = eaten_callback_context;
     
     return self;
 }

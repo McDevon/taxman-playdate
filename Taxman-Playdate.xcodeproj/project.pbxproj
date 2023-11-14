@@ -127,6 +127,17 @@
 		4C77A10927D4BE8A007DB7C6 /* game_object.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A0AD27D4BE8A007DB7C6 /* game_object.c */; };
 		4C77A10A27D4BE8A007DB7C6 /* game_object_component_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A0AE27D4BE8A007DB7C6 /* game_object_component_private.h */; };
 		4C77A10D27D4EACD007DB7C6 /* platform_playdate.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A10C27D4EACD007DB7C6 /* platform_playdate.c */; };
+		4CB145812B01559000B55304 /* bug_fly.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1457F2B01558F00B55304 /* bug_fly.c */; };
+		4CB145822B01559000B55304 /* bug_fly.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145802B01559000B55304 /* bug_fly.h */; };
+		4CB145842B0155F100B55304 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145832B0155F100B55304 /* utils.c */; };
+		4CB145872B01562B00B55304 /* scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145852B01562B00B55304 /* scene.h */; };
+		4CB145882B01562B00B55304 /* scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145862B01562B00B55304 /* scene.c */; };
+		4CB1458B2B01564A00B55304 /* cache_sprite.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145892B01564A00B55304 /* cache_sprite.c */; };
+		4CB1458C2B01564A00B55304 /* cache_sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB1458A2B01564A00B55304 /* cache_sprite.h */; };
+		4CB1458F2B0156A900B55304 /* image_object_render.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1458D2B0156A900B55304 /* image_object_render.c */; };
+		4CB145902B0156A900B55304 /* image_object_render.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB1458E2B0156A900B55304 /* image_object_render.h */; };
+		4CB145932B01576600B55304 /* bug_cricket.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145912B01576500B55304 /* bug_cricket.c */; };
+		4CB145942B01576600B55304 /* bug_cricket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145922B01576600B55304 /* bug_cricket.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -260,6 +271,17 @@
 		4C77A10C27D4EACD007DB7C6 /* platform_playdate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = platform_playdate.c; path = src/platform_playdate.c; sourceTree = "<group>"; };
 		4C77A10E27D4EC00007DB7C6 /* platform_playdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = platform_playdate.h; path = src/platform_playdate.h; sourceTree = "<group>"; };
 		4C97E23228CF842200431162 /* platform_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform_types.h; sourceTree = "<group>"; };
+		4CB1457F2B01558F00B55304 /* bug_fly.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bug_fly.c; sourceTree = "<group>"; };
+		4CB145802B01559000B55304 /* bug_fly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bug_fly.h; sourceTree = "<group>"; };
+		4CB145832B0155F100B55304 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		4CB145852B01562B00B55304 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
+		4CB145862B01562B00B55304 /* scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scene.c; sourceTree = "<group>"; };
+		4CB145892B01564A00B55304 /* cache_sprite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cache_sprite.c; sourceTree = "<group>"; };
+		4CB1458A2B01564A00B55304 /* cache_sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cache_sprite.h; sourceTree = "<group>"; };
+		4CB1458D2B0156A900B55304 /* image_object_render.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_object_render.c; sourceTree = "<group>"; };
+		4CB1458E2B0156A900B55304 /* image_object_render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_object_render.h; sourceTree = "<group>"; };
+		4CB145912B01576500B55304 /* bug_cricket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bug_cricket.c; sourceTree = "<group>"; };
+		4CB145922B01576600B55304 /* bug_cricket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bug_cricket.h; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		55B8CC9E1989A23500595797 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = src/main.c; sourceTree = "<group>"; };
 		55DB5B0519AD26C7002ED73E /* pdex.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pdex.elf; sourceTree = "<group>"; };
@@ -288,6 +310,10 @@
 		4C51DAFA2ABE18650085E95B /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				4CB145802B01559000B55304 /* bug_fly.h */,
+				4CB1457F2B01558F00B55304 /* bug_fly.c */,
+				4CB145922B01576600B55304 /* bug_cricket.h */,
+				4CB145912B01576500B55304 /* bug_cricket.c */,
 				4C51DAFB2ABE18650085E95B /* gecko.h */,
 				4C51DB022ABE18650085E95B /* gecko.c */,
 			);
@@ -297,9 +323,9 @@
 		4C51DB092ABE18650085E95B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				4C51DB0E2ABE18650085E95B /* loading_scene.h */,
 				4C51DB0F2ABE18650085E95B /* gecko_scene.h */,
 				4C51DB142ABE18650085E95B /* gecko_scene.c */,
+				4C51DB0E2ABE18650085E95B /* loading_scene.h */,
 				4C51DB152ABE18650085E95B /* loading_scene.c */,
 			);
 			path = Scenes;
@@ -457,25 +483,28 @@
 			isa = PBXGroup;
 			children = (
 				4C77A07727D4BE8A007DB7C6 /* utils.h */,
+				4CB145832B0155F100B55304 /* utils.c */,
+				4C77A08127D4BE8A007DB7C6 /* constants.h */,
 				4C77A07827D4BE8A007DB7C6 /* array_list.h */,
+				4C77A08227D4BE8A007DB7C6 /* array_list.c */,
 				4C77A07927D4BE8A007DB7C6 /* platform_adapter.h */,
 				4C77A07A27D4BE8A007DB7C6 /* types.h */,
 				4C77A07B27D4BE8A007DB7C6 /* base_object.h */,
-				4C77A07C27D4BE8A007DB7C6 /* profiler.c */,
+				4CB145892B01564A00B55304 /* cache_sprite.c */,
+				4CB1458A2B01564A00B55304 /* cache_sprite.h */,
 				4C77A07D27D4BE8A007DB7C6 /* bezier.h */,
-				4C77A07E27D4BE8A007DB7C6 /* random.c */,
-				4C77A07F27D4BE8A007DB7C6 /* transforms.c */,
-				4C77A08027D4BE8A007DB7C6 /* hash_table.h */,
-				4C77A08127D4BE8A007DB7C6 /* constants.h */,
-				4C77A08227D4BE8A007DB7C6 /* array_list.c */,
 				4C77A08327D4BE8A007DB7C6 /* bezier.c */,
+				4C77A08027D4BE8A007DB7C6 /* hash_table.h */,
+				4C77A08627D4BE8A007DB7C6 /* hash_table_private.h */,
+				4C77A08827D4BE8A007DB7C6 /* hash_table.c */,
 				4C77A08427D4BE8A007DB7C6 /* profiler_internal.h */,
 				4C77A08527D4BE8A007DB7C6 /* base_object.c */,
-				4C77A08627D4BE8A007DB7C6 /* hash_table_private.h */,
 				4C77A08727D4BE8A007DB7C6 /* profiler.h */,
-				4C77A08827D4BE8A007DB7C6 /* hash_table.c */,
+				4C77A07C27D4BE8A007DB7C6 /* profiler.c */,
 				4C77A08927D4BE8A007DB7C6 /* transforms.h */,
+				4C77A07F27D4BE8A007DB7C6 /* transforms.c */,
 				4C77A08A27D4BE8A007DB7C6 /* random.h */,
+				4C77A07E27D4BE8A007DB7C6 /* random.c */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -505,16 +534,16 @@
 		4C77A09327D4BE8A007DB7C6 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				4C77A09727D4BE8A007DB7C6 /* action_animator.h */,
+				4C77A09D27D4BE8A007DB7C6 /* action_animator.c */,
 				4C77A09427D4BE8A007DB7C6 /* action_constructors.h */,
 				4C77A09527D4BE8A007DB7C6 /* action_rotate.c */,
 				4C77A09627D4BE8A007DB7C6 /* action_move.c */,
-				4C77A09727D4BE8A007DB7C6 /* action_animator.h */,
 				4C77A09827D4BE8A007DB7C6 /* action_delay.c */,
 				4C77A09927D4BE8A007DB7C6 /* action_ease.c */,
 				4C77A09A27D4BE8A007DB7C6 /* action_repeat.c */,
 				4C77A09B27D4BE8A007DB7C6 /* action_scale.c */,
 				4C77A09C27D4BE8A007DB7C6 /* action_sequence.c */,
-				4C77A09D27D4BE8A007DB7C6 /* action_animator.c */,
 				4C77A09E27D4BE8A007DB7C6 /* action_callback.c */,
 				4C77A09F27D4BE8A007DB7C6 /* action_function.c */,
 				4C51DB4D2ABE1CD30085E95B /* action_function_lerp.c */,
@@ -526,22 +555,26 @@
 		4C77A0A027D4BE8A007DB7C6 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				4CB145862B01562B00B55304 /* scene.c */,
+				4CB145852B01562B00B55304 /* scene.h */,
+				4C77A0A527D4BE8A007DB7C6 /* game_object.h */,
+				4C77A0AA27D4BE8A007DB7C6 /* game_object_private.h */,
+				4C77A0AD27D4BE8A007DB7C6 /* game_object.c */,
+				4C77A0A327D4BE8A007DB7C6 /* game_object_component.h */,
+				4C77A0AE27D4BE8A007DB7C6 /* game_object_component_private.h */,
+				4C77A0A927D4BE8A007DB7C6 /* game_object_component.c */,
+				4CB1458E2B0156A900B55304 /* image_object_render.h */,
+				4CB1458D2B0156A900B55304 /* image_object_render.c */,
+				4C77A0A827D4BE8A007DB7C6 /* sprite.h */,
 				4C77A0A127D4BE8A007DB7C6 /* sprite.c */,
 				4C77A0A227D4BE8A007DB7C6 /* label.h */,
-				4C77A0A327D4BE8A007DB7C6 /* game_object_component.h */,
-				4C77A0A427D4BE8A007DB7C6 /* debug_draw.h */,
-				4C77A0A527D4BE8A007DB7C6 /* game_object.h */,
-				4C77A0A627D4BE8A007DB7C6 /* scene_manager.h */,
-				4C51DB492ABE1C6A0085E95B /* nine_sprite.c */,
-				4C51DB4A2ABE1C6A0085E95B /* nine_sprite.h */,
 				4C77A0A727D4BE8A007DB7C6 /* label.c */,
-				4C77A0A827D4BE8A007DB7C6 /* sprite.h */,
-				4C77A0A927D4BE8A007DB7C6 /* game_object_component.c */,
-				4C77A0AA27D4BE8A007DB7C6 /* game_object_private.h */,
-				4C77A0AB27D4BE8A007DB7C6 /* scene_manager.c */,
+				4C77A0A427D4BE8A007DB7C6 /* debug_draw.h */,
 				4C77A0AC27D4BE8A007DB7C6 /* debug_draw.c */,
-				4C77A0AD27D4BE8A007DB7C6 /* game_object.c */,
-				4C77A0AE27D4BE8A007DB7C6 /* game_object_component_private.h */,
+				4C77A0A627D4BE8A007DB7C6 /* scene_manager.h */,
+				4C77A0AB27D4BE8A007DB7C6 /* scene_manager.c */,
+				4C51DB4A2ABE1C6A0085E95B /* nine_sprite.h */,
+				4C51DB492ABE1C6A0085E95B /* nine_sprite.c */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -614,6 +647,7 @@
 				4C77A0E927D4BE8A007DB7C6 /* transforms.h in Headers */,
 				4C77A0B427D4BE8A007DB7C6 /* physics_world.h in Headers */,
 				4C77A0CD27D4BE8A007DB7C6 /* engine_log.h in Headers */,
+				4CB145872B01562B00B55304 /* scene.h in Headers */,
 				4C77A0D727D4BE8A007DB7C6 /* utils.h in Headers */,
 				4C77A0E627D4BE8A007DB7C6 /* hash_table_private.h in Headers */,
 				4C77A0D227D4BE8A007DB7C6 /* image_render.h in Headers */,
@@ -623,11 +657,14 @@
 				4C77A0C527D4BE8A007DB7C6 /* engine_tests.h in Headers */,
 				4C77A10627D4BE8A007DB7C6 /* game_object_private.h in Headers */,
 				4C77A0C127D4BE8A007DB7C6 /* grid_atlas.h in Headers */,
+				4CB1458C2B01564A00B55304 /* cache_sprite.h in Headers */,
 				4C77A0B927D4BE8A007DB7C6 /* string_builder_private.h in Headers */,
 				4C77A0DB27D4BE8A007DB7C6 /* base_object.h in Headers */,
+				4CB145942B01576600B55304 /* bug_cricket.h in Headers */,
 				4C71AF0028899F920001A2BD /* render_texture.h in Headers */,
 				4C77A0C827D4BE8A007DB7C6 /* engine.h in Headers */,
 				4C77A0C327D4BE8A007DB7C6 /* image.h in Headers */,
+				4CB145902B0156A900B55304 /* image_object_render.h in Headers */,
 				4C77A0B227D4BE8A007DB7C6 /* life_timer.h in Headers */,
 				4C77A10027D4BE8A007DB7C6 /* debug_draw.h in Headers */,
 				4C71AF222892D3730001A2BD /* collision_body.h in Headers */,
@@ -649,6 +686,7 @@
 				4C77A0D127D4BE8A007DB7C6 /* render_context.h in Headers */,
 				4C77A0D927D4BE8A007DB7C6 /* platform_adapter.h in Headers */,
 				4C77A0BA27D4BE8A007DB7C6 /* string_builder.h in Headers */,
+				4CB145822B01559000B55304 /* bug_fly.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,12 +812,14 @@
 			files = (
 				4C77A0D327D4BE8A007DB7C6 /* transitions.c in Sources */,
 				4C77A0EC27D4BE8A007DB7C6 /* number.c in Sources */,
+				4CB145932B01576600B55304 /* bug_cricket.c in Sources */,
 				4C77A0D627D4BE8A007DB7C6 /* image_render.c in Sources */,
 				4C71AF202892D3730001A2BD /* collision_world.c in Sources */,
 				4C77A0DF27D4BE8A007DB7C6 /* transforms.c in Sources */,
 				4C77A0CC27D4BE8A007DB7C6 /* game_main.c in Sources */,
 				4C77A10327D4BE8A007DB7C6 /* label.c in Sources */,
 				4C77A0C727D4BE8A007DB7C6 /* engine_rect_cleanup_test.c in Sources */,
+				4CB145812B01559000B55304 /* bug_fly.c in Sources */,
 				4C77A0BF27D4BE8A007DB7C6 /* grid_atlas.c in Sources */,
 				4C77A0DE27D4BE8A007DB7C6 /* random.c in Sources */,
 				4C77A0D527D4BE8A007DB7C6 /* render_context.c in Sources */,
@@ -800,6 +840,7 @@
 				4C77A0F527D4BE8A007DB7C6 /* action_delay.c in Sources */,
 				4C77A0F327D4BE8A007DB7C6 /* action_move.c in Sources */,
 				4C77A0F027D4BE8A007DB7C6 /* sprite_animator.c in Sources */,
+				4CB1458B2B01564A00B55304 /* cache_sprite.c in Sources */,
 				4C77A0C927D4BE8A007DB7C6 /* engine_log.c in Sources */,
 				4C77A0BC27D4BE8A007DB7C6 /* string_builder.c in Sources */,
 				4C77A0EB27D4BE8A007DB7C6 /* number_lut.c in Sources */,
@@ -809,6 +850,7 @@
 				4C71AF212892D3730001A2BD /* collision_body.c in Sources */,
 				4C51DB502ABE1CEC0085E95B /* action_resize.c in Sources */,
 				4C77A10927D4BE8A007DB7C6 /* game_object.c in Sources */,
+				4CB145882B01562B00B55304 /* scene.c in Sources */,
 				4C51DB432ABE18650085E95B /* gecko_scene.c in Sources */,
 				4C77A0C027D4BE8A007DB7C6 /* image.c in Sources */,
 				4C77A0FA27D4BE8A007DB7C6 /* action_animator.c in Sources */,
@@ -821,6 +863,7 @@
 				4C51DB4B2ABE1C6A0085E95B /* nine_sprite.c in Sources */,
 				4C77A0D027D4BE8A007DB7C6 /* render_rect.c in Sources */,
 				4C77A0BE27D4BE8A007DB7C6 /* image_storage.c in Sources */,
+				4CB1458F2B0156A900B55304 /* image_object_render.c in Sources */,
 				4C77A0CE27D4BE8A007DB7C6 /* game_display.c in Sources */,
 				4C77A10527D4BE8A007DB7C6 /* game_object_component.c in Sources */,
 				4C77A0E527D4BE8A007DB7C6 /* base_object.c in Sources */,
@@ -828,6 +871,7 @@
 				4C51DB472ABE1BA50085E95B /* string_utils.c in Sources */,
 				4C77A0F727D4BE8A007DB7C6 /* action_repeat.c in Sources */,
 				4C77A0FC27D4BE8A007DB7C6 /* action_function.c in Sources */,
+				4CB145842B0155F100B55304 /* utils.c in Sources */,
 				4C71AF232892D3730001A2BD /* collision_masks.c in Sources */,
 				4C77A0C627D4BE8A007DB7C6 /* engine_tests.c in Sources */,
 				4C32747027DE3AA500F4AC7C /* upng.c in Sources */,

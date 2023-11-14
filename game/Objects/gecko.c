@@ -14,10 +14,10 @@ typedef struct FloatPair {
 
 FloatPair to_same_half_circle_degrees(float a, float b)
 {
-    if (a - b > 180.f) {
+    while (a - b > 180.f) {
         b += 360.f;
     }
-    if (a - b < -180.f) {
+    while (a - b < -180.f) {
         a += 360.f;
     }
     
@@ -26,10 +26,10 @@ FloatPair to_same_half_circle_degrees(float a, float b)
 
 FloatPair to_same_half_circle_radians(float a, float b)
 {
-    if (a - b > (float)M_PI) {
+    while (a - b > (float)M_PI) {
         b += (float)(M_PI * 2);
     }
-    if (a - b < -(float)M_PI) {
+    while (a - b < -(float)M_PI) {
         a += (float)(M_PI * 2);
     }
     

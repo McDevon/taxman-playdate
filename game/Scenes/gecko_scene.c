@@ -6,6 +6,7 @@
 #include <string.h>
 #include "debug_draw.h"
 #include "bug_fly.h"
+#include "bug_cricket.h"
 
 #define AVERAGE_SPEED_MEASUREMENTS 3
 
@@ -16,6 +17,7 @@ typedef struct {
     Label *w_attach_label;
     GameObject *w_head;
     DebugDraw *w_debug;
+    GameObject *w_fake_position;
     Vector2D camera_position;
     Controls previous_controls;
     float speed_measurements[AVERAGE_SPEED_MEASUREMENTS];
@@ -25,6 +27,8 @@ typedef struct {
     float next_bug;
     uint8_t prev_measurement_index;
     bool follow;
+    
+    int flash_counter;
 } GeckoScene;
 
 float timer = 0;
@@ -66,6 +70,14 @@ void gecko_scene_update(GameObject *scene, Float dt)
     }
 
     self->previous_controls = controls;
+    
+    if (self->flash_counter >= 0) {
+        self->flash_counter --;
+        
+        if (self->flash_counter < 0) {
+            set_screen_invert(false);
+        }
+    }
 }
 
 void gecko_scene_fixed_update(GameObject *scene, Float dt_s)
@@ -88,12 +100,26 @@ Pose2D gecko_scene_get_spawn_pose(GeckoScene *self)
     Random *random = data->mechanics_random;
     
     Float distance = 230.f; // + random_next_float_limit(random, 100.f);
-    Float angle = self->w_head->rotation; // - (float)M_PI_4 + random_next_float_limit(random, (float)M_PI_2);
+    Float angle = self->w_head->rotation - ((float)M_PI / 10.f) + random_next_float_limit(random, ((float)M_PI / 5.f));
     
     Vector2D offset = vec(cosf(angle) * distance, sinf(angle) * distance);
     Vector2D position = vec_vec_add(self->w_head->position, offset);
-        
+    
+    LOG("Head %.2f, %.2f pose %.2f %.2f   %.2f", self->w_head->position.x, self->w_head->position.y, position.x, position.y, float_to_degrees(angle));
+    
     return (Pose2D){ position, angle };
+}
+
+void gecko_scene_fly_eaten(void *context) {
+    GeckoScene *self = (GeckoScene*)context;
+    self->flash_counter = 1;
+    set_screen_invert(true);
+}
+
+void gecko_scene_cricket_eaten(void *context) {
+    GeckoScene *self = (GeckoScene*)context;
+    //self->flash_counter = 1;
+    //set_screen_invert(true);
 }
 
 void gecko_scene_spawn_bug(GeckoScene *self)
@@ -105,14 +131,27 @@ void gecko_scene_spawn_bug(GeckoScene *self)
     self->next_bug = 300.f + random_next_float_limit(random, 300.f);
     
     Pose2D pose = gecko_scene_get_spawn_pose(self);
-    go_add_child(self, ({
-        Sprite *sprite = sprite_create_with_image(NULL);
-        sprite->position = pose.position;
-        sprite->anchor = vec(0.5f, 0.5f);
-        
-        go_add_component(sprite, bug_fly_create(self->w_head, pose.rotation));
-        sprite;
-    }));
+    if (random_next_int_limit(random, 4) == 0) {
+        go_add_child(self, ({
+            Sprite *sprite = sprite_create_with_image(NULL);
+            sprite->position = pose.position;
+            sprite->anchor = vec(0.5f, 0.5f);
+            
+            go_add_component(sprite, bug_fly_create(self->w_head, pose.rotation, &gecko_scene_fly_eaten, self));
+            sprite;
+        }));
+        LOG("CREATE BUG FLY");
+    } else {
+        go_add_child(self, ({
+            Sprite *sprite = sprite_create_with_image(NULL);
+            sprite->position = pose.position;
+            sprite->anchor = vec(0.5f, 0.5f);
+            
+            go_add_component(sprite, bug_cricket_create(self->w_head, pose.rotation, &gecko_scene_cricket_eaten, self));
+            sprite;
+        }));
+        LOG("CREATE BUG cricket");
+    }
 }
 
 void gecko_scene_character_moved(float movement, Vector2D position, float direction_radians, void *callback_context)
@@ -159,7 +198,8 @@ void gecko_scene_render(GameObject *scene, RenderContext *ctx)
     context_clear_white(ctx);
     
     Vector2D position = ctx->render_camera->position;
-    Vector2DInt intPosition = (Vector2DInt){ (int32_t)roundf(position.x), (int32_t)roundf(position.y) };
+    Vector2DInt intPosition = (Vector2DInt){ (int32_t)floorf(floorf(position.x) + (position.x - ceilf(position.x))),
+        (int32_t)floorf(floorf(position.y) + (position.y - ceilf(position.y))) };
     
     const int count = sizeof gecko_bg_elements / sizeof gecko_bg_elements[0];
     for (int i = 0; i < count; ++i) {
@@ -233,6 +273,7 @@ void gecko_scene_initialize(GameObject *scene)
         
         (GameObject *)sprite;
     });
+    
 
     go_add_child(self, self->w_head);
     go_add_child(self, self->w_debug);
@@ -242,7 +283,12 @@ void gecko_scene_initialize(GameObject *scene)
         gecko_bg_elements[i].w_image = get_image(gecko_bg_elements[i].image_name);
     }
     
+    self->w_fake_position = go_create_empty();
+    go_add_child(self, self->w_fake_position);
+    
     self->next_bug = 200.f;
+    
+    self->flash_counter = -1;
         
     set_screen_dither(get_image_data("dither_blue2.png"));
 }
