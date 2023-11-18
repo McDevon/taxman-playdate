@@ -28,6 +28,24 @@ void bug_hopper_update(GameObjectComponent *comp, float dt)
 {
 }
 
+void bug_hopper_new_angle_stay(BugHopper *self, float angle)
+{
+    self->angle = angle;
+    destroy(self->rt_normal);
+    destroy(self->rt_alert);
+    self->rt_normal = render_texture_create_with_rotated(get_image("Grasshopper-1.png"), angle);
+    self->rt_alert = render_texture_create_with_rotated(get_image("Grasshopper-A.png"), angle);
+}
+
+void bug_hopper_new_angle_jump(BugHopper *self, float angle)
+{
+    self->angle = angle;
+    if (self->rt_jump) {
+        destroy(self->rt_jump);
+    }
+    self->rt_jump = render_texture_create_with_rotated(get_image("Grasshopper-2.png"), angle);
+}
+
 void bug_hopper_stop(void *obj, void *context)
 {
     BugHopper *self = (BugHopper *)context;
@@ -35,24 +53,13 @@ void bug_hopper_stop(void *obj, void *context)
     Sprite *parent = (Sprite *)comp_get_parent(self);
     go_set_z_order(parent, 1);
     
+    bug_hopper_new_angle_stay(self, self->angle);
+    
     parent->draw_mode = drawmode_default;
     parent->scale = vec(1.f, 1.f);
     sprite_set_image(parent, self->rt_normal->image);
     
     self->jumping = false;
-}
-
-void bug_hopper_new_angle(BugHopper *self, float angle)
-{
-    self->angle = angle;
-    destroy(self->rt_normal);
-    destroy(self->rt_alert);
-    if (self->rt_jump) {
-        destroy(self->rt_jump);
-    }
-    self->rt_normal = render_texture_create_with_rotated(get_image("Grasshopper-1.png"), angle);
-    self->rt_alert = render_texture_create_with_rotated(get_image("Grasshopper-A.png"), angle);
-    self->rt_jump = render_texture_create_with_rotated(get_image("Grasshopper-2.png"), angle);
 }
 
 void bug_hopper_jump(BugHopper *self) {
@@ -63,7 +70,7 @@ void bug_hopper_jump(BugHopper *self) {
     
     Vector2D distance = vec_vec_subtract(parent->position, self->w_gecko_head->position);
     const float angle = atan2f(distance.y, distance.x) + (float)M_PI * (-0.3f + random_next_float_limit(random, 0.6f));
-    bug_hopper_new_angle(self, angle);
+    bug_hopper_new_angle_jump(self, angle);
 
     parent->w_image = self->rt_jump->image;
     parent->draw_mode = drawmode_scale;

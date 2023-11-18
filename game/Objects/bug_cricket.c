@@ -29,31 +29,42 @@ void bug_cricket_update(GameObjectComponent *comp, float dt)
 {
 }
 
-void bug_cricket_stop(void *obj, void *context)
-{
-    BugCricket *self = (BugCricket *)context;
-    
-    Animator *animator = (Animator *)comp_get_component(self, &SpriteAnimationComponentType);
-    animator_set_animation(animator, "idle");
-    
-    self->walking = false;
-}
-
-void bug_cricket_new_angle(BugCricket *self, float angle)
+void bug_cricket_new_angle_walk(BugCricket *self, float angle)
 {
     self->angle = angle;
-    destroy(self->rt_normal);
-    destroy(self->rt_alert);
     if (self->rt_walk_1) {
         destroy(self->rt_walk_1);
     }
     if (self->rt_walk_2) {
         destroy(self->rt_walk_2);
     }
-    self->rt_normal = render_texture_create_with_rotated(get_image("Cricket-1.png"), angle);
-    self->rt_alert = render_texture_create_with_rotated(get_image("Cricket-A.png"), angle);
     self->rt_walk_1 = render_texture_create_with_rotated(get_image("Cricket-2.png"), angle);
     self->rt_walk_2 = render_texture_create_with_rotated(get_image("Cricket-3.png"), angle);
+}
+
+void bug_cricket_new_angle_stay(BugCricket *self, float angle)
+{
+    self->angle = angle;
+    destroy(self->rt_normal);
+    destroy(self->rt_alert);
+    self->rt_normal = render_texture_create_with_rotated(get_image("Cricket-1.png"), angle);
+    self->rt_alert = render_texture_create_with_rotated(get_image("Cricket-A.png"), angle);
+}
+
+void bug_cricket_stop(void *obj, void *context)
+{
+    BugCricket *self = (BugCricket *)context;
+    
+    bug_cricket_new_angle_stay(self, self->angle);
+    
+    Animator *animator = (Animator *)comp_get_component(self, &SpriteAnimationComponentType);
+    ArrayList *anim_idle = list_create();
+    list_add(anim_idle, anim_frame_create_with_image(self->rt_normal->image, 0.f));
+    animator_add_animation(animator, "idle", anim_idle);
+    
+    animator_set_animation(animator, "idle");
+    
+    self->walking = false;
 }
 
 void bug_cricket_walk(BugCricket *self) {
@@ -64,7 +75,7 @@ void bug_cricket_walk(BugCricket *self) {
     
     Vector2D distance = vec_vec_subtract(parent->position, self->w_gecko_head->position);
     float angle = atan2f(distance.y, distance.x) + (float)M_PI * (-0.3f + random_next_float_limit(random, 0.6f));
-    bug_cricket_new_angle(self, angle);
+    bug_cricket_new_angle_walk(self, angle);
 
     float frame_time = 0.1;
     Animator *animator = (Animator *)comp_get_component(self, &SpriteAnimationComponentType);
@@ -80,10 +91,6 @@ void bug_cricket_walk(BugCricket *self) {
     list_add(anim_walk, anim_frame_create_with_image(self->rt_walk_1->image, frame_time));
     list_add(anim_walk, anim_frame_create_with_image(self->rt_walk_2->image, frame_time));
     animator_add_animation(animator, "walk", anim_walk);
-
-    ArrayList *anim_idle = list_create();
-    list_add(anim_idle, anim_frame_create_with_image(self->rt_normal->image, 0.f));
-    animator_add_animation(animator, "idle", anim_idle);
     
     animator_set_animation(animator, "walk");
     
