@@ -139,7 +139,7 @@ void gecko_scene_spawn_bug(GeckoScene *self)
     
     Pose2D pose = gecko_scene_get_spawn_pose(self);
     int dice = random_next_int_limit(random, 100);
-    if (dice < 0) {
+    if (dice < 10) {
         go_add_child(self, ({
             Sprite *sprite = sprite_create_with_image(NULL);
             sprite->position = pose.position;
@@ -149,7 +149,17 @@ void gecko_scene_spawn_bug(GeckoScene *self)
             sprite;
         }));
         LOG("CREATE BUG FLY");
-    } else if (dice < 1) {
+    } else if (dice < 40) {
+        go_add_child(self, ({
+            Sprite *sprite = sprite_create_with_image(NULL);
+            sprite->position = pose.position;
+            sprite->anchor = vec(0.5f, 0.5f);
+            
+            go_add_component(sprite, bug_hopper_create(self->w_head, pose.rotation, &gecko_scene_hopper_eaten, self));
+            sprite;
+        }));
+        LOG("CREATE BUG hopper");
+    } else {
         go_add_child(self, ({
             Sprite *sprite = sprite_create_with_image(NULL);
             sprite->position = pose.position;
@@ -159,17 +169,7 @@ void gecko_scene_spawn_bug(GeckoScene *self)
             sprite;
         }));
         LOG("CREATE BUG cricket");
-    } else {
-    go_add_child(self, ({
-        Sprite *sprite = sprite_create_with_image(NULL);
-        sprite->position = pose.position;
-        sprite->anchor = vec(0.5f, 0.5f);
-        
-        go_add_component(sprite, bug_hopper_create(self->w_head, pose.rotation, &gecko_scene_hopper_eaten, self));
-        sprite;
-    }));
-    LOG("CREATE BUG hopper");
-}
+    }
 }
 
 void gecko_scene_character_moved(float movement, Vector2D position, float direction_radians, void *callback_context)
