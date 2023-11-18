@@ -138,6 +138,8 @@
 		4CB145902B0156A900B55304 /* image_object_render.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB1458E2B0156A900B55304 /* image_object_render.h */; };
 		4CB145932B01576600B55304 /* bug_cricket.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145912B01576500B55304 /* bug_cricket.c */; };
 		4CB145942B01576600B55304 /* bug_cricket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145922B01576600B55304 /* bug_cricket.h */; };
+		4CB145972B09191F00B55304 /* bug_hopper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145952B09191F00B55304 /* bug_hopper.h */; };
+		4CB145982B09191F00B55304 /* bug_hopper.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145962B09191F00B55304 /* bug_hopper.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -282,6 +284,8 @@
 		4CB1458E2B0156A900B55304 /* image_object_render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_object_render.h; sourceTree = "<group>"; };
 		4CB145912B01576500B55304 /* bug_cricket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bug_cricket.c; sourceTree = "<group>"; };
 		4CB145922B01576600B55304 /* bug_cricket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bug_cricket.h; sourceTree = "<group>"; };
+		4CB145952B09191F00B55304 /* bug_hopper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bug_hopper.h; sourceTree = "<group>"; };
+		4CB145962B09191F00B55304 /* bug_hopper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bug_hopper.c; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		55B8CC9E1989A23500595797 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = src/main.c; sourceTree = "<group>"; };
 		55DB5B0519AD26C7002ED73E /* pdex.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pdex.elf; sourceTree = "<group>"; };
@@ -314,6 +318,8 @@
 				4CB1457F2B01558F00B55304 /* bug_fly.c */,
 				4CB145922B01576600B55304 /* bug_cricket.h */,
 				4CB145912B01576500B55304 /* bug_cricket.c */,
+				4CB145952B09191F00B55304 /* bug_hopper.h */,
+				4CB145962B09191F00B55304 /* bug_hopper.c */,
 				4C51DAFB2ABE18650085E95B /* gecko.h */,
 				4C51DB022ABE18650085E95B /* gecko.c */,
 			);
@@ -624,6 +630,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C77A0B527D4BE8A007DB7C6 /* physics_body.h in Headers */,
+				4CB145972B09191F00B55304 /* bug_hopper.h in Headers */,
 				4C77A0E027D4BE8A007DB7C6 /* hash_table.h in Headers */,
 				4C51DB482ABE1BA50085E95B /* string_utils.h in Headers */,
 				4C77A0CA27D4BE8A007DB7C6 /* game_main.h in Headers */,
@@ -862,6 +869,7 @@
 				4C51DB2A2ABE18650085E95B /* game_data.c in Sources */,
 				4C51DB4B2ABE1C6A0085E95B /* nine_sprite.c in Sources */,
 				4C77A0D027D4BE8A007DB7C6 /* render_rect.c in Sources */,
+				4CB145982B09191F00B55304 /* bug_hopper.c in Sources */,
 				4C77A0BE27D4BE8A007DB7C6 /* image_storage.c in Sources */,
 				4CB1458F2B0156A900B55304 /* image_object_render.c in Sources */,
 				4C77A0CE27D4BE8A007DB7C6 /* game_display.c in Sources */,

@@ -7,6 +7,7 @@
 #include "debug_draw.h"
 #include "bug_fly.h"
 #include "bug_cricket.h"
+#include "bug_hopper.h"
 
 #define AVERAGE_SPEED_MEASUREMENTS 3
 
@@ -122,6 +123,12 @@ void gecko_scene_cricket_eaten(void *context) {
     //set_screen_invert(true);
 }
 
+void gecko_scene_hopper_eaten(void *context) {
+    GeckoScene *self = (GeckoScene*)context;
+    //self->flash_counter = 1;
+    //set_screen_invert(true);
+}
+
 void gecko_scene_spawn_bug(GeckoScene *self)
 {
     GameData *data = (GameData*)go_get_scene_manager(self)->data;
@@ -131,7 +138,8 @@ void gecko_scene_spawn_bug(GeckoScene *self)
     self->next_bug = 300.f + random_next_float_limit(random, 300.f);
     
     Pose2D pose = gecko_scene_get_spawn_pose(self);
-    if (random_next_int_limit(random, 4) == 0) {
+    int dice = random_next_int_limit(random, 100);
+    if (dice < 0) {
         go_add_child(self, ({
             Sprite *sprite = sprite_create_with_image(NULL);
             sprite->position = pose.position;
@@ -141,7 +149,7 @@ void gecko_scene_spawn_bug(GeckoScene *self)
             sprite;
         }));
         LOG("CREATE BUG FLY");
-    } else {
+    } else if (dice < 1) {
         go_add_child(self, ({
             Sprite *sprite = sprite_create_with_image(NULL);
             sprite->position = pose.position;
@@ -151,7 +159,17 @@ void gecko_scene_spawn_bug(GeckoScene *self)
             sprite;
         }));
         LOG("CREATE BUG cricket");
-    }
+    } else {
+    go_add_child(self, ({
+        Sprite *sprite = sprite_create_with_image(NULL);
+        sprite->position = pose.position;
+        sprite->anchor = vec(0.5f, 0.5f);
+        
+        go_add_component(sprite, bug_hopper_create(self->w_head, pose.rotation, &gecko_scene_hopper_eaten, self));
+        sprite;
+    }));
+    LOG("CREATE BUG hopper");
+}
 }
 
 void gecko_scene_character_moved(float movement, Vector2D position, float direction_radians, void *callback_context)

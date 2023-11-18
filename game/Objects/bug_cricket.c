@@ -63,7 +63,7 @@ void bug_cricket_walk(BugCricket *self) {
     Random *random = data->mechanics_random;
     
     Vector2D distance = vec_vec_subtract(parent->position, self->w_gecko_head->position);
-    float angle = atan2f(distance.y, distance.x) + (float)M_PI * (-0.1f + random_next_float_limit(random, 0.2f));
+    float angle = atan2f(distance.y, distance.x) + (float)M_PI * (-0.3f + random_next_float_limit(random, 0.6f));
     bug_cricket_new_angle(self, angle);
 
     float frame_time = 0.1;
