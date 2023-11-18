@@ -35,6 +35,8 @@ void bug_hopper_stop(void *obj, void *context)
     Sprite *parent = (Sprite *)comp_get_parent(self);
     go_set_z_order(parent, 1);
     
+    parent->draw_mode = drawmode_default;
+    parent->scale = vec(1.f, 1.f);
     sprite_set_image(parent, self->rt_normal->image);
     
     self->jumping = false;
@@ -70,8 +72,10 @@ void bug_hopper_jump(BugHopper *self) {
     
     const float jump_distance = 120.f + random_next_float_limit(random, 150.f);
     const float time = 0.65f + random_next_float_limit(random, .1f);
+    const float jump_default_scale = 0.5f;
     
     go_set_z_order(parent, 20);
+    parent->scale = vec(jump_default_scale, jump_default_scale);
     
     go_add_component(parent, act_create(action_sequence_create(({
         ArrayList *list = list_create();
@@ -81,9 +85,9 @@ void bug_hopper_jump(BugHopper *self) {
     }))));
     go_add_component(parent, act_create(action_sequence_create(({
         ArrayList *list = list_create();
-        const float scale = 2.5f;
+        const float scale = 1.0f;
         list_add(list, action_ease_out_create(action_scale_to_create(vec(scale, scale), time * 0.5f)));
-        list_add(list, action_ease_in_create(action_scale_to_create(vec(1.f, 1.f), time * 0.5f)));
+        list_add(list, action_ease_in_create(action_scale_to_create(vec(jump_default_scale, jump_default_scale), time * 0.5f)));
         list;
     }))));
 }
