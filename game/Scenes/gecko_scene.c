@@ -39,7 +39,7 @@ void gecko_scene_update(GameObject *scene, Float dt)
     GeckoScene *self = (GeckoScene *)scene;
     timer += dt;
     if (timer > 10.f) {
-        profiler_schedule_end();
+        //profiler_schedule_end();
     }
     
     Controls controls = go_get_scene_manager(self)->controls;
@@ -315,7 +315,7 @@ void gecko_scene_initialize(GameObject *scene)
 
 void gecko_scene_start(GameObject *scene)
 {
-    profiler_schedule_start();
+    //profiler_schedule_start();
 }
 
 void gecko_scene_destroy(void *scene)
