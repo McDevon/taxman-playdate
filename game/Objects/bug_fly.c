@@ -51,6 +51,7 @@ void bug_fly_fly(BugFly *self) {
     go_add_component(parent, life_timer_create(5.f, false));
     
     animator_set_animation(animator, "fly");
+    audio_play_file("fly_fly");
 }
 
 void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
@@ -126,7 +127,8 @@ void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
             || (distance < self->far_detect_distance && gecko_speed > self->far_detect_speed)) {
             self->alert_timer = self->alert_time;
             sprite_set_image(parent, self->rt_alert->image);
-            
+            audio_play_file("fly_alert");
+
             go_add_child(go_get_parent(parent), ({
                 Label *label = label_create("font4", "!?");
                 

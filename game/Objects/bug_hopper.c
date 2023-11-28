@@ -97,6 +97,7 @@ void bug_hopper_jump(BugHopper *self) {
         list_add(list, action_ease_in_create(action_scale_to_create(vec(jump_default_scale, jump_default_scale), time * 0.5f)));
         list;
     }))));
+    audio_play_file("hopper_jump");
 }
 
 void bug_hopper_fixed_update(GameObjectComponent *comp, float dt)
@@ -157,6 +158,7 @@ void bug_hopper_fixed_update(GameObjectComponent *comp, float dt)
             || (distance < self->far_detect_distance && gecko_speed > self->far_detect_speed)) {
             self->alert_timer = self->alert_time;
             sprite_set_image(parent, self->rt_alert->image);
+            audio_play_file("hopper_alert");
         }
     }
 }

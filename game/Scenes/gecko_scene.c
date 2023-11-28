@@ -115,18 +115,17 @@ void gecko_scene_fly_eaten(void *context) {
     GeckoScene *self = (GeckoScene*)context;
     self->flash_counter = 1;
     set_screen_invert(true);
+    audio_play_file("eat");
 }
 
 void gecko_scene_cricket_eaten(void *context) {
     GeckoScene *self = (GeckoScene*)context;
-    //self->flash_counter = 1;
-    //set_screen_invert(true);
+    audio_play_file("eat");
 }
 
 void gecko_scene_hopper_eaten(void *context) {
     GeckoScene *self = (GeckoScene*)context;
-    //self->flash_counter = 1;
-    //set_screen_invert(true);
+    audio_play_file("eat");
 }
 
 void gecko_scene_spawn_bug(GeckoScene *self)
@@ -148,6 +147,7 @@ void gecko_scene_spawn_bug(GeckoScene *self)
             go_add_component(sprite, bug_fly_create(self->w_head, pose.rotation, &gecko_scene_fly_eaten, self));
             sprite;
         }));
+        audio_play_file("fly_enter");
         LOG("CREATE BUG FLY");
     } else if (dice < 40) {
         go_add_child(self, ({
@@ -345,6 +345,14 @@ Scene *gecko_scene_create()
     
     scene_set_required_image_asset_names(p_scene, list_of_strings("gecko", "backgrounds", "dithers"));
     scene_set_required_grid_atlas_infos(p_scene, list_of_grid_atlas_infos(grid_atlas_info("font4", (Size2DInt){ 8, 14 })));
+    scene_set_required_audio_effects(p_scene, list_of_strings("cricket_alert",
+                                                              "cricket_walk",
+                                                              "fly_alert",
+                                                              "fly_enter",
+                                                              "fly_fly",
+                                                              "hopper_alert",
+                                                              "hopper_jump",
+                                                              "eat"));
     
     return p_scene;
 }

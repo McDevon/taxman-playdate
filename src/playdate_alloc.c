@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pd_api.h"
-#include "platform_playdate.h"
+#include "playdate_alloc.h"
 
 platform_time_t playdate_time;
 PlaydateAPI* playdate_platform_api;

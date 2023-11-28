@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "pd_api.h"
 #include "engine.h"
-#include "platform_playdate.h"
+#include "playdate_alloc.h"
 #include "loading_scene.h"
 #include "upng.h"
 
@@ -263,6 +263,39 @@ void platform_display_set_image(uint8_t *buffer, ScreenRenderOptions *options)
         }
     }
     //playdate_platform_api->graphics->display();
+}
+
+void platform_load_audio_file(const char *file_name, audio_object_callback_t *callback, void *context)
+{
+    FilePlayer *player = playdate_platform_api->sound->fileplayer->newPlayer();
+    int result = playdate_platform_api->sound->fileplayer->loadIntoPlayer(player, file_name);
+    if (result == 0) {
+        playdate_platform_api->sound->fileplayer->freePlayer(player);
+        player = NULL;
+        callback(file_name, NULL, context);
+    } else {
+        callback(file_name, player, context);
+    }
+}
+
+void platform_play_audio_object(void *audio_object)
+{
+    FilePlayer *player = (FilePlayer*)audio_object;
+    if (!player) {
+        LOG_ERROR("Cannot play audio file, player is NULL");
+        return;
+    }
+    playdate_platform_api->sound->fileplayer->play(player, 1);
+}
+
+void platform_free_audio_object(void *audio_object)
+{
+    FilePlayer *player = (FilePlayer*)audio_object;
+    if (!player) {
+        LOG_ERROR("Cannot free audio file, player is NULL");
+        return;
+    }
+    playdate_platform_api->sound->fileplayer->freePlayer(player);
 }
 
 void playdate_list_file(const char* path, void* userdata)

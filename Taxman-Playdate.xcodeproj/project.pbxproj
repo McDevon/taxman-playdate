@@ -126,7 +126,7 @@
 		4C77A10827D4BE8A007DB7C6 /* debug_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A0AC27D4BE8A007DB7C6 /* debug_draw.c */; };
 		4C77A10927D4BE8A007DB7C6 /* game_object.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A0AD27D4BE8A007DB7C6 /* game_object.c */; };
 		4C77A10A27D4BE8A007DB7C6 /* game_object_component_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C77A0AE27D4BE8A007DB7C6 /* game_object_component_private.h */; };
-		4C77A10D27D4EACD007DB7C6 /* platform_playdate.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A10C27D4EACD007DB7C6 /* platform_playdate.c */; };
+		4C77A10D27D4EACD007DB7C6 /* playdate_alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C77A10C27D4EACD007DB7C6 /* playdate_alloc.c */; };
 		4CB145812B01559000B55304 /* bug_fly.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1457F2B01558F00B55304 /* bug_fly.c */; };
 		4CB145822B01559000B55304 /* bug_fly.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145802B01559000B55304 /* bug_fly.h */; };
 		4CB145842B0155F100B55304 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145832B0155F100B55304 /* utils.c */; };
@@ -140,6 +140,10 @@
 		4CB145942B01576600B55304 /* bug_cricket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145922B01576600B55304 /* bug_cricket.h */; };
 		4CB145972B09191F00B55304 /* bug_hopper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145952B09191F00B55304 /* bug_hopper.h */; };
 		4CB145982B09191F00B55304 /* bug_hopper.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145962B09191F00B55304 /* bug_hopper.c */; };
+		4CF63D9E2B0952BD00FF4594 /* audio_player.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CF63D9C2B0952BD00FF4594 /* audio_player.h */; };
+		4CF63D9F2B0952BD00FF4594 /* audio_player.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63D9D2B0952BD00FF4594 /* audio_player.c */; };
+		4CF63DA32B0A734F00FF4594 /* playdate_audio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63DA12B0A734F00FF4594 /* playdate_audio.c */; };
+		4CF63DA52B0A73C400FF4594 /* playdate_render.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63DA42B0A73C400FF4594 /* playdate_render.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -270,8 +274,8 @@
 		4C77A0AC27D4BE8A007DB7C6 /* debug_draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug_draw.c; sourceTree = "<group>"; };
 		4C77A0AD27D4BE8A007DB7C6 /* game_object.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game_object.c; sourceTree = "<group>"; };
 		4C77A0AE27D4BE8A007DB7C6 /* game_object_component_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_object_component_private.h; sourceTree = "<group>"; };
-		4C77A10C27D4EACD007DB7C6 /* platform_playdate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = platform_playdate.c; path = src/platform_playdate.c; sourceTree = "<group>"; };
-		4C77A10E27D4EC00007DB7C6 /* platform_playdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = platform_playdate.h; path = src/platform_playdate.h; sourceTree = "<group>"; };
+		4C77A10C27D4EACD007DB7C6 /* playdate_alloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = playdate_alloc.c; path = src/playdate_alloc.c; sourceTree = "<group>"; };
+		4C77A10E27D4EC00007DB7C6 /* playdate_alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = playdate_alloc.h; path = src/playdate_alloc.h; sourceTree = "<group>"; };
 		4C97E23228CF842200431162 /* platform_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform_types.h; sourceTree = "<group>"; };
 		4CB1457F2B01558F00B55304 /* bug_fly.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bug_fly.c; sourceTree = "<group>"; };
 		4CB145802B01559000B55304 /* bug_fly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bug_fly.h; sourceTree = "<group>"; };
@@ -286,6 +290,10 @@
 		4CB145922B01576600B55304 /* bug_cricket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bug_cricket.h; sourceTree = "<group>"; };
 		4CB145952B09191F00B55304 /* bug_hopper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bug_hopper.h; sourceTree = "<group>"; };
 		4CB145962B09191F00B55304 /* bug_hopper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bug_hopper.c; sourceTree = "<group>"; };
+		4CF63D9C2B0952BD00FF4594 /* audio_player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio_player.h; sourceTree = "<group>"; };
+		4CF63D9D2B0952BD00FF4594 /* audio_player.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio_player.c; sourceTree = "<group>"; };
+		4CF63DA12B0A734F00FF4594 /* playdate_audio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = playdate_audio.c; sourceTree = "<group>"; };
+		4CF63DA42B0A73C400FF4594 /* playdate_render.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = playdate_render.c; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		55B8CC9E1989A23500595797 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = src/main.c; sourceTree = "<group>"; };
 		55DB5B0519AD26C7002ED73E /* pdex.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pdex.elf; sourceTree = "<group>"; };
@@ -400,6 +408,7 @@
 		4C77A05227D4BE8A007DB7C6 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				4CF63D9B2B0952AA00FF4594 /* Audio */,
 				4C77A05327D4BE8A007DB7C6 /* Strings */,
 				4C77A05927D4BE8A007DB7C6 /* Resources */,
 				4C77A06027D4BE8A007DB7C6 /* Tests */,
@@ -595,6 +604,15 @@
 			path = game;
 			sourceTree = "<group>";
 		};
+		4CF63D9B2B0952AA00FF4594 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				4CF63D9C2B0952BD00FF4594 /* audio_player.h */,
+				4CF63D9D2B0952BD00FF4594 /* audio_player.c */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		55B8CC9019899FF900595797 = {
 			isa = PBXGroup;
 			children = (
@@ -604,8 +622,10 @@
 				4C77A02727D3DE98007DB7C6 /* Taxman.xcconfig */,
 				55B8CC9B1989A09A00595797 /* Makefile */,
 				55B8CC9E1989A23500595797 /* main.c */,
-				4C77A10C27D4EACD007DB7C6 /* platform_playdate.c */,
-				4C77A10E27D4EC00007DB7C6 /* platform_playdate.h */,
+				4CF63DA12B0A734F00FF4594 /* playdate_audio.c */,
+				4CF63DA42B0A73C400FF4594 /* playdate_render.c */,
+				4C77A10C27D4EACD007DB7C6 /* playdate_alloc.c */,
+				4C77A10E27D4EC00007DB7C6 /* playdate_alloc.h */,
 				4C32746F27DE3AA400F4AC7C /* upng.c */,
 				4C32747127DE3AAD00F4AC7C /* upng.h */,
 				4C32747F27DE413400F4AC7C /* Source */,
@@ -647,6 +667,7 @@
 				4C77A0DD27D4BE8A007DB7C6 /* bezier.h in Headers */,
 				4C77A0B727D4BE8A007DB7C6 /* tilemap.h in Headers */,
 				4C77A10A27D4BE8A007DB7C6 /* game_object_component_private.h in Headers */,
+				4CF63D9E2B0952BD00FF4594 /* audio_player.h in Headers */,
 				4C51DB4C2ABE1C6A0085E95B /* nine_sprite.h in Headers */,
 				4C77A0CB27D4BE8A007DB7C6 /* game_display.h in Headers */,
 				4C51DB3D2ABE18650085E95B /* loading_scene.h in Headers */,
@@ -817,6 +838,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CF63DA32B0A734F00FF4594 /* playdate_audio.c in Sources */,
 				4C77A0D327D4BE8A007DB7C6 /* transitions.c in Sources */,
 				4C77A0EC27D4BE8A007DB7C6 /* number.c in Sources */,
 				4CB145932B01576600B55304 /* bug_cricket.c in Sources */,
@@ -835,9 +857,10 @@
 				4C77A0F927D4BE8A007DB7C6 /* action_sequence.c in Sources */,
 				4C77A0B627D4BE8A007DB7C6 /* physics_world.c in Sources */,
 				4C51DB442ABE18650085E95B /* loading_scene.c in Sources */,
+				4CF63DA52B0A73C400FF4594 /* playdate_render.c in Sources */,
 				4C77A0BB27D4BE8A007DB7C6 /* line_reader.c in Sources */,
 				4C77A0E327D4BE8A007DB7C6 /* bezier.c in Sources */,
-				4C77A10D27D4EACD007DB7C6 /* platform_playdate.c in Sources */,
+				4C77A10D27D4EACD007DB7C6 /* playdate_alloc.c in Sources */,
 				4C77A0DC27D4BE8A007DB7C6 /* profiler.c in Sources */,
 				4C77A0F227D4BE8A007DB7C6 /* action_rotate.c in Sources */,
 				4C77A0F627D4BE8A007DB7C6 /* action_ease.c in Sources */,
@@ -858,6 +881,7 @@
 				4C51DB502ABE1CEC0085E95B /* action_resize.c in Sources */,
 				4C77A10927D4BE8A007DB7C6 /* game_object.c in Sources */,
 				4CB145882B01562B00B55304 /* scene.c in Sources */,
+				4CF63D9F2B0952BD00FF4594 /* audio_player.c in Sources */,
 				4C51DB432ABE18650085E95B /* gecko_scene.c in Sources */,
 				4C77A0C027D4BE8A007DB7C6 /* image.c in Sources */,
 				4C77A0FA27D4BE8A007DB7C6 /* action_animator.c in Sources */,

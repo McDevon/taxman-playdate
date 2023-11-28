@@ -76,7 +76,7 @@ void bug_cricket_walk(BugCricket *self) {
     Vector2D distance = vec_vec_subtract(parent->position, self->w_gecko_head->position);
     float angle = atan2f(distance.y, distance.x) + (float)M_PI * (-0.3f + random_next_float_limit(random, 0.6f));
     bug_cricket_new_angle_walk(self, angle);
-
+    
     float frame_time = 0.1;
     Animator *animator = (Animator *)comp_get_component(self, &SpriteAnimationComponentType);
     if (animator != NULL) {
@@ -107,6 +107,8 @@ void bug_cricket_walk(BugCricket *self) {
         list_add(list, action_callback_create(&bug_cricket_stop, self));
         list;
     }))));
+    
+    audio_play_file("cricket_walk");
 }
 
 void bug_cricket_fixed_update(GameObjectComponent *comp, float dt)
@@ -167,6 +169,7 @@ void bug_cricket_fixed_update(GameObjectComponent *comp, float dt)
             || (distance < self->far_detect_distance && gecko_speed > self->far_detect_speed)) {
             self->alert_timer = self->alert_time;
             sprite_set_image(parent, self->rt_alert->image);
+            audio_play_file("cricket_alert");
         }
     }
 }
