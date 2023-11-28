@@ -120,11 +120,13 @@ void gecko_scene_fly_eaten(void *context) {
 
 void gecko_scene_cricket_eaten(void *context) {
     GeckoScene *self = (GeckoScene*)context;
+    audio_stop_file("cricket_walk");
     audio_play_file("eat");
 }
 
 void gecko_scene_hopper_eaten(void *context) {
     GeckoScene *self = (GeckoScene*)context;
+    audio_stop_file("hopper_jump");
     audio_play_file("eat");
 }
 

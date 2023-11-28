@@ -142,8 +142,6 @@
 		4CB145982B09191F00B55304 /* bug_hopper.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145962B09191F00B55304 /* bug_hopper.c */; };
 		4CF63D9E2B0952BD00FF4594 /* audio_player.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CF63D9C2B0952BD00FF4594 /* audio_player.h */; };
 		4CF63D9F2B0952BD00FF4594 /* audio_player.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63D9D2B0952BD00FF4594 /* audio_player.c */; };
-		4CF63DA32B0A734F00FF4594 /* playdate_audio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63DA12B0A734F00FF4594 /* playdate_audio.c */; };
-		4CF63DA52B0A73C400FF4594 /* playdate_render.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63DA42B0A73C400FF4594 /* playdate_render.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -292,8 +290,6 @@
 		4CB145962B09191F00B55304 /* bug_hopper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bug_hopper.c; sourceTree = "<group>"; };
 		4CF63D9C2B0952BD00FF4594 /* audio_player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio_player.h; sourceTree = "<group>"; };
 		4CF63D9D2B0952BD00FF4594 /* audio_player.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio_player.c; sourceTree = "<group>"; };
-		4CF63DA12B0A734F00FF4594 /* playdate_audio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = playdate_audio.c; sourceTree = "<group>"; };
-		4CF63DA42B0A73C400FF4594 /* playdate_render.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = playdate_render.c; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		55B8CC9E1989A23500595797 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = src/main.c; sourceTree = "<group>"; };
 		55DB5B0519AD26C7002ED73E /* pdex.elf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pdex.elf; sourceTree = "<group>"; };
@@ -622,8 +618,6 @@
 				4C77A02727D3DE98007DB7C6 /* Taxman.xcconfig */,
 				55B8CC9B1989A09A00595797 /* Makefile */,
 				55B8CC9E1989A23500595797 /* main.c */,
-				4CF63DA12B0A734F00FF4594 /* playdate_audio.c */,
-				4CF63DA42B0A73C400FF4594 /* playdate_render.c */,
 				4C77A10C27D4EACD007DB7C6 /* playdate_alloc.c */,
 				4C77A10E27D4EC00007DB7C6 /* playdate_alloc.h */,
 				4C32746F27DE3AA400F4AC7C /* upng.c */,
@@ -838,7 +832,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CF63DA32B0A734F00FF4594 /* playdate_audio.c in Sources */,
 				4C77A0D327D4BE8A007DB7C6 /* transitions.c in Sources */,
 				4C77A0EC27D4BE8A007DB7C6 /* number.c in Sources */,
 				4CB145932B01576600B55304 /* bug_cricket.c in Sources */,
@@ -857,7 +850,6 @@
 				4C77A0F927D4BE8A007DB7C6 /* action_sequence.c in Sources */,
 				4C77A0B627D4BE8A007DB7C6 /* physics_world.c in Sources */,
 				4C51DB442ABE18650085E95B /* loading_scene.c in Sources */,
-				4CF63DA52B0A73C400FF4594 /* playdate_render.c in Sources */,
 				4C77A0BB27D4BE8A007DB7C6 /* line_reader.c in Sources */,
 				4C77A0E327D4BE8A007DB7C6 /* bezier.c in Sources */,
 				4C77A10D27D4EACD007DB7C6 /* playdate_alloc.c in Sources */,

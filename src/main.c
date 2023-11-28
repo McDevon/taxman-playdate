@@ -288,6 +288,16 @@ void platform_play_audio_object(void *audio_object)
     playdate_platform_api->sound->fileplayer->play(player, 1);
 }
 
+void platform_stop_audio_object(void *audio_object)
+{
+    FilePlayer *player = (FilePlayer*)audio_object;
+    if (!player) {
+        LOG_ERROR("Cannot stop audio file, player is NULL");
+        return;
+    }
+    playdate_platform_api->sound->fileplayer->stop(player);
+}
+
 void platform_free_audio_object(void *audio_object)
 {
     FilePlayer *player = (FilePlayer*)audio_object;
