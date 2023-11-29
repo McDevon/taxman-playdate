@@ -85,32 +85,8 @@ void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
     }
     
     if (distance < self->eat_distance) {
-        go_add_child(go_get_parent(parent), ({
-            Label *label = label_create("font4", "Om nom!");
-            
-            label->anchor.x = 0.5f;
-            label->anchor.y = 1.f;
-                        
-            label->position.x = SCREEN_WIDTH / 2.f;
-            label->position.y = SCREEN_HEIGHT / 2.f - 15.f;
-            
-            label->ignore_camera = true;
-            
-            go_set_z_order(label, 20);
-                        
-            ArrayList *list = list_create();
-            list_add(list, action_ease_out_create(action_move_by_create(vec(0.f, -30.f), 1.f)));
-            list_add(list, action_destroy_create());
-            
-            go_add_component(label, act_create(action_sequence_create(list)));
-            
-            label;
-        }));
-        
         go_schedule_destroy(parent);
-        
         self->eaten_callback(self->eaten_callback_context);
-
         return;
     }
     
@@ -128,26 +104,6 @@ void bug_fly_fixed_update(GameObjectComponent *comp, float dt)
             self->alert_timer = self->alert_time;
             sprite_set_image(parent, self->rt_alert->image);
             audio_play_file("fly_alert");
-
-            go_add_child(go_get_parent(parent), ({
-                Label *label = label_create("font4", "!?");
-                
-                label->anchor.x = 0.5f;
-                label->anchor.y = 1.f;
-                                
-                label->position.x = parent->position.x;
-                label->position.y = parent->position.y - 15.f;
-                
-                go_set_z_order(label, 20);
-                            
-                ArrayList *list = list_create();
-                list_add(list, action_ease_out_create(action_move_by_create(vec(0.f, -20.f), 0.6f)));
-                list_add(list, action_destroy_create());
-                
-                go_add_component(label, act_create(action_sequence_create(list)));
-                
-                label;
-            }));
         }
     }
 }

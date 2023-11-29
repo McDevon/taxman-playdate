@@ -288,6 +288,7 @@
 		4CB145922B01576600B55304 /* bug_cricket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bug_cricket.h; sourceTree = "<group>"; };
 		4CB145952B09191F00B55304 /* bug_hopper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bug_hopper.h; sourceTree = "<group>"; };
 		4CB145962B09191F00B55304 /* bug_hopper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bug_hopper.c; sourceTree = "<group>"; };
+		4CB265A42B17C35700C9291D /* action_animator_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = action_animator_private.h; sourceTree = "<group>"; };
 		4CF63D9C2B0952BD00FF4594 /* audio_player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio_player.h; sourceTree = "<group>"; };
 		4CF63D9D2B0952BD00FF4594 /* audio_player.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio_player.c; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -546,6 +547,7 @@
 			isa = PBXGroup;
 			children = (
 				4C77A09727D4BE8A007DB7C6 /* action_animator.h */,
+				4CB265A42B17C35700C9291D /* action_animator_private.h */,
 				4C77A09D27D4BE8A007DB7C6 /* action_animator.c */,
 				4C77A09427D4BE8A007DB7C6 /* action_constructors.h */,
 				4C77A09527D4BE8A007DB7C6 /* action_rotate.c */,
