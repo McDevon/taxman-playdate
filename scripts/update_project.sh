@@ -7,4 +7,4 @@ IFS='='
 read -a strarr <<< "$(head -n 1 assets/pdxinfo)"
 GAMENAME=$(echo "${strarr[1]}" | sed 's/ //g')
 
-python scripts/update_project.py $GAMENAME
+python scripts/tool_rebuild_project.py $GAMENAME

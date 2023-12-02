@@ -4,7 +4,7 @@ import shutil
 import sys
 import os
 sys.path.append('taxman-engine/Scripts')
-from generate_sprite_sheet import generate_sprite_sheet
+from generate_sprite_sheet import generate_sprite_sheet  # NOQA
 
 
 def clear_asset_directory(asset_directory):
