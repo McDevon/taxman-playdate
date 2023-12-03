@@ -140,6 +140,8 @@
 		4CB145942B01576600B55304 /* bug_cricket.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145922B01576600B55304 /* bug_cricket.h */; };
 		4CB145972B09191F00B55304 /* bug_hopper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB145952B09191F00B55304 /* bug_hopper.h */; };
 		4CB145982B09191F00B55304 /* bug_hopper.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145962B09191F00B55304 /* bug_hopper.c */; };
+		4CB265B32B1B482D00C9291D /* high_scores_scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB265B12B1B482D00C9291D /* high_scores_scene.h */; };
+		4CB265B42B1B482D00C9291D /* high_scores_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB265B22B1B482D00C9291D /* high_scores_scene.c */; };
 		4CF63D9E2B0952BD00FF4594 /* audio_player.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CF63D9C2B0952BD00FF4594 /* audio_player.h */; };
 		4CF63D9F2B0952BD00FF4594 /* audio_player.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63D9D2B0952BD00FF4594 /* audio_player.c */; };
 /* End PBXBuildFile section */
@@ -289,6 +291,8 @@
 		4CB145952B09191F00B55304 /* bug_hopper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bug_hopper.h; sourceTree = "<group>"; };
 		4CB145962B09191F00B55304 /* bug_hopper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bug_hopper.c; sourceTree = "<group>"; };
 		4CB265A42B17C35700C9291D /* action_animator_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = action_animator_private.h; sourceTree = "<group>"; };
+		4CB265B12B1B482D00C9291D /* high_scores_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = high_scores_scene.h; sourceTree = "<group>"; };
+		4CB265B22B1B482D00C9291D /* high_scores_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = high_scores_scene.c; sourceTree = "<group>"; };
 		4CF63D9C2B0952BD00FF4594 /* audio_player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio_player.h; sourceTree = "<group>"; };
 		4CF63D9D2B0952BD00FF4594 /* audio_player.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio_player.c; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 			children = (
 				4C51DB0F2ABE18650085E95B /* gecko_scene.h */,
 				4C51DB142ABE18650085E95B /* gecko_scene.c */,
+				4CB265B12B1B482D00C9291D /* high_scores_scene.h */,
+				4CB265B22B1B482D00C9291D /* high_scores_scene.c */,
 				4C51DB0E2ABE18650085E95B /* loading_scene.h */,
 				4C51DB152ABE18650085E95B /* loading_scene.c */,
 			);
@@ -437,12 +443,12 @@
 		4C77A05927D4BE8A007DB7C6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4C77A05A27D4BE8A007DB7C6 /* image_storage.c */,
-				4C77A05B27D4BE8A007DB7C6 /* grid_atlas.c */,
-				4C77A05C27D4BE8A007DB7C6 /* image.c */,
-				4C77A05D27D4BE8A007DB7C6 /* grid_atlas.h */,
 				4C77A05E27D4BE8A007DB7C6 /* image_storage.h */,
+				4C77A05A27D4BE8A007DB7C6 /* image_storage.c */,
+				4C77A05D27D4BE8A007DB7C6 /* grid_atlas.h */,
+				4C77A05B27D4BE8A007DB7C6 /* grid_atlas.c */,
 				4C77A05F27D4BE8A007DB7C6 /* image.h */,
+				4C77A05C27D4BE8A007DB7C6 /* image.c */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -673,6 +679,7 @@
 				4C77A0CD27D4BE8A007DB7C6 /* engine_log.h in Headers */,
 				4CB145872B01562B00B55304 /* scene.h in Headers */,
 				4C77A0D727D4BE8A007DB7C6 /* utils.h in Headers */,
+				4CB265B32B1B482D00C9291D /* high_scores_scene.h in Headers */,
 				4C77A0E627D4BE8A007DB7C6 /* hash_table_private.h in Headers */,
 				4C77A0D227D4BE8A007DB7C6 /* image_render.h in Headers */,
 				4C71AEFF28899F920001A2BD /* render_camera.h in Headers */,
@@ -863,6 +870,7 @@
 				4C51DB322ABE18650085E95B /* gecko.c in Sources */,
 				4C77A0F527D4BE8A007DB7C6 /* action_delay.c in Sources */,
 				4C77A0F327D4BE8A007DB7C6 /* action_move.c in Sources */,
+				4CB265B42B1B482D00C9291D /* high_scores_scene.c in Sources */,
 				4C77A0F027D4BE8A007DB7C6 /* sprite_animator.c in Sources */,
 				4CB1458B2B01564A00B55304 /* cache_sprite.c in Sources */,
 				4C77A0C927D4BE8A007DB7C6 /* engine_log.c in Sources */,

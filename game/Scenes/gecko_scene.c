@@ -8,6 +8,7 @@
 #include "bug_fly.h"
 #include "bug_cricket.h"
 #include "bug_hopper.h"
+#include "high_scores_scene.h"
 
 #define AVERAGE_SPEED_MEASUREMENTS 3
 
@@ -52,8 +53,9 @@ void gecko_scene_update(GameObject *scene, Float dt)
     Controls controls = go_get_scene_manager(self)->controls;
     
     if (self->follow) {
-        get_main_render_context()->render_camera->position = self->w_head->position;
-        self->camera_position = self->w_head->position;
+        Vector2D position = vec(floorf(self->w_head->position.x), floorf(self->w_head->position.y));
+        get_main_render_context()->render_camera->position = position;
+        self->camera_position = position;
     } else {
         float camera_speed = 200.f;
         float translate = dt * camera_speed;
@@ -86,7 +88,6 @@ void gecko_scene_update(GameObject *scene, Float dt)
 void gecko_scene_fixed_update(GameObject *scene, Float dt_s)
 {
     GeckoScene *self = (GeckoScene *)scene;
-    GameData *data = (GameData*)go_get_scene_manager(self)->data;
 
     self->speed_measurements[self->prev_measurement_index + 1 % AVERAGE_SPEED_MEASUREMENTS] = self->latest_speed_measurement;
     self->current_gecko_speed = 0.f;
@@ -111,7 +112,7 @@ Pose2D gecko_scene_get_spawn_pose(GeckoScene *self)
     return (Pose2D){ position, angle };
 }
 
-void gecko_scene_show_message(GeckoScene *self, const char *message, bool screen_space)
+void gecko_scene_show_message(GeckoScene *self, const char *message, bool remove)
 {
     go_add_child(self, ({
         Label *label = label_create("font4", message);
@@ -119,21 +120,19 @@ void gecko_scene_show_message(GeckoScene *self, const char *message, bool screen
         label->anchor.x = 0.5f;
         label->anchor.y = 1.f;
                         
-        if (screen_space) {
-            label->position.x = SCREEN_WIDTH / 2.f;
-            label->position.y = SCREEN_HEIGHT / 2.f - 15.f;
-            
-            label->ignore_camera = true;
-        } else {
-            label->position.x = self->w_head->position.x;
-            label->position.y = self->w_head->position.y - 15.f;
-        }
+        label->position.x = SCREEN_WIDTH / 2.f;
+        label->position.y = SCREEN_HEIGHT / 2.f - 15.f;
         
+        label->ignore_camera = true;
+
         go_set_z_order(label, 20);
                     
         ArrayList *list = list_create();
         list_add(list, action_ease_out_create(action_move_by_create(vec(0.f, -20.f), 0.6f)));
-        list_add(list, action_destroy_create());
+        
+        if (remove) {
+            list_add(list, action_destroy_create());
+        }
         
         go_add_component(label, act_create(action_sequence_create(list)));
         
@@ -143,9 +142,6 @@ void gecko_scene_show_message(GeckoScene *self, const char *message, bool screen
 
 void gecko_scene_add_score(GeckoScene *self, int score)
 {
-    if (self->score.focus <= 0.f) {
-        return;
-    }
     self->score.score += score;
     
     char score_text[16];
@@ -155,9 +151,6 @@ void gecko_scene_add_score(GeckoScene *self, int score)
 
 void gecko_scene_add_focus(GeckoScene *self, float focus)
 {
-    if (self->score.focus <= 0.f) {
-        return;
-    }
     self->score.focus += focus;
     int visible_focus = (int)ceilf(self->score.focus);
     char focus_text[14];
@@ -170,6 +163,9 @@ void gecko_scene_fly_eaten(void *context) {
     self->flash_counter = 1;
     set_screen_invert(true);
     audio_play_file("eat");
+    if (self->score.focus <= 0.f) {
+        return;
+    }
     gecko_scene_show_message(self, "Om nom!", true);
     gecko_scene_add_focus(self, 100.f);
     gecko_scene_add_score(self, 100);
@@ -180,6 +176,9 @@ void gecko_scene_cricket_eaten(void *context) {
     GeckoScene *self = (GeckoScene*)context;
     audio_stop_file("cricket_walk");
     audio_play_file("eat");
+    if (self->score.focus <= 0.f) {
+        return;
+    }
     gecko_scene_show_message(self, "Crunch!", true);
     gecko_scene_add_focus(self, 40.f);
     gecko_scene_add_score(self, 8);
@@ -190,6 +189,9 @@ void gecko_scene_hopper_eaten(void *context) {
     GeckoScene *self = (GeckoScene*)context;
     audio_stop_file("hopper_jump");
     audio_play_file("eat");
+    if (self->score.focus <= 0.f) {
+        return;
+    }
     gecko_scene_show_message(self, "Crunch!", true);
     gecko_scene_add_focus(self, 70.f);
     gecko_scene_add_score(self, 25);
@@ -243,7 +245,7 @@ void gecko_scene_spawn_bug(GeckoScene *self)
 void gecko_scene_finish(void *scene)
 {
     SceneManager *manager = go_get_scene_manager(scene);
-    scene_change(manager, gecko_scene_create(), st_fade_black, 0.8f);
+    scene_change(manager, high_scores_scene_create(), st_swipe_left_to_right, 0.8f);
 }
 
 void gecko_scene_character_moved(float movement, Vector2D position, float direction_radians, void *callback_context)
@@ -266,9 +268,13 @@ void gecko_scene_character_moved(float movement, Vector2D position, float direct
         self->score.previous_visible_focus = visible_focus;
     }
     if (self->follow && self->score.focus <= 0.f) {
-        LOG("Focus Lost!");
         self->follow = false;
         go_delayed_callback(self, &gecko_scene_finish, 2.f);
+        
+        GameData *data = (GameData*)go_get_scene_manager(self)->data;
+        data->latest_score = self->score.score;
+        label_set_text(self->w_focus_label, "Focus: 0");
+        gecko_scene_show_message(self, "Focus exhausted", false);
     }
 }
 
@@ -322,28 +328,32 @@ void gecko_scene_render(GameObject *scene, RenderContext *ctx)
 void gecko_scene_initialize(GameObject *scene)
 {
     GeckoScene *self = (GeckoScene *)scene;
-
+    GameData *data = (GameData*)go_get_scene_manager(self)->data;
+    random_shake_using_current_time(data->mechanics_random);
+    
     LOG("Enter gecko scene");
     
     self->w_score_label = ({
         Label *label = label_create("font4", "Score: 0");
-        label->position.x = SCREEN_WIDTH - 2;
+        label->position.x = SCREEN_WIDTH - 3;
         label->position.y = SCREEN_HEIGHT - 2;
         label->anchor.x = 1.f;
         label->anchor.y = 1.f;
         label->ignore_camera = true;
         label->invert = false;
+        go_set_z_order(label, 50);
         label;
     });
     
     self->w_focus_label = ({
         Label *label = label_create("font4", "Focus: 100");
-        label->position.x = 2;
+        label->position.x = 3;
         label->position.y = SCREEN_HEIGHT - 2;
         label->anchor.x = 0.f;
         label->anchor.y = 1.f;
         label->ignore_camera = true;
         label->invert = false;
+        go_set_z_order(label, 50);
         label;
     });
     
@@ -420,7 +430,7 @@ void gecko_scene_start(GameObject *scene)
 
 void gecko_scene_destroy(void *scene)
 {
-    go_destroy(scene);
+    scene_destroy(scene);
 }
 
 char *gecko_scene_describe(void *scene)

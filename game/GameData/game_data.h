@@ -9,6 +9,7 @@ typedef struct GameData {
     BASE_OBJECT;
     Random *mechanics_random;
     Random *visual_random;
+    int latest_score;
 } GameData;
 
 GameData *game_data_create(void);
