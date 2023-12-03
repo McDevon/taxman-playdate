@@ -24,12 +24,13 @@ int eventHandler(PlaydateAPI* pd, PDSystemEvent event, uint32_t arg)
     return 0;
 }
 
-void platform_read_text_file(const char *file_path, load_text_data_callback_t *callback, void *context)
+void platform_read_text_file(const char *file_path, const bool user_file, load_text_data_callback_t *callback, void *context)
 {
-    SDFile* file = playdate_platform_api->file->open(file_path, kFileRead);
+    SDFile* file = playdate_platform_api->file->open(file_path, user_file ? kFileReadData : kFileRead);
     if (!file) {
-        playdate_platform_api->system->logToConsole("Error reading text file %s", file_path);
-        callback(file_path, NULL, context);
+        const char *error = playdate_platform_api->file->geterr();
+        playdate_platform_api->system->logToConsole("Error reading text file %s: %s", file_path, error);
+        callback(file_path, NULL, 0, context);
         return;
     }
     const size_t increase_size = 128;
@@ -40,7 +41,7 @@ void platform_read_text_file(const char *file_path, load_text_data_callback_t *c
         if (read_count == -1) {
             playdate_platform_api->file->close(file);
             playdate_platform_api->system->realloc(buffer, 0);
-            callback(file_path, NULL, context);
+            callback(file_path, NULL, 0, context);
             return;
         }
         if (read_count < 128) {
@@ -55,16 +56,96 @@ void platform_read_text_file(const char *file_path, load_text_data_callback_t *c
     
     playdate_platform_api->file->close(file);
     
-    callback(file_path, buffer, context);
+    callback(file_path, buffer, position, context);
     
     playdate_platform_api->system->realloc(buffer, 0);
 }
 
-void platform_file_exists(const char *file_path, file_exists_callback_t *callback, void *context)
+void platform_read_data_file(const char *file_path, const bool user_file, load_raw_data_callback_t *callback, void *context)
 {
-    FileStat stat;
-    int result = playdate_platform_api->file->stat(file_path, &stat);
-    callback(file_path, result == 0, context);
+    SDFile* file = playdate_platform_api->file->open(file_path, user_file ? kFileReadData : kFileRead);
+    if (!file) {
+        const char *error = playdate_platform_api->file->geterr();
+        playdate_platform_api->system->logToConsole("Error reading data file %s: %s", file_path, error);
+        callback(file_path, NULL, 0, context);
+        return;
+    }
+    const size_t increase_size = 128;
+    size_t position = 0;
+    uint8_t *buffer = playdate_platform_api->system->realloc(NULL, increase_size);
+    while (true) {
+        int read_count = playdate_platform_api->file->read(file, buffer + position, increase_size);
+        if (read_count == -1) {
+            playdate_platform_api->file->close(file);
+            playdate_platform_api->system->realloc(buffer, 0);
+            callback(file_path, NULL, 0, context);
+            return;
+        }
+        if (read_count < 128) {
+            position += read_count;
+            break;
+        } else {
+            position += increase_size;
+            buffer = playdate_platform_api->system->realloc(buffer, position + increase_size);
+        }
+    }
+    
+    playdate_platform_api->file->close(file);
+    
+    callback(file_path, buffer, position, context);
+    
+    playdate_platform_api->system->realloc(buffer, 0);
+}
+
+void platform_write_text_file(const char *file_path, const char *text, size_t length, write_success_callback_t *callback, void *context)
+{
+    SDFile* file = playdate_platform_api->file->open(file_path, kFileWrite);
+    if (!file) {
+        const char *error = playdate_platform_api->file->geterr();
+        playdate_platform_api->system->logToConsole("Error opening text file %s for reading: %s", file_path, error);
+        callback(file_path, false, context);
+        return;
+    }
+    int result = playdate_platform_api->file->write(file, text, (unsigned int)length);
+    playdate_platform_api->file->close(file);
+    if (result < 0) {
+        const char *error = playdate_platform_api->file->geterr();
+        playdate_platform_api->system->logToConsole("Failed to write text file %s: %s", file_path, error);
+        callback(file_path, false, context);
+        return;
+    }
+    callback(file_path, true, context);
+}
+
+void platform_write_data_file(const char *file_path, const uint8_t *data, size_t length, write_success_callback_t *callback, void *context)
+{
+    SDFile* file = playdate_platform_api->file->open(file_path, kFileWrite);
+    if (!file) {
+        const char *error = playdate_platform_api->file->geterr();
+        playdate_platform_api->system->logToConsole("Error opening data file %s for reading: %s", file_path, error);
+        callback(file_path, false, context);
+        return;
+    }
+    int result = playdate_platform_api->file->write(file, data, (unsigned int)length);
+    playdate_platform_api->file->close(file);
+    if (result < 0) {
+        const char *error = playdate_platform_api->file->geterr();
+        playdate_platform_api->system->logToConsole("Failed to write data file %s: %s", file_path, error);
+        callback(file_path, false, context);
+        return;
+    }
+    callback(file_path, true, context);
+}
+
+void platform_file_exists(const char *file_path, const bool user_file, file_exists_callback_t *callback, void *context)
+{
+    SDFile* file = playdate_platform_api->file->open(file_path, user_file ? kFileReadData : kFileRead);
+    if (!file) {
+        callback(file_path, false, context);
+        return;
+    }
+    playdate_platform_api->file->close(file);
+    callback(file_path, true, context);
 }
 
 void platform_load_image(const char *file_path, load_image_data_callback_t *callback, void *context)
@@ -177,11 +258,7 @@ void platform_display_set_image(uint8_t *buffer, ScreenRenderOptions *options)
 {
     playdate_platform_api->graphics->clear(kColorWhite);
     uint8_t *display = playdate_platform_api->graphics->getFrame();
-    uint8_t colors[] = { 0, 1 };
-    if (options->invert) {
-        colors[0] = 1;
-        colors[1] = 0;
-    }
+    playdate_platform_api->display->setInverted(options->invert);
     
     uint32_t maskX, maskY, ditherWidth, ditherYComp, yComp, ditherX;
     uint8_t bufferValue;
@@ -206,30 +283,30 @@ void platform_display_set_image(uint8_t *buffer, ScreenRenderOptions *options)
                 fa_ditherValue = fa_ditherBuffer[(ditherYComp + (ditherX & maskX)) >> 2];
                 bufferValue = (uint8_t)(fa_bufferValue);
                 ditherValue = (uint8_t)(fa_ditherValue);
-                *display |= (colors[bufferValue >= ditherValue] << 7);
+                *display |= (bufferValue >= ditherValue) << 7;
                 bufferValue = (uint8_t)(fa_bufferValue >> 8);
                 ditherValue = (uint8_t)(fa_ditherValue >> 8);
-                *display |= (colors[bufferValue >= ditherValue] << 6);
+                *display |= (bufferValue >= ditherValue) << 6;
                 bufferValue = (uint8_t)(fa_bufferValue >> 16);
                 ditherValue = (uint8_t)(fa_ditherValue >> 16);
-                *display |= (colors[bufferValue >= ditherValue] << 5);
+                *display |= (bufferValue >= ditherValue) << 5;
                 bufferValue = (uint8_t)(fa_bufferValue >> 24);
                 ditherValue = (uint8_t)(fa_ditherValue >> 24);
-                *display |= (colors[bufferValue >= ditherValue] << 4);
+                *display |= (bufferValue >= ditherValue) << 4;
                 fa_bufferValue = fa_buffer[(si+4) >> 2];
                 fa_ditherValue = fa_ditherBuffer[(ditherYComp + ((ditherX + 4) & maskX)) >> 2];
                 bufferValue = (uint8_t)(fa_bufferValue);
                 ditherValue = (uint8_t)(fa_ditherValue);
-                *display |= (colors[bufferValue >= ditherValue] << 3);
+                *display |= (bufferValue >= ditherValue) << 3;
                 bufferValue = (uint8_t)(fa_bufferValue >> 8);
                 ditherValue = (uint8_t)(fa_ditherValue >> 8);
-                *display |= (colors[bufferValue >= ditherValue] << 2);
+                *display |= (bufferValue >= ditherValue) << 2;
                 bufferValue = (uint8_t)(fa_bufferValue >> 16);
                 ditherValue = (uint8_t)(fa_ditherValue >> 16);
-                *display |= (colors[bufferValue >= ditherValue] << 1);
+                *display |= (bufferValue >= ditherValue) << 1;
                 bufferValue = (uint8_t)(fa_bufferValue >> 24);
                 ditherValue = (uint8_t)(fa_ditherValue >> 24);
-                *display |= (colors[bufferValue >= ditherValue] << 0);
+                *display |= (bufferValue >= ditherValue) << 0;
                 ++display;
             }
             display += 2;
@@ -241,22 +318,22 @@ void platform_display_set_image(uint8_t *buffer, ScreenRenderOptions *options)
                 *display = 0;
                 fa_bufferValue = fa_buffer[si >> 2];
                 bufferValue = (uint8_t)(fa_bufferValue);
-                *display |= (colors[(bufferValue > 128)] << 7);
+                *display |= (bufferValue > 128) << 7;
                 bufferValue = (uint8_t)(fa_bufferValue >> 8);
-                *display |= (colors[(bufferValue > 128)] << 6);
+                *display |= (bufferValue > 128) << 6;
                 bufferValue = (uint8_t)(fa_bufferValue >> 16);
-                *display |= (colors[(bufferValue > 128)] << 5);
+                *display |= (bufferValue > 128) << 5;
                 bufferValue = (uint8_t)(fa_bufferValue >> 24);
-                *display |= (colors[(bufferValue > 128)] << 4);
+                *display |= (bufferValue > 128) << 4;
                 fa_bufferValue = fa_buffer[(si+4) >> 2];
                 bufferValue = (uint8_t)(fa_bufferValue);
-                *display |= (colors[(bufferValue > 128)] << 3);
+                *display |= (bufferValue > 128) << 3;
                 bufferValue = (uint8_t)(fa_bufferValue >> 8);
-                *display |= (colors[(bufferValue > 128)] << 2);
+                *display |= (bufferValue > 128) << 2;
                 bufferValue = (uint8_t)(fa_bufferValue >> 16);
-                *display |= (colors[(bufferValue > 128)] << 1);
+                *display |= (bufferValue > 128) << 1;
                 bufferValue = (uint8_t)(fa_bufferValue >> 24);
-                *display |= (colors[(bufferValue > 128)] << 0);
+                *display |= (bufferValue > 128) << 0;
                 ++display;
             }
             display += 2;
@@ -322,6 +399,16 @@ void playdate_list_file(const char* path, void* userdata)
     playdate_platform_api->file->close(file);
 }
 
+void fileCallback(const char* filename, void* userdata)
+{
+    playdate_platform_api->system->logToConsole("FILE %s", filename);
+}
+
+static void test()
+{
+    playdate_platform_api->file->listfiles("/Data/com.taxman.demo/Screenshots/", &fileCallback, NULL, 1);
+}
+
 static void startGame(PlaydateAPI* pd)
 {
     playdate_platform_api = pd;
@@ -331,6 +418,8 @@ static void startGame(PlaydateAPI* pd)
     playdate_platform_api->system->resetElapsedTime();
     game_init(loading_scene_create());
     playdate_platform_api->system->setUpdateCallback(update, pd);
+    
+    test();
 }
 
 static int update(void* userdata)

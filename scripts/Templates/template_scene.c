@@ -59,9 +59,11 @@ static SceneType TemplateSceneType =
 
 Scene *template_scene_create()
 {
-    TemplateScene *scene = (TemplateScene *)scene_alloc(sizeof(TemplateScene));
+    Scene *scene = scene_alloc(sizeof(TemplateScene));
     scene->w_type = &TemplateSceneType;
     
+    TemplateScene *self = (TemplateScene *)scene
+
     // List assets which will be loaded automatically before scene starts
     //scene_set_required_image_asset_names(scene, list_of_strings("demo_image"));
     //scene_set_required_grid_atlas_infos(scene, list_of_grid_atlas_infos(grid_atlas_info("demo_font", (Size2DInt){ 8, 14 })));
