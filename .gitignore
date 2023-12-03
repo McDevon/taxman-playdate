@@ -67,3 +67,6 @@ xcuserdata/
 
 # VSCode
 .vscode/
+
+# Python cahces
+__pycache__/
