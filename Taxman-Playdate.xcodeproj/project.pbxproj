@@ -142,6 +142,8 @@
 		4CB145982B09191F00B55304 /* bug_hopper.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB145962B09191F00B55304 /* bug_hopper.c */; };
 		4CB265B32B1B482D00C9291D /* high_scores_scene.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB265B12B1B482D00C9291D /* high_scores_scene.h */; };
 		4CB265B42B1B482D00C9291D /* high_scores_scene.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB265B22B1B482D00C9291D /* high_scores_scene.c */; };
+		4CB265B82B1E32BD00C9291D /* serialiser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB265B62B1E32BD00C9291D /* serialiser.h */; };
+		4CB265B92B1E32BD00C9291D /* serialiser.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CB265B72B1E32BD00C9291D /* serialiser.c */; };
 		4CF63D9E2B0952BD00FF4594 /* audio_player.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CF63D9C2B0952BD00FF4594 /* audio_player.h */; };
 		4CF63D9F2B0952BD00FF4594 /* audio_player.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CF63D9D2B0952BD00FF4594 /* audio_player.c */; };
 /* End PBXBuildFile section */
@@ -293,6 +295,8 @@
 		4CB265A42B17C35700C9291D /* action_animator_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = action_animator_private.h; sourceTree = "<group>"; };
 		4CB265B12B1B482D00C9291D /* high_scores_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = high_scores_scene.h; sourceTree = "<group>"; };
 		4CB265B22B1B482D00C9291D /* high_scores_scene.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = high_scores_scene.c; sourceTree = "<group>"; };
+		4CB265B62B1E32BD00C9291D /* serialiser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = serialiser.h; sourceTree = "<group>"; };
+		4CB265B72B1E32BD00C9291D /* serialiser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = serialiser.c; sourceTree = "<group>"; };
 		4CF63D9C2B0952BD00FF4594 /* audio_player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio_player.h; sourceTree = "<group>"; };
 		4CF63D9D2B0952BD00FF4594 /* audio_player.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio_player.c; sourceTree = "<group>"; };
 		55B8CC9B1989A09A00595797 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -366,6 +370,7 @@
 		4C77A03D27D4BE8A007DB7C6 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				4CB265B52B1E32AD00C9291D /* Serialisation */,
 				4C77A04127D4BE8A007DB7C6 /* Components */,
 				4C77A04427D4BE8A007DB7C6 /* Physics */,
 				4C77A04927D4BE8A007DB7C6 /* Tilemap */,
@@ -376,8 +381,8 @@
 		4C77A04127D4BE8A007DB7C6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4C77A04227D4BE8A007DB7C6 /* life_timer.c */,
 				4C77A04327D4BE8A007DB7C6 /* life_timer.h */,
+				4C77A04227D4BE8A007DB7C6 /* life_timer.c */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -385,8 +390,8 @@
 		4C77A04427D4BE8A007DB7C6 /* Physics */ = {
 			isa = PBXGroup;
 			children = (
-				4C71AF1B2892D3730001A2BD /* collision_body.c */,
 				4C71AF1C2892D3730001A2BD /* collision_body.h */,
+				4C71AF1B2892D3730001A2BD /* collision_body.c */,
 				4C71AF1D2892D3730001A2BD /* collision_masks.c */,
 				4C71AF1E2892D3730001A2BD /* collision_masks.h */,
 				4C71AF1A2892D3730001A2BD /* collision_world.c */,
@@ -608,6 +613,15 @@
 			path = game;
 			sourceTree = "<group>";
 		};
+		4CB265B52B1E32AD00C9291D /* Serialisation */ = {
+			isa = PBXGroup;
+			children = (
+				4CB265B62B1E32BD00C9291D /* serialiser.h */,
+				4CB265B72B1E32BD00C9291D /* serialiser.c */,
+			);
+			path = Serialisation;
+			sourceTree = "<group>";
+		};
 		4CF63D9B2B0952AA00FF4594 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,6 +694,7 @@
 				4CB145872B01562B00B55304 /* scene.h in Headers */,
 				4C77A0D727D4BE8A007DB7C6 /* utils.h in Headers */,
 				4CB265B32B1B482D00C9291D /* high_scores_scene.h in Headers */,
+				4CB265B82B1E32BD00C9291D /* serialiser.h in Headers */,
 				4C77A0E627D4BE8A007DB7C6 /* hash_table_private.h in Headers */,
 				4C77A0D227D4BE8A007DB7C6 /* image_render.h in Headers */,
 				4C71AEFF28899F920001A2BD /* render_camera.h in Headers */,
@@ -846,6 +861,7 @@
 				4CB145932B01576600B55304 /* bug_cricket.c in Sources */,
 				4C77A0D627D4BE8A007DB7C6 /* image_render.c in Sources */,
 				4C71AF202892D3730001A2BD /* collision_world.c in Sources */,
+				4CB265B92B1E32BD00C9291D /* serialiser.c in Sources */,
 				4C77A0DF27D4BE8A007DB7C6 /* transforms.c in Sources */,
 				4C77A0CC27D4BE8A007DB7C6 /* game_main.c in Sources */,
 				4C77A10327D4BE8A007DB7C6 /* label.c in Sources */,
