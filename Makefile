@@ -30,6 +30,7 @@ CSRC = $(wildcard src/*.c) \
        $(wildcard taxman-engine/Engine/Utils/*.c) \
        $(wildcard taxman-engine/Tools/Components/*.c) \
        $(wildcard taxman-engine/Tools/Physics/*.c) \
+       $(wildcard taxman-engine/Tools/Serialisation/*.c) \
        $(wildcard taxman-engine/Tools/Tilemap/*.c) \
        $(wildcard game/GameData/*.c) \
        $(wildcard game/Objects/*.c) \
@@ -40,12 +41,12 @@ CSRC = $(wildcard src/*.c) \
 # ex: VPATH += src1:src2
 ######
 
-VPATH += src:taxman-engine/Engine/Actions:taxman-engine/Engine/Audio:taxman-engine/Engine/Components:taxman-engine/Engine/Logic:taxman-engine/Engine/Math:taxman-engine/Engine/Render:taxman-engine/Engine/Resources:taxman-engine/Engine/Scene:taxman-engine/Engine/Strings:taxman-engine/Engine/Tests:taxman-engine/Engine/Utils:taxman-engine/Tools/Components:taxman-engine/Tools/Physics:taxman-engine/Tools/Tilemap:game/GameData:game/Objects:game/Scenes
+VPATH += src:taxman-engine/Engine/Actions:taxman-engine/Engine/Audio:taxman-engine/Engine/Components:taxman-engine/Engine/Logic:taxman-engine/Engine/Math:taxman-engine/Engine/Render:taxman-engine/Engine/Resources:taxman-engine/Engine/Scene:taxman-engine/Engine/Strings:taxman-engine/Engine/Tests:taxman-engine/Engine/Utils:taxman-engine/Tools/Components:taxman-engine/Tools/Physics:taxman-engine/Tools/Serialisation:taxman-engine/Tools/Tilemap:game/GameData:game/Objects:game/Scenes
 # List C source files here
 SRC = $(CSRC)
 
 # List all user directories here
-UINCDIR = src taxman-engine/Engine/Actions taxman-engine/Engine/Audio taxman-engine/Engine/Components taxman-engine/Engine/Logic taxman-engine/Engine/Math taxman-engine/Engine/Render taxman-engine/Engine/Resources taxman-engine/Engine/Scene taxman-engine/Engine/Strings taxman-engine/Engine/Tests taxman-engine/Engine/Utils taxman-engine/Tools/Components taxman-engine/Tools/Physics taxman-engine/Tools/Tilemap game/GameData game/Objects game/Scenes
+UINCDIR = src taxman-engine/Engine/Actions taxman-engine/Engine/Audio taxman-engine/Engine/Components taxman-engine/Engine/Logic taxman-engine/Engine/Math taxman-engine/Engine/Render taxman-engine/Engine/Resources taxman-engine/Engine/Scene taxman-engine/Engine/Strings taxman-engine/Engine/Tests taxman-engine/Engine/Utils taxman-engine/Tools/Components taxman-engine/Tools/Physics taxman-engine/Tools/Serialisation taxman-engine/Tools/Tilemap game/GameData game/Objects game/Scenes
 
 # List user asm files
 UASRC = 
