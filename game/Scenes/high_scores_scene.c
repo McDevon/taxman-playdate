@@ -124,7 +124,7 @@ void *high_score_entry_deserialise(Deserialiser *deser)
 {
     HighScoreEntry *entry = platform_calloc(1, sizeof(HighScoreEntry));
     char *name = deser_read_str(deser);
-    strncpy(entry->name, name, MAX_NAME_LENGTH + 1);
+    strncat(entry->name, name, MAX_NAME_LENGTH);
     entry->score = deser_read_int32(deser);
     platform_free(name);
     
@@ -136,7 +136,8 @@ void *high_scores_scene_deserialise_scores(Deserialiser *deser)
     HighScoreEntry *entries = platform_calloc(ENTRIES_COUNT, sizeof(HighScoreEntry));
     for (int i = 0; i < ENTRIES_COUNT; ++i) {
         HighScoreEntry *entry = deser_read_obj_with_function(deser, &high_score_entry_deserialise);
-        strncpy(entries[i].name, entry->name, MAX_NAME_LENGTH + 1);
+        entries[i].name[0] = '\0';
+        strncat(entries[i].name, entry->name, MAX_NAME_LENGTH);
         entries[i].score = entry->score;
         platform_free(entry);
     }
@@ -162,11 +163,13 @@ void high_scores_scene_check_for_new_high_score(HighScoresScene *self)
     if (replace_index >= 0) {
         for (int i = ENTRIES_COUNT - 1; i > replace_index; --i) {
             self->entries[i].score = self->entries[i - 1].score;
-            strncpy(self->entries[i].name, self->entries[i - 1].name, MAX_NAME_LENGTH + 1);
+            self->entries[i].name[0] = '\0';
+            strncat(self->entries[i].name, self->entries[i - 1].name, MAX_NAME_LENGTH);
         }
         
         self->entries[replace_index].score = latest_score;
-        strncpy(self->entries[replace_index].name, "New", MAX_NAME_LENGTH + 1);
+        self->entries[replace_index].name[0] = '\0';
+        strncat(self->entries[replace_index].name, "New", MAX_NAME_LENGTH);
         
         self->w_new_high_score_label = ({
             Label *label = label_create("font4", "New high score!");
@@ -205,7 +208,8 @@ void high_scores_scene_check_for_new_high_score(HighScoresScene *self)
 void high_scores_scene_create_empty_high_scores(HighScoresScene *self)
 {
     for (int i = 0; i < ENTRIES_COUNT; ++i) {
-        strncpy(self->entries[i].name, "T-man", MAX_NAME_LENGTH + 1);
+        self->entries[i].name[0] = '\0';
+        strncat(self->entries[i].name, "T-man", MAX_NAME_LENGTH);
         self->entries[i].score = (ENTRIES_COUNT - i) * 5;
     }
     high_scores_scene_check_for_new_high_score(self);
@@ -220,7 +224,8 @@ void high_scores_scene_scores_deserialised(void *obj, void *context)
         high_scores_scene_create_empty_high_scores(self);
     } else {
         for (int i = 0; i < ENTRIES_COUNT; ++i) {
-            strncpy(self->entries[i].name, entries[i].name, MAX_NAME_LENGTH + 1);
+            self->entries[i].name[0] = '\0';
+            strncat(self->entries[i].name, entries[i].name, MAX_NAME_LENGTH);
             self->entries[i].score = entries[i].score;
         }
         high_scores_scene_check_for_new_high_score(self);
