@@ -413,7 +413,7 @@ static void startGame(PlaydateAPI* pd)
 {
     playdate_platform_api = pd;
     
-    playdate_platform_api->file->listfiles("", &playdate_list_file, NULL, 0);
+    //playdate_platform_api->file->listfiles("", &playdate_list_file, NULL, 0);
 
     playdate_platform_api->system->resetElapsedTime();
     game_init(loading_scene_create());
@@ -422,14 +422,21 @@ static void startGame(PlaydateAPI* pd)
     test();
 }
 
+static bool platform_fps_display_enabled = false;
+
+void platform_show_fps(bool show)
+{
+    platform_fps_display_enabled = show;
+}
+
 static int update(void* userdata)
 {
     PlaydateAPI* pd = userdata;
-
+    
     const int res = 1;
     platform_time_t previous_time = playdate_time;
     playdate_time = (platform_time_t)pd->system->getElapsedTime();
-
+    
     Float crank = pd->system->getCrankAngle();
     
     PDButtons current;
@@ -442,13 +449,15 @@ static int update(void* userdata)
     uint8_t down = (current & kButtonDown) | (pushed & kButtonDown) ? 1 : 0;
     uint8_t a = (current & kButtonA) | (pushed & kButtonA) ? 1 : 0;
     uint8_t b = (current & kButtonB) | (pushed & kButtonB) ? 1 : 0;
-    int menu = 0;
-
-    Controls controls = { crank, (uint8_t)left, (uint8_t)right, (uint8_t)up, (uint8_t)down, (uint8_t)a, (uint8_t)b, (uint8_t)menu };
+    uint8_t menu = 0;
+    
+    ButtonControls buttons = { (uint8_t)left, (uint8_t)right, (uint8_t)up, (uint8_t)down, (uint8_t)a, (uint8_t)b, (uint8_t)menu };
     Float delta = playdate_time - previous_time;
-    game_step(delta, controls);
-
-    pd->system->drawFPS(0,0);
+    game_step(delta, crank, buttons);
+    
+    if (platform_fps_display_enabled) {
+        pd->system->drawFPS(0,0);
+    }
     
     return res;
 }
